@@ -4,6 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundApp"
     tools:context=".Main_Activity">
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/mainActivity_BottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:itemBackground="@color/White"
+        app:itemIconTint="@color/selector_navigation_bottom"
+        app:itemTextColor="@color/selector_navigation_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation">
+
+
+    </android.support.design.widget.BottomNavigationView>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@drawable/shape_shadow"
+        app:layout_constraintBottom_toTopOf="@+id/mainActivity_BottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
