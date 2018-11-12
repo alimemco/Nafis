@@ -20,6 +20,7 @@ public class Main_Activity extends AppCompatActivity {
 
         initViews();
         setupToolbar();
+        //fetch
     }
 
     private void setupToolbar() {
