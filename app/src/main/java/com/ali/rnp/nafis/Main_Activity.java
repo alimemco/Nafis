@@ -20,6 +20,8 @@ public class Main_Activity extends AppCompatActivity {
 
         initViews();
         setupToolbar();
+        //fetch
+        //update with version controller stash
     }
 
     private void setupToolbar() {
