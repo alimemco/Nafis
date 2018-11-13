@@ -60,7 +60,7 @@
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
-            android:layout_height=5dp"
+            android:layout_height=6dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/shape_shadow"
             app:layout_constraintBottom_toTopOf="@+id/mainActivity_BottomNavigation"
