@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="backgroundApp">#fafafa</color>
     <color name="White">#ffffff</color>
+    <color name="fragmentHome">#7986CB</color>
+    <color name="fragmentUser">#FFB74D</color>
+    <color name="fragmentForm">#e57373</color>
 </resources>

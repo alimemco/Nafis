@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.ali.rnp.nafis.LapTop"
+        applicationId "com.ali.rnp.nafis"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

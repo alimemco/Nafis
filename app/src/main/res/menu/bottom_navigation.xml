@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="@string/bottom_navigation_form"
-        android:id="@+id/bottom_navigation_form"
-        android:icon="@drawable/ic_check_form_navbottom"/>
+        android:title="@string/bottom_navigation_userManagement"
+        android:id="@+id/bottom_navigation_userManagement"
+        android:icon="@drawable/ic_profile_navbottom"/>
 
     <item
         android:title="@string/bottom_navigation_home"
@@ -13,8 +12,11 @@
         android:icon="@drawable/ic_home_navbottom" />
 
     <item
-        android:title="@string/bottom_navigation_userManagement"
-        android:id="@+id/bottom_navigation_userManagement"
-        android:icon="@drawable/ic_profile_navbottom"/>
+        android:title="@string/bottom_navigation_form"
+        android:id="@+id/bottom_navigation_form"
+        android:icon="@drawable/ic_check_form_navbottom"/>
+
+
+
 
 </menu>
