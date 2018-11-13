@@ -1,9 +1,12 @@
 <resources>
-    <string name="app_name">Nafis</string>
+    <string name="app_name">نفیس</string>
     <string name="bottom_navigation_home">خانه</string>
     <string name="bottom_navigation_userManagement">مدیریت</string>
     <string name="bottom_navigation_form">فرم مشاوره</string>
-    <string name="menu_loginSignUp">ورود/ثبت نام</string>
+    <string name="menu_loginSignUp">ورود</string>
     <string name="menu_about">درباره ما</string>
+    <string name="menuToolbar_shop">فروشگاه</string>
+    <string name="menuToolbar_search">جست و جو</string>
+    <string name="menuToolbar_login">ورود به حساب کاربری</string>
 
 </resources>
