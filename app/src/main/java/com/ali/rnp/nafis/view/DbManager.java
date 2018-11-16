@@ -87,6 +87,7 @@ public class DbManager extends SQLiteOpenHelper {
             Log.i(TAG, "addQuestion: ");
         }else {
             Log.i(TAG, "Error add: ");
+            //
         }
     }
 
