@@ -1,10 +1,8 @@
 package com.ali.rnp.nafis.view.activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,7 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
@@ -36,8 +36,32 @@ public class Main_Activity extends AppCompatActivity {
         setupToolbar();
         setupFragments();
         setupBottomNavigation();
+        //changed
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+
+            case R.id.menu_toolbar_shop:
+                Toast.makeText(this, "Shop", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.menu_toolbar_search:
+                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                break;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupFragments() {
@@ -83,7 +107,7 @@ public class Main_Activity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = findViewById(R.id.maintoolbar);
+        Toolbar toolbar = findViewById(R.id.mainToolbar);
         DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.White));
