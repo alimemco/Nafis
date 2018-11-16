@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/question_item_cardView_question"
+        style="@style/cardViewQuestion"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/White"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@color/White"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/question_item_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:textSize="@dimen/Xlarge_textSize_sp"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@android:color/black"
+                    tools:text="در یکسال گذشته از کدامیک از محصولات زیر استفاده کرده اید؟" />
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox1"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin_2x"
+                    tools:text="اسکراب" />
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox2"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ماسک ورقه ای" />
+
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox3"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans3" />
+
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox4"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans4" />
+
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox5"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans5" />
+
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox6"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans6" />
+
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox7"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans7" />
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox8"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans8" />
+
+                <CheckBox
+                    android:id="@+id/question_item_checkbox9"
+                    style="@style/checkboxQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="ans9" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/question_item_cardView_Explanation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="@dimen/cardCornerRadius"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_item_cardView_question">
+
+        <EditText
+            android:id="@+id/question_item_editText_Explanation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_shape_edittext_question"
+            android:gravity="right"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:nestedScrollingEnabled="true"
+            android:padding="@dimen/standard_margin"
+            android:layout_margin="2dp"
+            tools:ignore="RtlHardcoded"
+            tools:targetApi="lollipop" />
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>

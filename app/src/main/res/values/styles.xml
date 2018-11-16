@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -7,7 +7,22 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
+        <item name="cardViewStyle">@style/CardView</item>
 
+    </style>
+    
+    <style name="cardViewQuestion" parent="CardView">
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/cardElevation</item>
+    </style>
+
+    <style name="checkboxQuestion">
+        <item name="android:gravity">right|center</item>
+        <item name="android:layoutDirection" tools:targetApi="jelly_bean_mr1">rtl</item>
+        <item name="android:layout_marginTop">@dimen/standard_margin</item>
+        <item name="android:layout_marginRight">@dimen/standard_margin</item>
+        <item name="android:textSize">@dimen/large_textSize_sp</item>
+        <item name="android:buttonTint" tools:targetApi="lollipop">@color/colorPrimary</item>
+        <item name="android:textColor">@color/dark_gray_text</item>
     </style>
 
 
