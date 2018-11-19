@@ -8,5 +8,7 @@
     <string name="menuToolbar_shop">فروشگاه</string>
     <string name="menuToolbar_search">جست و جو</string>
     <string name="menuToolbar_login">ورود به حساب کاربری</string>
+    <string name="Button_form_next">بعدی</string>
+    <string name="Button_form_Previous">قبل</string>
 
 </resources>

@@ -55,13 +55,15 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             holder.explanationCardview.setVisibility(View.GONE);
         }
 
-        Log.i(TAG, "onBindViewHolder: "+question.getExplanation());
+        Log.i(TAG, "onBindViewHolder: "+position);
 
         CheckBoxAnsewerSetText(holder,question);
 
     }
 
     private void CheckBoxAnsewerSetText(QuestionHolder holder, Question question) {
+
+
 
         if (question.getAnswer1()!=null){
             holder.chbAnswer1.setVisibility(View.VISIBLE);
@@ -177,9 +179,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             chbAnswer9.setTypeface(MyApplication.getIranianSansFont(context));
             edtxtExplanation.setTypeface(MyApplication.getIranianSansFont(context));
 
-
         }
     }
-
 
 }

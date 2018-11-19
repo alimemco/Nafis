@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1bbc9b</color>
     <color name="colorPrimaryDark">#14ae8f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#14ae8f</color>
     <color name="backgroundApp">#fafafa</color>
     <color name="White">#ffffff</color>
     <color name="fragmentHome">#7986CB</color>
