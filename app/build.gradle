@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.ali.rnp.nafis.laptop"
+        applicationId "com.ali.rnp.nafis"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
@@ -29,8 +29,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.android.support:design:27.1.0'
     implementation 'com.android.support:cardview-v7:27.1.0'
-    implementation  'com.github.imaNNeoFighT:StepBarView:1.0.5'
-    implementation 'com.ss.bannerslider:bannerslider:2.0.0'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
 }

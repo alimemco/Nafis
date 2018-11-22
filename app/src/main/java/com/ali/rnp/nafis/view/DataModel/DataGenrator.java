@@ -178,4 +178,71 @@ public class DataGenrator {
         }
         return questions;
     }
+    
+    public static List<Category> getCategories(){
+        
+        List<Category> categories=new ArrayList<>();
+
+        for (int i = 1; i <= 7; i++) {
+
+            Category category = new Category();
+            category.setId(i);
+            switch (i){
+
+                case 1:
+                    category.setName("باراکا");
+                    category.setCount("5");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/2d501a8b91977d68f74985df61ec24951526362040.png");
+
+                    break;
+
+                case 2:
+                    category.setName("آروماتیک");
+                    category.setCount("3");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/e66aa220fae0695b15328eb830c1614f1526362062.png");
+
+                    break;
+
+                case 3:
+                    category.setName("name");
+                    category.setCount("5");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/92cc0ecc528df7f505244a141a7534801526362166.png");
+
+                    break;
+
+                case 4:
+                    category.setName("name");
+                    category.setCount("5");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/05563a5a091f288a02fb4cf418b899d71526362219.png");
+
+                    break;
+
+                case 5:
+                    category.setName("name");
+                    category.setCount("5");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/f5c2021c9bd4b124e826d1d980c2ef7c1526362282.png");
+
+                    break;
+
+                case 6:
+                    category.setName("namett");
+                    category.setCount("54");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/c95b2c08428ba334e99d8b500128d4141526362261.png");
+
+                    break;
+
+                case 7:
+                    category.setName("name");
+                    category.setCount("56");
+                    category.setImage("http://hph.co.ir/data/upload/mirasmlm/brand/13db8cc949e21c5ae0b6aefcddb9e9cc1526362332.png");
+
+                    break;
+
+            }
+            categories.add(category);
+            
+        }
+        
+        return categories;
+    }
 }

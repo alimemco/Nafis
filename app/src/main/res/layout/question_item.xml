@@ -17,6 +17,7 @@
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        app:cardUseCompatPadding="true"
         android:layout_marginBottom="@dimen/standard_margin"
         android:background="@color/White"
         app:layout_constraintEnd_toEndOf="parent"

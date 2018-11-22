@@ -23,6 +23,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     private static final String TAG = "QuestionAdapter";
     private List<Question> questions;
     Context context;
+    private int lastPosition = 0;
     public QuestionAdapter(Context context){
         this.context=context;
     }
@@ -46,6 +47,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         final Question question = questions.get(position);
 
+        checkBoxDetect(holder,position);
+
         holder.txtQuestion.setText(question.getQuestion());
 
         if(question.getExplanation()!=null){
@@ -59,6 +62,23 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         CheckBoxAnsewerSetText(holder,question);
 
+    }
+
+    private void checkBoxDetect(QuestionHolder holder, int position) {
+
+        if (position>= lastPosition){
+            holder.chbAnswer1.setChecked(false);
+            holder.chbAnswer2.setChecked(false);
+            holder.chbAnswer3.setChecked(false);
+            holder.chbAnswer4.setChecked(false);
+            holder.chbAnswer5.setChecked(false);
+            holder.chbAnswer6.setChecked(false);
+            holder.chbAnswer7.setChecked(false);
+            holder.chbAnswer8.setChecked(false);
+            holder.chbAnswer9.setChecked(false);
+            holder.edtxtExplanation.setText("");
+        }
+        lastPosition=position;
     }
 
     private void CheckBoxAnsewerSetText(QuestionHolder holder, Question question) {
