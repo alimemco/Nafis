@@ -29,7 +29,7 @@ public class FragmentForm extends Fragment {
        View view = inflater.inflate(R.layout.fragment_form,container,false);
        DbManager dbManager = new DbManager(getContext());
        buttonStart = view.findViewById(R.id.fragment_form_btnStart);
-       //buttonStart.setTypeface(MyApplication.getIranianSansFont(getContext()));
+       buttonStart.setTypeface(MyApplication.getIranianSansFont(getContext()));
        buttonStart.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

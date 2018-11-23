@@ -4,6 +4,7 @@ package com.ali.rnp.nafis.view.activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
+import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
@@ -93,6 +96,7 @@ public class Main_Activity extends AppCompatActivity {
         shopBtn = findViewById(R.id.activity_main_toolbar_shop_xml);
         searchBtn = findViewById(R.id.activity_main_toolbar_search_xml);
 
+
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +126,13 @@ public class Main_Activity extends AppCompatActivity {
 
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            if (toolbar.getChildAt(i) instanceof TextView){
+                ((TextView) toolbar.getChildAt(i)).setText("من");
+                ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getIranianSansFont(this));
+            }
+        }
 
     }
 

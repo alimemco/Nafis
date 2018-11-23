@@ -41,7 +41,7 @@ public class FragmentHome extends Fragment {
         categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
         recyclerView.setAdapter(categoryAdapter);
 
-        getDataFromServer();
+       // getDataFromServer();
 
         return rootView;
     }
