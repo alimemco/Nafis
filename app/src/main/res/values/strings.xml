@@ -10,5 +10,6 @@
     <string name="menuToolbar_login">ورود به حساب کاربری</string>
     <string name="Button_form_next">بعدی</string>
     <string name="Button_form_Previous">قبل</string>
+    <string name="main_menuList">برند ها</string>
 
 </resources>

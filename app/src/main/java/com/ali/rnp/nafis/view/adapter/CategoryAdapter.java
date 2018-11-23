@@ -11,14 +11,18 @@ import android.widget.TextView;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.Category;
+import com.ali.rnp.nafis.view.MyApplication;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.HomeAdapterHolder>{
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context context;
     private List<Category> categories;
+    private static final int VIEW_TYPE_BANNER=0;
+    private static final int VIEW_TYPE_DEFAULT=1;
+    private static final String BANNER_IMAGE_LINK="http://hph.co.ir/data/upload/mirasmlm/slide/0b0e30e39d7ff8c00498acc298afc64a1533557477.jpg";
 
     public CategoryAdapter(Context context){
         this.context=context;
@@ -29,40 +33,82 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.HomeAd
         notifyDataSetChanged();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position==0){
+            return VIEW_TYPE_BANNER;
+        }else {
+            return VIEW_TYPE_DEFAULT;
+        }
+    }
+
     @NonNull
     @Override
-    public HomeAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.category_item,null,false);
-        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        return new HomeAdapterHolder(view);
+        switch (viewType){
+            case VIEW_TYPE_BANNER:
+                View bannerView = LayoutInflater.from(context).inflate(R.layout.banner_main,null,false);
+               RecyclerView.LayoutParams lpBanner = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                bannerView.setLayoutParams(lpBanner);
+
+                return new BannerAdapterHolder(bannerView);
+
+            case VIEW_TYPE_DEFAULT:
+                View view = LayoutInflater.from(context).inflate(R.layout.category_item,null,false);
+                RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                view.setLayoutParams(lp);
+                return new HomeAdapterHolder(view);
+
+
+                default:
+                    return null;
+
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapterHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Category category = categories.get(position);
-        holder.nameCategory.setText(category.getName());
-        holder.description.setText(category.getDescription());
-        Picasso.get().load(category.getImage()).into(holder.imageCategory);
+       if (holder instanceof HomeAdapterHolder){
+           HomeAdapterHolder homeAdapterHolder = (HomeAdapterHolder) holder;
+           Category category = categories.get(position-1);
+           homeAdapterHolder.nameCategory.setText(category.getName());
+           homeAdapterHolder.descriptionCategory.setText(category.getDescription());
+           Picasso.get().load(category.getImage()).into(homeAdapterHolder.imageCategory);
+       }
 
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return categories.size()+1;
     }
 
     public class HomeAdapterHolder extends RecyclerView.ViewHolder {
         private ImageView imageCategory;
         private TextView nameCategory;
-        private TextView description;
-        public HomeAdapterHolder(View itemView) {
+        private TextView descriptionCategory;
+        private HomeAdapterHolder(View itemView) {
             super(itemView);
             imageCategory=itemView.findViewById(R.id.category_item_image);
             nameCategory=itemView.findViewById(R.id.category_item_name);
-            description =itemView.findViewById(R.id.category_item_description);
+            descriptionCategory =itemView.findViewById(R.id.category_item_description);
+
+            nameCategory.setTypeface(MyApplication.getIranianSansFont(context));
+            descriptionCategory.setTypeface(MyApplication.getIranianSansFont(context));
+        }
+    }
+
+    public class BannerAdapterHolder extends RecyclerView.ViewHolder {
+        private ImageView bannerImage;
+        private TextView listText;
+        private BannerAdapterHolder(View itemView) {
+            super(itemView);
+            bannerImage = itemView.findViewById(R.id.banner_main_image);
+            listText = itemView.findViewById(R.id.banner_main_listText);
+           Picasso.get().load(R.drawable.banner_holder).placeholder(R.drawable.banner_holder).into(bannerImage);
+            listText.setTypeface(MyApplication.getIranianSansFont(context));
         }
     }
 }

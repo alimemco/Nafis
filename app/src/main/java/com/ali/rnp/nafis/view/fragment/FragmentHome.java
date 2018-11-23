@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
@@ -32,32 +34,33 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home,container,false);
-
         recyclerView = rootView.findViewById(R.id.fragment_home_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
         categoryAdapter = new CategoryAdapter(getContext());
 
+        categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
+        recyclerView.setAdapter(categoryAdapter);
+
+        getDataFromServer();
+
+        return rootView;
+    }
+
+    private void getDataFromServer() {
         ApiService apiService = new ApiService(getContext());
         apiService.getCategoryFromServer(new ApiService.onGetCategories() {
             @Override
             public void onReceivedCategory(List<Category> categories) {
-                Log.i(TAG, "onReceivedCategory: before");
-
                 if(categories!=null) {
                     categoryAdapter.SetupCategoryAdapter(categories);
 
                     recyclerView.setAdapter(categoryAdapter);
-                    Log.i(TAG, "onReceivedCategory: ");
+
                 }else {
-                    Log.i(TAG, "onReceivedCategory: error");
+                    Toast.makeText(getContext(), "ارتباط با سرور برقرار نشد", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
-
-
-
-        return rootView;
     }
 }

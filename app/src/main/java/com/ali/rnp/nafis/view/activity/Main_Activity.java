@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
@@ -27,6 +29,9 @@ public class Main_Activity extends AppCompatActivity {
     private FragmentForm fragmentForm;
     android.support.v4.app.FragmentManager fragmentManager;
 
+    private ImageView shopBtn;
+    private ImageView searchBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +45,13 @@ public class Main_Activity extends AppCompatActivity {
 
 
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -108,6 +113,24 @@ public class Main_Activity extends AppCompatActivity {
 
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.mainToolbar);
+        shopBtn = findViewById(R.id.activity_main_toolbar_shop_xml);
+        searchBtn = findViewById(R.id.activity_main_toolbar_search_xml);
+
+        shopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Main_Activity.this, "Shop", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Main_Activity.this, "Search", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.White));

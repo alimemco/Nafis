@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/category_item_image"
                 android:layout_centerHorizontal="true"
-                android:textSize="@dimen/large_textSize_sp"
+                android:textSize="@dimen/normal_textSize_sp"
                 tools:text="باراکا baraka" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_below="@id/category_item_name"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:textSize="@dimen/normal_textSize_sp"
+                android:textSize="@dimen/small_textSize_sp"
                 tools:text="متن ساختگی" />
 
 

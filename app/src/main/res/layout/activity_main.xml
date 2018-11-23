@@ -25,9 +25,31 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mainToolbar"
-                android:layout_width="454dp"
+                android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark" />
+                android:theme="@style/ThemeOverlay.AppCompat.Dark" >
+
+
+                <ImageView
+                    android:id="@+id/activity_main_toolbar_search_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="@dimen/standard_margin_2x"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/ic_magnifier"/>
+
+                <ImageView
+                    android:id="@+id/activity_main_toolbar_shop_xml"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_shopping_cart"
+                    android:layout_gravity="left"
+                    android:contentDescription="@string/app_name"
+                    android:layout_marginLeft="@dimen/standard_margin_2x"
+                    />
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
