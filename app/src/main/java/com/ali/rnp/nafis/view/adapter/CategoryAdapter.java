@@ -103,12 +103,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class BannerAdapterHolder extends RecyclerView.ViewHolder {
         private ImageView bannerImage;
         private TextView listText;
+        private TextView newsText;
         private BannerAdapterHolder(View itemView) {
             super(itemView);
             bannerImage = itemView.findViewById(R.id.banner_main_image);
             listText = itemView.findViewById(R.id.banner_main_listText);
+            newsText = itemView.findViewById(R.id.banner_main_news_text);
            Picasso.get().load(R.drawable.banner_holder).placeholder(R.drawable.banner_holder).into(bannerImage);
             listText.setTypeface(MyApplication.getIranianSansFont(context));
+            newsText.setTypeface(MyApplication.getIranianSansFont(context));
         }
     }
 }

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fragmentForm">
+    android:background="@drawable/back_network">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -10,10 +10,35 @@
 
         <Button
             android:id="@+id/fragment_form_btnStart"
+            android:layout_width="310dp"
+            android:layout_height="65dp"
+            android:text="@string/form_button_start"
+            android:textSize="@dimen/XXlarge_textSize_dp"
+            android:textColor="@color/White"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/form_margin_button"
+            android:layout_marginTop="@dimen/standard_margin_2x"
+            android:background="@drawable/shape_button_next"/>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="start"
-            android:layout_centerInParent="true"/>
+            android:adjustViewBounds="true"
+            android:layout_above="@id/fragment_form_btnStart"
+            android:layout_alignRight="@id/fragment_form_btnStart"
+            android:layout_alignLeft="@id/fragment_form_btnStart"
+            android:src="@drawable/shape_circle"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/fragment_form_btnStart"
+            android:layout_alignLeft="@id/fragment_form_btnStart"
+            android:adjustViewBounds="true"
+            android:layout_above="@id/fragment_form_btnStart"
+            android:src="@drawable/doctor"
+            />
 
 
     </RelativeLayout>

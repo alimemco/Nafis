@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DbManager;
+import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.activity.Question_Activity;
 
 public class FragmentForm extends Fragment {
@@ -28,7 +29,7 @@ public class FragmentForm extends Fragment {
        View view = inflater.inflate(R.layout.fragment_form,container,false);
        DbManager dbManager = new DbManager(getContext());
        buttonStart = view.findViewById(R.id.fragment_form_btnStart);
-
+       //buttonStart.setTypeface(MyApplication.getIranianSansFont(getContext()));
        buttonStart.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

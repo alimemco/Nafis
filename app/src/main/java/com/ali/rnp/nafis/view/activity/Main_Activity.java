@@ -41,33 +41,10 @@ public class Main_Activity extends AppCompatActivity {
         setupToolbar();
         setupFragments();
         setupBottomNavigation();
-        //changed
 
 
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
 
-            case R.id.menu_toolbar_shop:
-                Toast.makeText(this, "Shop", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.menu_toolbar_search:
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
-                break;
-
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void setupFragments() {
         fragmentHome = new FragmentHome();
