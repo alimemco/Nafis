@@ -34,14 +34,15 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home,container,false);
+
         recyclerView = rootView.findViewById(R.id.fragment_home_recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
         categoryAdapter = new CategoryAdapter(getContext());
 
-        categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
-        recyclerView.setAdapter(categoryAdapter);
+        //categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
+       // recyclerView.setAdapter(categoryAdapter);
 
-       // getDataFromServer();
+        getDataFromServer();
 
         return rootView;
     }

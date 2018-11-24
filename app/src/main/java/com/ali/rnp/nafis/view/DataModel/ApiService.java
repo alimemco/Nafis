@@ -8,7 +8,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -22,16 +21,18 @@ public class ApiService {
     private static final String TAG = "ApiService";
     private static final String categoryLinkApi="http://nafis-app.ir/apiService/api/categories.php";
     private Context context;
+    int responseLenght=0;
+
     public ApiService(Context context){
         this.context=context;
     }
 
     public void getCategoryFromServer(final onGetCategories onGetCategories){
 
-        JsonRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                responseLength(response);
                 parseCategoryJson(response,onGetCategories);
             }
         }, new Response.ErrorListener() {
@@ -49,7 +50,7 @@ public class ApiService {
 
         List<Category> categories = new ArrayList<>();
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < responseLenght; i++) {
 
             Category category = new Category();
             try {
@@ -69,7 +70,16 @@ public class ApiService {
         }
         onGetCategories.onReceivedCategory(categories);
 
+    }
 
+    private void responseLength(JSONObject response){
+        String responseString = response.toString();
+        for (int i = 0; i < responseString.length(); i++) {
+            if (responseString.charAt(i)=='{'){
+                responseLenght++;
+            }
+        }
+        responseLenght--;
     }
 
     public interface onGetCategories{

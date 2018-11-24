@@ -27,7 +27,7 @@ public class FragmentForm extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_form,container,false);
-       DbManager dbManager = new DbManager(getContext());
+
        buttonStart = view.findViewById(R.id.fragment_form_btnStart);
        buttonStart.setTypeface(MyApplication.getIranianSansFont(getContext()));
        buttonStart.setOnClickListener(new View.OnClickListener() {

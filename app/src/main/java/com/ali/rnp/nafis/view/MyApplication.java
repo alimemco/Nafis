@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 public class MyApplication extends Application {
 
     private static Typeface iranianSansFont;
+    private static Typeface bYekanFont;
 
     @Override
     public void onCreate() {
@@ -18,5 +19,12 @@ public class MyApplication extends Application {
             iranianSansFont=Typeface.createFromAsset(context.getAssets(), "fonts/iranSans.ttf");
         }
         return iranianSansFont;
+    }
+
+    public static Typeface getbYekanFont(Context context) {
+        if(bYekanFont==null){
+            bYekanFont=Typeface.createFromAsset(context.getAssets(), "fonts/byekan.ttf");
+        }
+        return bYekanFont;
     }
 }

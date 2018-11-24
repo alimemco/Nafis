@@ -4,28 +4,32 @@ package com.ali.rnp.nafis.view.activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
+import com.ali.rnp.nafis.view.DataModel.ApiService;
+import com.ali.rnp.nafis.view.DataModel.Category;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
 
+import java.util.List;
+
 public class Main_Activity extends AppCompatActivity {
 
+   private ProgressBar progressBar;
     private BottomNavigationView bottomNavigationView;
     private FragmentHome fragmentHome;
     private FragmentUser fragmentUser;
@@ -45,7 +49,19 @@ public class Main_Activity extends AppCompatActivity {
         setupFragments();
         setupBottomNavigation();
 
+        afterGetFromServer();
 
+
+    }
+
+    private void afterGetFromServer() {
+        ApiService apiService = new ApiService(this);
+        apiService.getCategoryFromServer(new ApiService.onGetCategories() {
+            @Override
+            public void onReceivedCategory(List<Category> categories) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -72,18 +88,22 @@ public class Main_Activity extends AppCompatActivity {
                         android.support.v4.app.FragmentTransaction HomeTransaction = fragmentManager.beginTransaction();
                         HomeTransaction.replace(R.id.mainFragmentContainer, fragmentHome);
                         HomeTransaction.commit();
+                        progressBar.setVisibility(View.VISIBLE);
+                        afterGetFromServer();
                         return true;
 
                     case R.id.bottom_navigation_form:
                         android.support.v4.app.FragmentTransaction FormTransaction = fragmentManager.beginTransaction();
                         FormTransaction.replace(R.id.mainFragmentContainer, fragmentForm);
                         FormTransaction.commit();
+                        progressBar.setVisibility(View.GONE);
                         return true;
 
                     case R.id.bottom_navigation_userManagement:
                         android.support.v4.app.FragmentTransaction UserTransaction = fragmentManager.beginTransaction();
                         UserTransaction.replace(R.id.mainFragmentContainer, fragmentUser);
                         UserTransaction.commit();
+                        progressBar.setVisibility(View.GONE);
                         return true;
                 }
                 return false;
@@ -129,8 +149,7 @@ public class Main_Activity extends AppCompatActivity {
 
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             if (toolbar.getChildAt(i) instanceof TextView){
-                ((TextView) toolbar.getChildAt(i)).setText("من");
-                ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getIranianSansFont(this));
+                ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getbYekanFont(this));
             }
         }
 
@@ -139,5 +158,7 @@ public class Main_Activity extends AppCompatActivity {
     private void initViews() {
         bottomNavigationView = findViewById(R.id.mainActivity_BottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_home);
+        progressBar=findViewById(R.id.activity_main_progressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 }
