@@ -20,6 +20,7 @@ import com.ali.rnp.nafis.view.DataModel.DataGenrator;
 import com.ali.rnp.nafis.view.DataModel.Question;
 import com.ali.rnp.nafis.view.adapter.CategoryAdapter;
 import com.ali.rnp.nafis.view.adapter.QuestionAdapter;
+import com.ali.rnp.nafis.view.utils.Utils;
 
 import java.util.List;
 
@@ -39,12 +40,19 @@ public class FragmentHome extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
         categoryAdapter = new CategoryAdapter(getContext());
 
-        //categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
-       // recyclerView.setAdapter(categoryAdapter);
 
-        getDataFromServer();
+        if (Utils.checkConnection(getContext())==true){
+            getDataFromServer();
+        }else {
+            getDataFromLocal();
+        }
 
         return rootView;
+    }
+
+    private void getDataFromLocal() {
+        categoryAdapter.SetupCategoryAdapter(DataGenrator.getCategories());
+        recyclerView.setAdapter(categoryAdapter);
     }
 
     private void getDataFromServer() {
@@ -54,7 +62,6 @@ public class FragmentHome extends Fragment {
             public void onReceivedCategory(List<Category> categories) {
                 if(categories!=null) {
                     categoryAdapter.SetupCategoryAdapter(categories);
-
                     recyclerView.setAdapter(categoryAdapter);
 
                 }else {

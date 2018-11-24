@@ -45,6 +45,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionHolder holder, final int position) {
 
+
         final Question question = questions.get(position);
 
         checkBoxDetect(holder,position);
@@ -60,7 +61,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         Log.i(TAG, "onBindViewHolder: "+position);
 
-        CheckBoxAnsewerSetText(holder,question);
+        CheckBoxAnswerSetText(holder,question);
 
     }
 
@@ -81,7 +82,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         lastPosition=position;
     }
 
-    private void CheckBoxAnsewerSetText(QuestionHolder holder, Question question) {
+    private void CheckBoxAnswerSetText(QuestionHolder holder, Question question) {
 
 
 
@@ -201,5 +202,6 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         }
     }
+
 
 }
