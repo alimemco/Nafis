@@ -36,6 +36,7 @@ public class FragmentUser extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_user,container,false);
         tabLayout = rootView.findViewById(R.id.fragment_user_tabLayout);
+        //no
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
