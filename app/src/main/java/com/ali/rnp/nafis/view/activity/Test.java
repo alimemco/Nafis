@@ -1,23 +1,25 @@
 package com.ali.rnp.nafis.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.ali.rnp.nafis.R;
-import com.ali.rnp.nafis.view.DataModel.ApiService;
-import com.ali.rnp.nafis.view.DataModel.Category;
-import com.ali.rnp.nafis.view.adapter.CategoryAdapter;
-
-import java.util.List;
 
 public class Test extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private CategoryAdapter categoryAdapter;
-    private static final String TAG = "Test";
+    EditText edtName;
+    TextView btnSave;
+    EditText edtAge;
+    SharedPreferences shpref;
+    public static final String Mypref="Myprefers";
+    public static final String Name="namekey";
+    public static final String sen="agekey";
 
 
     @Override
@@ -25,27 +27,27 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        recyclerView = findViewById(R.id.testRecycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        categoryAdapter = new CategoryAdapter(this);
-
-        ApiService apiService = new ApiService(this);
-        apiService.getCategoryFromServer(new ApiService.onGetCategories() {
+        edtName= (EditText) findViewById(R.id.nam_txt);
+        edtAge= (EditText) findViewById(R.id.sen_txt);
+        btnSave= (TextView) findViewById(R.id.btn_save);
+        shpref=getSharedPreferences(Mypref, Context.MODE_PRIVATE);
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onReceivedCategory(List<Category> categories) {
-                Log.i(TAG, "onReceivedCategory: before");
-
-                if(categories!=null) {
-                    categoryAdapter.SetupCategoryAdapter(categories);
-
-                    recyclerView.setAdapter(categoryAdapter);
-                    Log.i(TAG, "onReceivedCategory: ");
-                }else {
-                    Log.i(TAG, "onReceivedCategory: error");
-                }
+            public void onClick(View v) {
+                String n=edtName.getText().toString();
+                String a = edtAge.getText().toString();
+                SharedPreferences.Editor sEdit=shpref.edit();
+                sEdit.putString(Name,n);
+                sEdit.putString(sen,a);
+                sEdit.putInt("run_1",2);
+                sEdit.apply();
+                Toast.makeText(Test.this,"Infos Saved",Toast.LENGTH_LONG).show();
+                Intent zz=new Intent(Test.this,Main_Activity.class);
+                startActivity(zz);
 
             }
         });
+
     }
+
 }

@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragmentUser">
 
-    <TextView
-        android:id="@+id/textView"
+    <EditText
+        android:id="@+id/fragment_user_edtxt_username"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="User"
-        android:textSize="@dimen/XXlarge_textSize_dp"
-        android:textColor="@color/White"/>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:hint="username"
+        />
+
+    <EditText
+        android:id="@+id/fragment_user_edtxt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="password"
+        android:layout_below="@id/fragment_user_edtxt_username"
+        />
+
+    <Button
+        android:id="@+id/fragment_user_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="login"
+        android:layout_below="@id/fragment_user_edtxt_password"/>
+</RelativeLayout>

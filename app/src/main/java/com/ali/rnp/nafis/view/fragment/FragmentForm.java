@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
@@ -20,6 +21,7 @@ import com.ali.rnp.nafis.view.activity.Question_Activity;
 public class FragmentForm extends Fragment {
 
     private Button buttonStart;
+    private TextView textDescription;
 
     private static final String TAG = "FragmentForm";
 
@@ -29,6 +31,8 @@ public class FragmentForm extends Fragment {
        View view = inflater.inflate(R.layout.fragment_form,container,false);
 
        buttonStart = view.findViewById(R.id.fragment_form_btnStart);
+       textDescription = view.findViewById(R.id.fragment_form_description);
+       textDescription.setTypeface(MyApplication.getIranianSansFont(getContext()));
        buttonStart.setTypeface(MyApplication.getIranianSansFont(getContext()));
        buttonStart.setOnClickListener(new View.OnClickListener() {
            @Override

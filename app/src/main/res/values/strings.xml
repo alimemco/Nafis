@@ -13,5 +13,7 @@
     <string name="main_menuList">برند ها</string>
     <string name="form_button_start">شروع مشاوره</string>
     <string name="main_status">تخفیف ویژه محصولات شرکت باراکا</string>
+    <string name="form_text_descriptionTitle">تـوضـیـح</string>
+    <string name="form_text_description">برای مشاوره رایگان فرم مشاوره را تکمیل کنید.</string>
 
 </resources>

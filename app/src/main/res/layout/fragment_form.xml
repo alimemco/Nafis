@@ -9,7 +9,7 @@
         android:layout_width="250dp"
         android:layout_height="38dp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -18,7 +18,7 @@
         android:text="@string/form_button_start"
         android:textColor="@color/White"
         android:textSize="@dimen/large_textSize_dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_form_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -46,6 +46,22 @@
         app:layout_constraintStart_toStartOf="@+id/imageView2"
 
         app:srcCompat="@drawable/doctor" />
+
+    <TextView
+        android:id="@+id/fragment_form_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/form_text_description"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/normal_textSize_sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

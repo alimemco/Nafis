@@ -1,7 +1,6 @@
 package com.ali.rnp.nafis.view.DataModel;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -20,8 +19,10 @@ import java.util.List;
 public class ApiService {
     private static final String TAG = "ApiService";
     private static final String categoryLinkApi="http://nafis-app.ir/apiService/api/categories.php";
+    private static final String loginUserLinkApi="http://nafis-app.ir/apiService/api/user/userLogin.php";
+    private int timeOut=10000;
     private Context context;
-    int responseLenght=0;
+    private int responseLength =0;
 
     public ApiService(Context context){
         this.context=context;
@@ -42,7 +43,30 @@ public class ApiService {
             }
         });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(8000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+    }
+
+
+    public void loginUser(JSONObject jsonObject, final onLoginUserReceived onLoginUserReceived){
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, loginUserLinkApi, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    onLoginUserReceived.onLoginUser(response.getInt("status"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onLoginUserReceived.onLoginUser(404);
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
     }
 
@@ -50,7 +74,7 @@ public class ApiService {
 
         List<Category> categories = new ArrayList<>();
 
-        for (int i = 0; i < responseLenght; i++) {
+        for (int i = 0; i < responseLength; i++) {
 
             Category category = new Category();
             try {
@@ -76,13 +100,17 @@ public class ApiService {
         String responseString = response.toString();
         for (int i = 0; i < responseString.length(); i++) {
             if (responseString.charAt(i)=='{'){
-                responseLenght++;
+                responseLength++;
             }
         }
-        responseLenght--;
+        responseLength--;
     }
 
     public interface onGetCategories{
         void onReceivedCategory(List<Category> categories);
+    }
+
+    public interface onLoginUserReceived {
+        void onLoginUser(int status);
     }
 }

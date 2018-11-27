@@ -1,6 +1,7 @@
 package com.ali.rnp.nafis.view.activity;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -121,6 +122,7 @@ public class Main_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Main_Activity.this, "Shop", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Main_Activity.this,Test.class));
             }
         });
 
