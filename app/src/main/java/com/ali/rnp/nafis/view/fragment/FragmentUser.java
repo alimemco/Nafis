@@ -3,6 +3,7 @@ package com.ali.rnp.nafis.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
@@ -25,7 +27,7 @@ public class FragmentUser extends Fragment {
 
     private EditText username;
     private EditText password;
-    private Button btn_login;
+    private TabLayout tabLayout;
     private static final String TAG = "FragmentUser";
 
     @Nullable
@@ -33,6 +35,32 @@ public class FragmentUser extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_user,container,false);
+        tabLayout = rootView.findViewById(R.id.fragment_user_tabLayout);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()){
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        /*
         username = rootView.findViewById(R.id.fragment_user_edtxt_username);
         password = rootView.findViewById(R.id.fragment_user_edtxt_password);
         btn_login = rootView.findViewById(R.id.fragment_user_btn_login);
@@ -50,7 +78,7 @@ public class FragmentUser extends Fragment {
 
             }
         });
-
+*/
         return rootView;
     }
 

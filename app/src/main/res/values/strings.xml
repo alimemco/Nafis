@@ -15,5 +15,9 @@
     <string name="main_status">تخفیف ویژه محصولات شرکت باراکا</string>
     <string name="form_text_descriptionTitle">تـوضـیـح</string>
     <string name="form_text_description">برای مشاوره رایگان فرم مشاوره را تکمیل کنید.</string>
+    <string name="UserLogin">ورود</string>
+    <string name="UserRegister">ثبت نام</string>
+    <string name="UserLoginText">ورود به حساب کابری</string>
+    <string name="UserRegisterText">ثبت نام در اپلیکیشن نفیس</string>
 
 </resources>
