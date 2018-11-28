@@ -1,23 +1,27 @@
 package com.ali.rnp.nafis.view.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
+import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.utils.Utils;
 
 import org.json.JSONException;
@@ -25,10 +29,16 @@ import org.json.JSONObject;
 
 public class FragmentUser extends Fragment {
 
-    private EditText username;
-    private EditText password;
+
     private TabLayout tabLayout;
     private static final String TAG = "FragmentUser";
+    private boolean isLogin=true;
+    FragmentLogin fragmentLogin;
+    FragmentRegister fragmentRegister;
+    FragmentManager fragmentManager;
+    FrameLayout frameLayout;
+    private TextView tvSelected;
+    private TextView tvUnSelected;
 
     @Nullable
     @Override
@@ -36,16 +46,50 @@ public class FragmentUser extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_user,container,false);
         tabLayout = rootView.findViewById(R.id.fragment_user_tabLayout);
-        //no
+        frameLayout = rootView.findViewById(R.id.fragment_user_frame_layout);
+
+
+
+        setupTabLayout();
+        setupFragments();
+
+
+
+
+        return rootView;
+    }
+
+    private void setupFragments() {
+        fragmentLogin = new FragmentLogin();
+        fragmentRegister = new FragmentRegister();
+        fragmentManager = getFragmentManager();
+
+        FragmentTransaction loginTransaction = fragmentManager.beginTransaction();
+        loginTransaction.add(R.id.fragment_user_frame_layout,fragmentLogin);
+        loginTransaction.commit();
+
+    }
+
+    private void setupTabLayout() {
+        changeTabsFont();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 switch (tab.getPosition()){
                     case 0:
+                        isLogin=true;
+                        FragmentTransaction loginTransaction = fragmentManager.beginTransaction();
+                        loginTransaction.replace(R.id.fragment_user_frame_layout,fragmentLogin);
+                        loginTransaction.commit();
 
                         break;
                     case 1:
-
+                        isLogin=false;
+                        FragmentTransaction registerTransaction = fragmentManager.beginTransaction();
+                        registerTransaction.replace(R.id.fragment_user_frame_layout,fragmentRegister);
+                        registerTransaction.commit();
                         break;
                 }
             }
@@ -61,68 +105,22 @@ public class FragmentUser extends Fragment {
             }
         });
 
-        /*
-        username = rootView.findViewById(R.id.fragment_user_edtxt_username);
-        password = rootView.findViewById(R.id.fragment_user_edtxt_password);
-        btn_login = rootView.findViewById(R.id.fragment_user_btn_login);
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (Utils.checkConnection(getActivity())){
-                    loginUserJsonObject();
-                }else {
-                    Toast.makeText(getActivity(),"اینترنت در دسترس نیست",Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-*/
-        return rootView;
     }
 
-    private void loginUserJsonObject(){
-        JSONObject jsonObjectLogin = new JSONObject();
-        try {
-            jsonObjectLogin.put("username",username.getText().toString());
-            jsonObjectLogin.put("password",password.getText().toString());
-
-            final ApiService apiService = new ApiService(getContext());
-            apiService.loginUser(jsonObjectLogin, new ApiService.onLoginUserReceived() {
-                @Override
-                public void onLoginUser(int status) {
-                    switch (status){
-
-                        case 0:
-                            Log.i(TAG, "user not found: "+status);
-                            Toast.makeText(getActivity(), status+"", Toast.LENGTH_SHORT).show();
-                            break;
-
-                        case 1:
-                            Log.i(TAG, "success: "+status);
-                            Toast.makeText(getActivity(), status+"", Toast.LENGTH_SHORT).show();
-
-                            break;
-
-                        case 2:
-                            Log.i(TAG, "pass incurent: "+status);
-                            Toast.makeText(getActivity(), status+"", Toast.LENGTH_SHORT).show();
-
-                            break;
-
-                        case 404:
-                            Log.i(TAG, "error: "+status);
-                            Toast.makeText(getActivity(), status+"", Toast.LENGTH_SHORT).show();
-                            break;
-
-                    }
+    private void changeTabsFont() {
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            int tabChildCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    ((TextView) tabViewChild).setTypeface(MyApplication.getbYekanFont(getActivity()));
                 }
-            });
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+            }
         }
     }
+
+
 }

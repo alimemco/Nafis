@@ -49,6 +49,10 @@
         <item name="android:layout_height">40dp</item>
     </style>
 
+    <style name="TabTextSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/normal_textSize_dp</item>
+    </style>
+
 
 
 </resources>

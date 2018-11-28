@@ -19,5 +19,7 @@
     <string name="UserRegister">ثبت نام</string>
     <string name="UserLoginText">ورود به حساب کابری</string>
     <string name="UserRegisterText">ثبت نام در اپلیکیشن نفیس</string>
+    <string name="usernameEditText">نام کاربری</string>
+    <string name="passwordEditText">کلمه عبور</string>
 
 </resources>
