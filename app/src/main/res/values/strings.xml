@@ -21,5 +21,6 @@
     <string name="UserRegisterText">ثبت نام در اپلیکیشن نفیس</string>
     <string name="usernameEditText">نام کاربری</string>
     <string name="passwordEditText">کلمه عبور</string>
+    <string name="login_text_forgetPassword">کلمه عبور خود را فراموش کرده اید؟</string>
 
 </resources>

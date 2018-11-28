@@ -3,6 +3,8 @@
     <color name="colorPrimary">#1bbc9b</color>
     <color name="colorPrimaryDark">#14ae8f</color>
     <color name="colorAccent">#14ae8f</color>
+    <color name="blue_green_top">#1E88E5</color>
+    <color name="blue_green_bottom">#00cdac</color>
     <color name="backgroundApp">#fafafa</color>
     <color name="White">#ffffff</color>
     <color name="fragmentHome">#7986CB</color>
@@ -13,5 +15,6 @@
     <color name="dark_gray_text">#323232</color>
     <color name="red200">#ef9a9a</color>
     <color name="red300">#e57373</color>
+    <color name="red400">#ef5350</color>
     <color name="red500">#f44336</color>
 </resources>

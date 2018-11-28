@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
@@ -26,6 +27,7 @@ public class FragmentLogin extends Fragment {
     private TextInputEditText password;
     private TextInputLayout usernameLayout;
     private TextInputLayout passwordLayout;
+    private TextView forgetPassword;
 
     private Button btnStart;
 
@@ -35,11 +37,13 @@ public class FragmentLogin extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_login,null,false);
         username = rootView.findViewById(R.id.fragment_login_username);
         password = rootView.findViewById(R.id.fragment_login_password);
+        forgetPassword = rootView.findViewById(R.id.fragment_login_forgetPassword_text);
         usernameLayout = rootView.findViewById(R.id.fragment_login_InputLayout_username);
         passwordLayout = rootView.findViewById(R.id.fragment_login_InputLayout_password);
         btnStart = rootView.findViewById(R.id.fragment_login_buttonStart);
         usernameLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         passwordLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         btnStart.setTypeface(MyApplication.getIranianSansFont(getActivity()));
 
 

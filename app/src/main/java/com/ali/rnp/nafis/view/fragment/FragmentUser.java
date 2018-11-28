@@ -37,8 +37,6 @@ public class FragmentUser extends Fragment {
     FragmentRegister fragmentRegister;
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
-    private TextView tvSelected;
-    private TextView tvUnSelected;
 
     @Nullable
     @Override
