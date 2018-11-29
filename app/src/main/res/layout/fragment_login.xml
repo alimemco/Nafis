@@ -29,6 +29,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:hint="@string/usernameEditText"
+                android:paddingLeft="@dimen/standard_margin"
+                android:paddingRight="@dimen/standard_margin"
                 android:textSize="@dimen/large_textSize_dp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -56,6 +58,8 @@
                 android:hint="@string/passwordEditText"
                 android:inputType="textPassword"
                 android:textSize="@dimen/large_textSize_dp"
+                android:paddingLeft="@dimen/standard_margin"
+                android:paddingRight="@dimen/standard_margin"
                 />
         </android.support.design.widget.TextInputLayout>
 
@@ -88,7 +92,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:text="@string/login_text_forgetPassword"
-            android:textColor="@color/red400"
+            android:textColor="@color/red200"
             android:textSize="@dimen/normal_textSize_sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

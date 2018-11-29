@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="@string/bottom_navigation_userManagement"
+        android:title=""
         android:id="@+id/bottom_navigation_userManagement"
         android:icon="@drawable/ic_profile_navbottom"/>
 
     <item
-        android:title="@string/bottom_navigation_home"
+        android:title=""
         android:id="@+id/bottom_navigation_home"
         android:icon="@drawable/ic_home_navbottom" />
 
     <item
-        android:title="@string/bottom_navigation_form"
+        android:title=""
         android:id="@+id/bottom_navigation_form"
         android:icon="@drawable/ic_check_form_navbottom"/>
 

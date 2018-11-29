@@ -1,11 +1,15 @@
 package com.ali.rnp.nafis.view.fragment;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,8 @@ import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.utils.Utils;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +58,27 @@ public class FragmentLogin extends Fragment {
             public void onClick(View v) {
 
                 if (Utils.checkConnection(getActivity())){
-                    loginUserJsonObject();
+                    if (!username.getText().toString().equals("") && !password.getText().toString().equals("")){
+                        loginUserJsonObject();
+                    }else {
+                        if (password.getText().toString().equals("")){
+                            Toast.makeText(getContext(), "کلمه عبور نمی تواند خالی باشد", Toast.LENGTH_LONG).show();
+                            password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                            YoYo.with(Techniques.Shake)
+                                    .duration(1000)
+                                    .playOn(passwordLayout);
+
+                        }
+                        if (username.getText().toString().equals("")){
+                            Toast.makeText(getContext(), "نام کابری نمی تواند خالی باشد", Toast.LENGTH_LONG).show();
+                            username.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                            YoYo.with(Techniques.Shake)
+                                    .duration(1000)
+                                    .playOn(usernameLayout);
+                        }
+
+                    }
+
                 }else {
                     Toast.makeText(getActivity(),"اینترنت در دسترس نیست",Toast.LENGTH_SHORT).show();
                 }
