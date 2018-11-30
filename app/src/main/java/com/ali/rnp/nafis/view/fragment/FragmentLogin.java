@@ -27,6 +27,8 @@ import com.daimajia.androidanimations.library.YoYo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import es.dmoral.toasty.Toasty;
+
 public class FragmentLogin extends Fragment {
 
     private TextInputEditText username;
@@ -51,6 +53,9 @@ public class FragmentLogin extends Fragment {
         passwordLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         btnStart.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        Toasty.Config.getInstance()
+                .setToastTypeface(MyApplication.getIranianSansFont(getActivity()))
+                .apply();
 
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +67,7 @@ public class FragmentLogin extends Fragment {
                         loginUserJsonObject();
                     }else {
                         if (password.getText().toString().equals("")){
-                            Toast.makeText(getContext(), "کلمه عبور نمی تواند خالی باشد", Toast.LENGTH_LONG).show();
+                            Toasty.warning(getActivity(),"کلمه عبور نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
                             password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                             YoYo.with(Techniques.Shake)
                                     .duration(1000)
@@ -70,7 +75,7 @@ public class FragmentLogin extends Fragment {
 
                         }
                         if (username.getText().toString().equals("")){
-                            Toast.makeText(getContext(), "نام کابری نمی تواند خالی باشد", Toast.LENGTH_LONG).show();
+                            Toasty.warning(getActivity(),"نام کابری نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
                             username.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                             YoYo.with(Techniques.Shake)
                                     .duration(1000)
@@ -80,7 +85,7 @@ public class FragmentLogin extends Fragment {
                     }
 
                 }else {
-                    Toast.makeText(getActivity(),"اینترنت در دسترس نیست",Toast.LENGTH_SHORT).show();
+                    Toasty.info(getActivity(),"اینترنت در دسترس نیست"  ,Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -102,19 +107,19 @@ public class FragmentLogin extends Fragment {
                     switch (status){
 
                         case 0:
-                            Toast.makeText(getActivity(), "نام کاربری وجود ندارد", Toast.LENGTH_SHORT).show();
+                            Toasty.error(getActivity(),"نام کابری وجود ندارد"  ,Toast.LENGTH_SHORT).show();
                             break;
 
                         case 1:
-                            Toast.makeText(getActivity(), "با موفقیت وارد شدید :)", Toast.LENGTH_SHORT).show();
+                            Toasty.success(getActivity(),"با موفقیت وارد شدید :)"  ,Toast.LENGTH_SHORT).show();
                             break;
 
                         case 2:
-                            Toast.makeText(getActivity(), "پسورد اشتباه می باشد", Toast.LENGTH_SHORT).show();
+                            Toasty.error(getActivity(),"کلمه عبور صحیح نیست"  ,Toast.LENGTH_SHORT).show();
                             break;
 
                         case 404:
-                            Toast.makeText(getActivity(), "خطا در دریافت اطلاعات", Toast.LENGTH_SHORT).show();
+                            Toasty.info(getActivity(),"اینترنت در دسترس نیست"  ,Toast.LENGTH_SHORT).show();
                             break;
 
                     }
