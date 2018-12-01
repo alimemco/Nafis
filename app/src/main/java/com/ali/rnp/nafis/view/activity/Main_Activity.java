@@ -38,6 +38,8 @@ import com.ali.rnp.nafis.view.fragment.FragmentUser;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class Main_Activity extends AppCompatActivity {
 
    private ProgressBar progressBar;
@@ -61,6 +63,10 @@ public class Main_Activity extends AppCompatActivity {
         setupBottomNavigation();
 
         afterGetFromServer();
+
+        Toasty.Config.getInstance()
+                .setToastTypeface(MyApplication.getIranianSansFont(this))
+                .apply();
 
 
     }

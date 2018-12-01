@@ -20,6 +20,7 @@ public class ApiService {
     private static final String TAG = "ApiService";
     private static final String categoryLinkApi="http://nafis-app.ir/apiService/api/categories.php";
     private static final String loginUserLinkApi="http://nafis-app.ir/apiService/api/user/userLogin.php";
+    private static final String registerUserLinkApi="http://nafis-app.ir/apiService/api/user/userRegister.php";
     private int timeOut=10000;
     private Context context;
     private int responseLength =0;
@@ -70,6 +71,28 @@ public class ApiService {
         Volley.newRequestQueue(context).add(request);
     }
 
+    public void registerUser(JSONObject jsonObject, final onRegisterUserReceived onRegisterUserReceived){
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, registerUserLinkApi, jsonObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    onRegisterUserReceived.onRegisterUser(response.getInt("status"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onRegisterUserReceived.onRegisterUser(404);
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+    }
+
     private void parseCategoryJson(JSONObject response,onGetCategories onGetCategories) {
 
         List<Category> categories = new ArrayList<>();
@@ -112,5 +135,9 @@ public class ApiService {
 
     public interface onLoginUserReceived {
         void onLoginUser(int status);
+    }
+
+    public interface onRegisterUserReceived {
+        void onRegisterUser(int status);
     }
 }

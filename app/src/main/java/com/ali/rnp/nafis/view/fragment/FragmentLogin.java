@@ -53,9 +53,7 @@ public class FragmentLogin extends Fragment {
         passwordLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         btnStart.setTypeface(MyApplication.getIranianSansFont(getActivity()));
-        Toasty.Config.getInstance()
-                .setToastTypeface(MyApplication.getIranianSansFont(getActivity()))
-                .apply();
+
 
 
         btnStart.setOnClickListener(new View.OnClickListener() {
