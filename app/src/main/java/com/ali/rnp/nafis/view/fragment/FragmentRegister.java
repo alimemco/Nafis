@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
+import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.utils.Utils;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -158,6 +159,18 @@ public class FragmentRegister extends Fragment {
         emailEditTextLayout = rootView.findViewById(R.id.fragment_register_email_layout);
         usernameEditTextLayout = rootView.findViewById(R.id.fragment_register_username_layout);
         passwordEditTextLayout = rootView.findViewById(R.id.fragment_register_password_layout);
+
+        firstNameEditText.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        lastNameEditText.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        emailEditText.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        usernameEditText.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        sendButton.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+
+        firstEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        lastEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        emailEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        usernameEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        passwordEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
 
     }
 }

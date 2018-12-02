@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ali.rnp.nafis.R;
+import com.ali.rnp.nafis.view.CustomGridLayoutManager;
 import com.ali.rnp.nafis.view.DataModel.DataGenrator;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.adapter.QuestionAdapter;
@@ -20,6 +21,7 @@ public class Question_Activity extends AppCompatActivity {
     private Button pre;
     private Button next;
     private int RecyclerPosition;
+    private LinearLayoutManager customGridLayoutManager;
 
 
 
@@ -64,13 +66,15 @@ public class Question_Activity extends AppCompatActivity {
 
 
     private void setupRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
+        customGridLayoutManager = new CustomGridLayoutManager(this) {
+
             @Override
-            public boolean canScrollVertically() {
+            public boolean canScrollHorizontally() {
                 return false;
             }
+
         };
-        recyclerView.setLayoutManager(new LinearLayoutManager(Question_Activity.this, linearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(new CustomGridLayoutManager(Question_Activity.this, LinearLayoutManager.HORIZONTAL, false));
         QuestionAdapter questionAdapter = new QuestionAdapter(this);
         questionAdapter.SetupQuestionAdapter(DataGenrator.getQuestions());
         recyclerView.setNestedScrollingEnabled(false);
@@ -85,7 +89,7 @@ public class Question_Activity extends AppCompatActivity {
         pre.setTypeface(MyApplication.getIranianSansFont(this));
         next.setTypeface(MyApplication.getIranianSansFont(this));
     }
-
+/*
     public class CustomGridLayoutManager extends LinearLayoutManager {
         private boolean isScrollEnabled = true;
 
@@ -102,5 +106,5 @@ public class Question_Activity extends AppCompatActivity {
             //Similarly you can customize "canScrollHorizontally()" for managing horizontal scroll
             return isScrollEnabled && super.canScrollVertically();
         }
-    }
+    }*/
 }

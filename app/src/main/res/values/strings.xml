@@ -22,5 +22,10 @@
     <string name="usernameEditText">نام کاربری</string>
     <string name="passwordEditText">کلمه عبور</string>
     <string name="login_text_forgetPassword">کلمه عبور خود را فراموش کرده اید؟</string>
+    <string name="registerUser_firstName">نام</string>
+    <string name="registerUser_lastName">نام خانوادگی</string>
+    <string name="registerUser_email">ایمیل</string>
+    <string name="registerUser_username">نام کاربری</string>
+    <string name="registerUser_password">کلمه عبور</string>
 
 </resources>
