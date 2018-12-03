@@ -12,13 +12,17 @@ import android.widget.TextView;
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.Category;
 import com.ali.rnp.nafis.view.MyApplication;
+import com.ali.rnp.nafis.view.services.PicassoImageLoadingService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import ss.com.bannerslider.Slider;
+
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private Context context;
+    private Slider slider;
     private List<Category> categories;
     private static final int VIEW_TYPE_BANNER=0;
     private static final int VIEW_TYPE_DEFAULT=1;
@@ -101,17 +105,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class BannerAdapterHolder extends RecyclerView.ViewHolder {
-        private ImageView bannerImage;
+       // private ImageView bannerImage;
         private TextView listText;
         private TextView newsText;
         private BannerAdapterHolder(View itemView) {
             super(itemView);
-            bannerImage = itemView.findViewById(R.id.banner_main_image);
+           // bannerImage = itemView.findViewById(R.id.banner_main_image);
             listText = itemView.findViewById(R.id.banner_main_listText);
             newsText = itemView.findViewById(R.id.banner_main_news_text);
-           Picasso.get().load(R.drawable.banner_holder).placeholder(R.drawable.banner_holder).into(bannerImage);
+           // Picasso.get().load(R.drawable.banner_holder).placeholder(R.drawable.banner_holder).into(bannerImage);
             listText.setTypeface(MyApplication.getIranianSansFont(context));
             newsText.setTypeface(MyApplication.getIranianSansFont(context));
+            slider = itemView.findViewById(R.id.main_banner_slider);
+            Slider.init(new PicassoImageLoadingService(context));
+            slider.setAdapter(new MainSliderAdapter());
+            slider.setSelectedSlide(0);
         }
     }
 }

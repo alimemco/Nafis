@@ -32,13 +32,17 @@ import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
 import com.ali.rnp.nafis.view.DataModel.Category;
 import com.ali.rnp.nafis.view.MyApplication;
+import com.ali.rnp.nafis.view.adapter.MainSliderAdapter;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
+import com.ali.rnp.nafis.view.services.PicassoImageLoadingService;
 
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import ss.com.bannerslider.Slider;
+import ss.com.bannerslider.event.OnSlideClickListener;
 
 public class Main_Activity extends AppCompatActivity {
 
@@ -47,6 +51,7 @@ public class Main_Activity extends AppCompatActivity {
     private FragmentHome fragmentHome;
     private FragmentUser fragmentUser;
     private FragmentForm fragmentForm;
+    private Slider slider;
     android.support.v4.app.FragmentManager fragmentManager;
 
     private ImageView shopBtn;
@@ -68,6 +73,42 @@ public class Main_Activity extends AppCompatActivity {
                 .setToastTypeface(MyApplication.getIranianSansFont(this))
                 .apply();
 
+
+/*
+        slider.setOnSlideClickListener(new OnSlideClickListener() {
+            @Override
+            public void onSlideClick(int position) {
+                switch (position){
+                    case 0:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 1:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+
+
+                    case 2:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+
+
+                    case 3:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+
+
+                    case 4:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 5:
+                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+*/
 
     }
 

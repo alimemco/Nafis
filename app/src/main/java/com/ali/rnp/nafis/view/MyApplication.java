@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 
+
 public class MyApplication extends Application {
 
     private static Typeface iranianSansFont;
@@ -12,6 +13,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
     }
 
     public static Typeface getIranianSansFont(Context context){

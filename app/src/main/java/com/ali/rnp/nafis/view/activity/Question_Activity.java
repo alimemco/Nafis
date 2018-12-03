@@ -14,6 +14,8 @@ import com.ali.rnp.nafis.view.DataModel.DataGenrator;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.adapter.QuestionAdapter;
 
+import ir.neo.stepbarview.StepBarView;
+
 
 public class Question_Activity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class Question_Activity extends AppCompatActivity {
     private Button next;
     private int RecyclerPosition;
     private LinearLayoutManager customGridLayoutManager;
+    private StepBarView stepBarView;
 
 
 
@@ -88,23 +91,8 @@ public class Question_Activity extends AppCompatActivity {
         next = findViewById(R.id.activity_question_next);
         pre.setTypeface(MyApplication.getIranianSansFont(this));
         next.setTypeface(MyApplication.getIranianSansFont(this));
+
+
     }
-/*
-    public class CustomGridLayoutManager extends LinearLayoutManager {
-        private boolean isScrollEnabled = true;
 
-        public CustomGridLayoutManager(Context context) {
-            super(context);
-        }
-
-        public void setScrollEnabled(boolean flag) {
-            this.isScrollEnabled = flag;
-        }
-
-        @Override
-        public boolean canScrollVertically() {
-            //Similarly you can customize "canScrollHorizontally()" for managing horizontal scroll
-            return isScrollEnabled && super.canScrollVertically();
-        }
-    }*/
 }

@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/banner_main_image"
+    <ss.com.bannerslider.Slider
+        android:id="@+id/main_banner_slider"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:slider_interval="3000"
+        app:slider_loopSlides="true"
+        app:slider_defaultBanner="6"
+        app:chainUseRtl="true"
+        app:slider_animateIndicators="true"
         tools:src="@drawable/banner_holder" />
 
     <ImageView
@@ -53,7 +56,7 @@
         app:cardCornerRadius="@dimen/cardCornerRadius"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner_main_image">
+        app:layout_constraintTop_toBottomOf="@+id/main_banner_slider">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,4 +85,5 @@
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

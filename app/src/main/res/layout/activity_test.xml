@@ -8,89 +8,9 @@
     tools:context=".view.activity.Test">
 
 
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CREATE ACCOUNT"
-        android:textColor="#ffffff"
-        android:layout_marginTop="35dp"
-        android:textSize="23dp"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:id="@+id/email"
-        android:textColor="#fff"
-        android:layout_height="60dp"
-        android:layout_width="360dp"
-        android:background="#7986CB"
-        android:hint="Email"
-        android:textColorHint="#ffffff"
-        android:paddingLeft="20dp"
-        android:drawablePadding="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:layout_marginBottom="24dp"
-        android:layout_above="@+id/btn_save"
-        android:layout_centerHorizontal="true">
-    </EditText>
-
-    <EditText
-
-        android:layout_height="60dp"
-        android:layout_width="360dp"
-        android:background="#7986CB"
-        android:hint="Name"
-        android:inputType="text"
-        android:textColor="#fff"
-        android:textColorHint="#ffffff"
-        android:paddingLeft="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:drawablePadding="16dp"
-        android:id="@+id/nam_txt"
-        android:layout_above="@+id/sen_txt"
-        android:layout_alignLeft="@+id/sen_txt"
-        android:layout_alignStart="@+id/sen_txt"
-        android:layout_marginBottom="16dp">
-    </EditText>
-
-    <EditText
-        android:textColor="#fff"
-        android:layout_height="60dp"
-        android:layout_width="360dp"
-        android:background="#7986CB"
-        android:hint="Number"
-        android:textColorHint="#ffffff"
-        android:inputType="number"
-        android:paddingLeft="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:drawablePadding="16dp"
-        android:id="@+id/sen_txt"
-        android:layout_above="@+id/email"
-        android:layout_alignLeft="@+id/email"
-        android:layout_alignStart="@+id/email"
-        android:layout_marginBottom="17dp">
-    </EditText>
-
-    <TextView
-
+    <ss.com.bannerslider.Slider
+        android:id="@+id/bannerTest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Continue"
-        android:textColor="#ffffff"
-        android:textSize="19dp"
-        android:padding="16dp"
-        android:gravity="center"
-        android:background="#7986CB"
-        android:layout_marginBottom="16dp"
-        android:id="@+id/btn_save"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

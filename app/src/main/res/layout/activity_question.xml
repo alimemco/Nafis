@@ -26,14 +26,15 @@
         android:id="@+id/activity_question_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toTopOf="@+id/activity_question_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_question_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2"
         tools:listitem="@layout/question_item" />
 
     <ScrollView
@@ -78,6 +79,40 @@
         app:layout_constraintEnd_toStartOf="@+id/activity_question_next"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:scrollbarSize="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/activity_question_scrollView">
+
+        <ir.neo.stepbarview.StepBarView
+            android:id="@+id/my_stepBarView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#f0f"
+            android:paddingLeft="24dp"
+            android:paddingTop="8dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="8dp"
+            app:sbv_is_fixed_steps_line_width="true"
+            app:sbv_max_count="17"
+            app:sbv_steps_line_reached_colors="#fff"
+            app:sbv_steps_line_unreached_colors="#dbcecece"
+            app:sbv_steps_line_width="80dp"
+            app:sbv_steps_reached_colors="#fff"
+            app:sbv_steps_size="28dp"
+            app:sbv_steps_text_color="#f0f"
+            app:sbv_steps_unreached_colors="#dbcecece" />
+    </HorizontalScrollView>
 
 
 </android.support.constraint.ConstraintLayout>
