@@ -38,7 +38,7 @@
                 <shape>
                     <corners android:radius="@dimen/Standard_corner"/>
                     <solid android:color="@color/White"/>
-                    <stroke  android:color="#B0BEC5" android:width="1dp" />
+                    <stroke  android:color="@color/light_gray_disabled" android:width="1dp" />
 
                 </shape>
             </item>

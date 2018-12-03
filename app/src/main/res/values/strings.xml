@@ -27,5 +27,7 @@
     <string name="registerUser_email">ایمیل</string>
     <string name="registerUser_username">نام کاربری</string>
     <string name="registerUser_password">کلمه عبور</string>
+    <string name="validation_username">این قسمت نمی تواند خالی باشد</string>
+    <string name="validation_password">کلمه عبور حداقل باید 3 کاراکتر باشد</string>
 
 </resources>

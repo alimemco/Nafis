@@ -23,21 +23,33 @@ import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.utils.Utils;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import es.dmoral.toasty.Toasty;
 
-public class FragmentLogin extends Fragment {
+public class FragmentLogin extends Fragment implements Validator.ValidationListener {
 
+    @NotEmpty(messageResId = R.string.validation_username)
     private TextInputEditText username;
+
+    @NotEmpty(messageResId = R.string.validation_username)
+    @Password(min=3,messageResId = R.string.validation_password)
     private TextInputEditText password;
+
     private TextInputLayout usernameLayout;
     private TextInputLayout passwordLayout;
     private TextView forgetPassword;
 
     private Button btnStart;
+    private Validator validator;
 
     @Nullable
     @Override
@@ -54,42 +66,49 @@ public class FragmentLogin extends Fragment {
         forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         btnStart.setTypeface(MyApplication.getIranianSansFont(getActivity()));
 
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
 
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (Utils.checkConnection(getActivity())){
-                    if (!username.getText().toString().equals("") && !password.getText().toString().equals("")){
-                        loginUserJsonObject();
-                    }else {
-                        if (password.getText().toString().equals("")){
-                            Toasty.warning(getActivity(),"کلمه عبور نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
-                            password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-                            YoYo.with(Techniques.Shake)
-                                    .duration(1000)
-                                    .playOn(passwordLayout);
-
-                        }
-                        if (username.getText().toString().equals("")){
-                            Toasty.warning(getActivity(),"نام کابری نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
-                            username.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-                            YoYo.with(Techniques.Shake)
-                                    .duration(1000)
-                                    .playOn(usernameLayout);
-                        }
-
-                    }
-
-                }else {
-                    Toasty.info(getActivity(),"اینترنت در دسترس نیست"  ,Toast.LENGTH_SHORT).show();
-                }
-
+                validator.validate();
 
             }
         });
         return rootView;
+    }
+
+    private void checkLoginInfo() {
+        if (Utils.checkConnection(getActivity())){
+            if (!username.getText().toString().equals("") && !password.getText().toString().equals("")){
+                loginUserJsonObject();
+            }else {
+                if (password.getText().toString().equals("")){
+                    Toasty.warning(getActivity(),"کلمه عبور نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
+                    //password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                    YoYo.with(Techniques.Shake)
+                            .duration(1000)
+                            .playOn(passwordLayout);
+
+                }
+                if (username.getText().toString().equals("")){
+                    Toasty.warning(getActivity(),"نام کابری نمی تواند خالی باشد" ,Toast.LENGTH_SHORT).show();
+                    // username.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                    YoYo.with(Techniques.Shake)
+                            .duration(1000)
+                            .playOn(usernameLayout);
+                }
+
+            }
+
+        }else {
+            Toasty.info(getActivity(),"اینترنت در دسترس نیست"  ,Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void loginUserJsonObject(){
@@ -128,4 +147,25 @@ public class FragmentLogin extends Fragment {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onValidationSucceeded() {
+        checkLoginInfo();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getContext());
+
+            // Display error messages ;)
+            if (view instanceof TextInputEditText) {
+                ((TextInputEditText) view).setError(message);
+            } else {
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }
