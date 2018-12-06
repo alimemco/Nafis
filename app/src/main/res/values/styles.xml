@@ -27,7 +27,7 @@
 
     <style name="ButtonNext">
         <item name="android:background">@drawable/shape_button_next</item>
-        <item name="android:textColor">@color/White</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:text">@string/Button_form_next</item>
         <item name="android:textSize">@dimen/Xlarge_textSize_dp</item>
     </style>

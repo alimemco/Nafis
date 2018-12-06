@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
     implementation 'com.github.imaNNeoFighT:StepBarView:1.1.0'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
+
+
 
 
 

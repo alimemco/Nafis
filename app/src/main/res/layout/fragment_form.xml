@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/shape_button_next"
         android:text="@string/form_button_start"
-        android:textColor="@color/White"
+        android:textColor="@color/white"
         android:textSize="@dimen/large_textSize_dp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_form_description"
         app:layout_constraintEnd_toEndOf="parent"

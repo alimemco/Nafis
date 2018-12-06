@@ -1,11 +1,8 @@
 package com.ali.rnp.nafis.view.activity;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -14,15 +11,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,17 +26,14 @@ import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
 import com.ali.rnp.nafis.view.DataModel.Category;
 import com.ali.rnp.nafis.view.MyApplication;
-import com.ali.rnp.nafis.view.adapter.MainSliderAdapter;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
-import com.ali.rnp.nafis.view.services.PicassoImageLoadingService;
 
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import ss.com.bannerslider.Slider;
-import ss.com.bannerslider.event.OnSlideClickListener;
 
 public class Main_Activity extends AppCompatActivity {
 
@@ -209,7 +200,7 @@ public class Main_Activity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.White));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);

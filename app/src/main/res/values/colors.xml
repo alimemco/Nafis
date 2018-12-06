@@ -3,10 +3,10 @@
     <color name="colorPrimary">#1bbc9b</color>
     <color name="colorPrimaryDark">#14ae8f</color>
     <color name="colorAccent">#14ae8f</color>
-    <color name="blue_green_top">#1E88E5</color>
+    <color name="blue_green_top">#00B8D4</color>
     <color name="blue_green_bottom">#00cdac</color>
     <color name="backgroundApp">#fafafa</color>
-    <color name="White">#ffffff</color>
+    <color name="white">#ffffff</color>
     <color name="fragmentHome">#7986CB</color>
     <color name="fragmentUser">#FFB74D</color>
     <color name="fragmentForm">#e57373</color>

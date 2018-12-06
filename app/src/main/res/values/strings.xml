@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">نفیس</string>
+    <string name="app_name">نفیس | nafis</string>
     <string name="bottom_navigation_home">خانه</string>
     <string name="bottom_navigation_userManagement">مدیریت</string>
     <string name="bottom_navigation_form">فرم مشاوره</string>
@@ -29,5 +29,10 @@
     <string name="registerUser_password">کلمه عبور</string>
     <string name="validation_username">این قسمت نمی تواند خالی باشد</string>
     <string name="validation_password">کلمه عبور حداقل باید 3 کاراکتر باشد</string>
+    <string name="usernameNotExist">نام کابری وجود ندارد</string>
+    <string name="passwordNotExist">کلمه عبور صحیح نیست</string>
+    <string name="errorInGetData">خطا در دریافت اطلاعات</string>
+    <string name="successLogin">"با موفقیت وارد شدید :)</string>
+
 
 </resources>

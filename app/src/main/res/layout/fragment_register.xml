@@ -152,7 +152,7 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/shape_button_next"
             android:text="@string/UserRegister"
-            android:textColor="@color/White"
+            android:textColor="@color/white"
             android:textSize="@dimen/large_textSize_dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
