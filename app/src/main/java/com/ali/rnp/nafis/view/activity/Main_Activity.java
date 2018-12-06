@@ -2,7 +2,9 @@ package com.ali.rnp.nafis.view.activity;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +19,8 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,6 +52,7 @@ public class Main_Activity extends AppCompatActivity {
     private ImageView shopBtn;
     private ImageView searchBtn;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,7 @@ public class Main_Activity extends AppCompatActivity {
         setupToolbar();
         setupFragments();
         setupBottomNavigation();
+        statusBarColor();
 
         afterGetFromServer();
 
@@ -65,42 +71,20 @@ public class Main_Activity extends AppCompatActivity {
                 .apply();
 
 
-/*
-        slider.setOnSlideClickListener(new OnSlideClickListener() {
-            @Override
-            public void onSlideClick(int position) {
-                switch (position){
-                    case 0:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
+    }
 
-                    case 1:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void statusBarColor() {
+        Window window = this.getWindow();
 
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-                    case 2:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
-
-                    case 3:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
-
-
-                    case 4:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
-
-                    case 5:
-                        Toast.makeText(Main_Activity.this, ""+position, Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
-*/
-
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_gray));
     }
 
     private void afterGetFromServer() {
@@ -200,24 +184,28 @@ public class Main_Activity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
+
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, 0, 0);
-
+        drawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorPrimary));
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+        actionBar.setTitle(getResources().getString(R.string.company_name));
 
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             if (toolbar.getChildAt(i) instanceof TextView){
                 ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getbYekanFont(this));
             }
         }
+
 
     }
 
