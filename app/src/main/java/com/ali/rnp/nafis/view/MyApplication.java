@@ -23,7 +23,7 @@ public class MyApplication extends Application {
         return iranianSansFont;
     }
 
-    public static Typeface getbYekanFont(Context context) {
+    public static Typeface getBYekanFont(Context context) {
         if(bYekanFont==null){
             bYekanFont=Typeface.createFromAsset(context.getAssets(), "fonts/byekan.ttf");
         }

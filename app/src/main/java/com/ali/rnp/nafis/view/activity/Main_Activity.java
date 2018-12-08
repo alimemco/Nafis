@@ -76,14 +76,8 @@ public class Main_Activity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void statusBarColor() {
         Window window = this.getWindow();
-
-// clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-// finally change the color
         window.setStatusBarColor(ContextCompat.getColor(this,R.color.light_gray));
     }
 
@@ -184,7 +178,7 @@ public class Main_Activity extends AppCompatActivity {
 
         DrawerLayout drawerLayout = findViewById(R.id.main_drawer_layout);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -195,19 +189,20 @@ public class Main_Activity extends AppCompatActivity {
 
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, 0, 0);
-        drawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorPrimary));
+        drawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorPrimaryDark));
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         actionBar.setTitle(getResources().getString(R.string.company_name));
 
         for (int i = 0; i < toolbar.getChildCount(); i++) {
             if (toolbar.getChildAt(i) instanceof TextView){
-                ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getbYekanFont(this));
+                ((TextView) toolbar.getChildAt(i)).setTypeface(MyApplication.getBYekanFont(this));
             }
         }
 
 
     }
+
 
     private void initViews() {
         bottomNavigationView = findViewById(R.id.mainActivity_BottomNavigation);

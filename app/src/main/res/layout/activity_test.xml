@@ -7,10 +7,13 @@
     android:background="#565656"
     tools:context=".view.activity.Test">
 
-
-    <ss.com.bannerslider.Slider
-        android:id="@+id/bannerTest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<android.support.v4.widget.CircleImageView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/meal_image_order"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/default_avatar"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

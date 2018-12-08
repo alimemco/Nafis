@@ -19,6 +19,34 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"/>
+
+        <params.com.stepview.StatusViewScroller
+            android:id="@+id/activity_question_StatusViewScroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:stepCount="17"
+            app:currentCount="2"
+            app:drawLabels="true"
+            app:circleColorType="fillStroke"
+            app:lineGap="5dp"
+            app:lineWidth="3dp"
+            app:lineColor="@android:color/black"
+            app:lineColorIncomplete="#B4B7BA"
+            app:lineColorCurrent="#91A8D0"
+            app:circleColor="#CC004B8D"
+            app:circleColorCurrent="#004B8D"
+            app:circleColorIncomplete="#BCBCBE"
+            app:textColorLabels="@android:color/white"
+            app:textColorLabelsCurrent="@android:color/white"
+            app:textColorLabelsIncomplete="@android:color/black"
+            app:circleStrokeWidth="4dp"
+            app:circleStrokeColorCurrent="#91A8D0"
+            app:textSizeLabels="15sp"
+            app:completeDrawable="@drawable/ic_magnifier"
+            >
+
+        </params.com.stepview.StatusViewScroller>
+
     </android.support.design.widget.AppBarLayout>
 
 
@@ -95,7 +123,7 @@
         app:layout_constraintTop_toTopOf="@+id/activity_question_scrollView">
 
         <ir.neo.stepbarview.StepBarView
-            android:id="@+id/my_stepBarView3"
+            android:id="@+id/activity_question_stepBarView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#f0f"
@@ -111,7 +139,9 @@
             app:sbv_steps_reached_colors="#fff"
             app:sbv_steps_size="28dp"
             app:sbv_steps_text_color="#f0f"
-            app:sbv_steps_unreached_colors="#dbcecece" />
+            app:sbv_steps_unreached_colors="#dbcecece"
+
+            />
     </HorizontalScrollView>
 
 

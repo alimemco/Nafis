@@ -18,16 +18,13 @@ import ss.com.bannerslider.Slider;
 
 public class Test extends AppCompatActivity {
 
-    private Slider slider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        slider = findViewById(R.id.bannerTest);
-        Slider.init(new PicassoImageLoadingService(this));
-        slider.setAdapter(new MainSliderAdapter());
-        slider.setSelectedSlide(0);
+
 
 
 
