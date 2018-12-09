@@ -1,7 +1,9 @@
 package com.ali.rnp.nafis.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.ali.rnp.nafis.view.DataModel.SharedPrefManager;
 import com.ali.rnp.nafis.view.DataModel.User;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.activity.Main_Activity;
+import com.ali.rnp.nafis.view.utils.BlurImage;
 import com.ali.rnp.nafis.view.utils.Utils;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -34,6 +37,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +58,8 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     private TextInputLayout usernameLayout;
     private TextInputLayout passwordLayout;
     private TextView forgetPassword;
+
+    private ImageView userInfoImageBackground;
 
     private ActionProcessButton btnSignIn;
 
@@ -161,12 +167,26 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                                 public void onInfoReceived(User user) {
                                     if (user != null) {
                                         TextView userInfoText = getActivity().findViewById(R.id.banner_drawer_layout_txt_name);
+                                        TextView userInfoEmail = getActivity().findViewById(R.id.banner_drawer_layout_txt_email);
+                                        userInfoImageBackground = getActivity().findViewById(R.id.banner_drawer_layout_img_background);
                                         userInfoText.setText(user.getFirstName() + " " + user.getLastName());
                                         com.mikhaellopez.circularimageview.CircularImageView userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
 
                                         if (!user.getImage_url().equals("")){
                                             Picasso.get().load(user.getImage_url()).into(userImageProfile);
+                                            Picasso.get()
+                                                    .load(user.getImage_url())
+                                                    .error(R.drawable.default_avatar)
+                                                    .placeholder(R.drawable.default_avatar)
+                                                    .into(target);
                                         }
+
+                                        if (!user.getEmail().equals("")&& !user.getEmail().isEmpty() ){
+                                            userInfoEmail.setText(user.getEmail());
+                                            userInfoEmail.setVisibility(View.VISIBLE);
+                                        }
+
+
 
                                         sharedPrefManager.SaveUserInfo(user);
                                     }
@@ -246,9 +266,23 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
     }
 
-    public interface displayUserInfo {
-        void onReveivedInfo(User user);
-    }
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, Main_Activity.BLUR_PRECENTAGE));
+        }
+
+        @Override
+        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            userInfoImageBackground.setImageResource(R.mipmap.ic_launcher);
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+    };
+
 
 
 }

@@ -3,6 +3,8 @@ package com.ali.rnp.nafis.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -10,6 +12,7 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -37,7 +40,9 @@ import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
+import com.ali.rnp.nafis.view.utils.BlurImage;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -51,14 +56,20 @@ public class Main_Activity extends AppCompatActivity {
     private FragmentUser fragmentUser;
     private FragmentForm fragmentForm;
     private NavigationView navigationView;
+
     private TextView userInfoText;
+    private TextView userInfoEmail;
+    private ImageView userInfoImageBackground;
     private com.mikhaellopez.circularimageview.CircularImageView userImage;
+
     SharedPrefManager sharedPrefManager;
     DrawerLayout drawerLayout;
     android.support.v4.app.FragmentManager fragmentManager;
 
     private ImageView shopBtn;
     private ImageView searchBtn;
+
+    public static int BLUR_PRECENTAGE=50;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -88,7 +99,10 @@ public class Main_Activity extends AppCompatActivity {
     private void setupNavigationView() {
         navigationView = findViewById(R.id.main_navigation);
         userInfoText = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_txt_name);
+        userInfoEmail = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_txt_email);
+
         userInfoText.setTypeface(MyApplication.getBYekanFont(this));
+        userInfoImageBackground = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_background);
         userImage  = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_user);
         setUserInfoFromShPref();
 
@@ -116,7 +130,8 @@ public class Main_Activity extends AppCompatActivity {
                         user.setImage_url(null);
                         sharedPrefManager.SaveUserInfo(user);
                         setUserInfoFromShPref();
-                        Picasso.get().load(R.drawable.default_avatar).into(userImage);
+                        setBlurBannerBackground();
+                        userInfoEmail.setVisibility(View.GONE);
 
                         drawerLayout.closeDrawers();
                         break;
@@ -264,9 +279,15 @@ public class Main_Activity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void setUserInfoFromShPref() {
+
+        userInfoImageBackground.setTag(target);
+
+        setBlurBannerBackground();
+
         String first_name = sharedPrefManager.getUserInfo().getFirstName();
         String last_name = sharedPrefManager.getUserInfo().getLastName();
         String image_url = sharedPrefManager.getUserInfo().getImage_url();
+        String email = sharedPrefManager.getUserInfo().getEmail();
 
         if (first_name != null &&
                 !first_name.isEmpty() &&
@@ -276,11 +297,32 @@ public class Main_Activity extends AppCompatActivity {
 
             if (!image_url.equals("")){
                 Picasso.get().load(image_url).into(userImage);
+
+                Picasso.get()
+                        .load(image_url)
+                        .error(R.drawable.default_avatar)
+                        .placeholder(R.drawable.default_avatar)
+                        .into(target);
+            }
+
+
+
+            if (!email.equals("")&& !email.isEmpty() ){
+                userInfoEmail.setText(email);
             }
 
         }else {
             userInfoText.setText(R.string.userQuest);
+            userInfoEmail.setVisibility(View.GONE);
         }
+    }
+
+    private void setBlurBannerBackground() {
+        Picasso.get()
+                .load(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .placeholder(R.drawable.avatar)
+                .into(target);
     }
 
 
@@ -294,4 +336,21 @@ public class Main_Activity extends AppCompatActivity {
 
 
     }
+
+    Target target = new Target() {
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, BLUR_PRECENTAGE));
+        }
+
+        @Override
+        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+            userInfoImageBackground.setImageResource(R.mipmap.ic_launcher);
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
+    };
 }
