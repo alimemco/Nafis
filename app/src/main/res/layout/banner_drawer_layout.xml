@@ -19,17 +19,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/banner_menu_drawer" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/banner_drawer_layout_img_user"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/default_avatar"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:src="@drawable/default_avatar"
+        app:civ_border="true"
+        app:civ_border_color="#3f51b5"
+        app:civ_border_width="3dp"
+        app:civ_shadow="true"
+        app:civ_shadow_color="#3f51b5"
+        app:civ_shadow_radius="0"
+        />
 
     <TextView
         android:id="@+id/banner_drawer_layout_txt_name"
@@ -41,13 +49,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="کاربر مهمان"
+        android:text="@string/userQuest"
         android:textColor="@color/white"
         android:textSize="@dimen/large_textSize_sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/banner_drawer_layout_img_user" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@
     <string name="bottom_navigation_userManagement">مدیریت</string>
     <string name="bottom_navigation_form">فرم مشاوره</string>
     <string name="menu_loginSignUp">ورود</string>
+    <string name="menu_loginLogOut">خروج</string>
     <string name="menu_about">درباره ما</string>
     <string name="menuToolbar_shop">فروشگاه</string>
     <string name="menuToolbar_search">جست و جو</string>
@@ -34,6 +35,8 @@
     <string name="passwordNotExist">کلمه عبور صحیح نیست</string>
     <string name="errorInGetData">خطا در دریافت اطلاعات</string>
     <string name="successLogin">"با موفقیت وارد شدید :)</string>
+    <string name="successLoOut">"با موفقیت خارج شدید :)</string>
+    <string name="userQuest">کاربر مهمان</string>
 
 
 </resources>

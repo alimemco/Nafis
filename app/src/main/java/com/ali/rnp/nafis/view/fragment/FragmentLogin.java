@@ -1,5 +1,6 @@
 package com.ali.rnp.nafis.view.fragment;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,16 +9,22 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.ApiService;
+import com.ali.rnp.nafis.view.DataModel.SharedPrefManager;
+import com.ali.rnp.nafis.view.DataModel.User;
 import com.ali.rnp.nafis.view.MyApplication;
+import com.ali.rnp.nafis.view.activity.Main_Activity;
 import com.ali.rnp.nafis.view.utils.Utils;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -26,6 +33,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +55,11 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     private TextInputLayout passwordLayout;
     private TextView forgetPassword;
 
-    private Button btnStart;
     private ActionProcessButton btnSignIn;
 
     private Validator validator;
+
+    SharedPrefManager sharedPrefManager;
 
     @Nullable
     @Override
@@ -61,7 +70,6 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         forgetPassword = rootView.findViewById(R.id.fragment_login_forgetPassword_text);
         usernameLayout = rootView.findViewById(R.id.fragment_login_InputLayout_username);
         passwordLayout = rootView.findViewById(R.id.fragment_login_InputLayout_password);
-        // btnStart = rootView.findViewById(R.id.fragment_login_buttonStart);
         btnSignIn = rootView.findViewById(R.id.fragment_login_processButton);
 
         usernameLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
@@ -69,6 +77,8 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         btnSignIn.setTypeface(MyApplication.getIranianSansFont(getActivity()));
 
+
+        sharedPrefManager = new SharedPrefManager(getContext());
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -92,7 +102,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     private void checkLoginInfo() {
         if (Utils.checkConnection(getActivity())) {
             if (!username.getText().toString().equals("") && !password.getText().toString().equals("")) {
-                loginWayButton(50,false,getResources().getString(R.string.UserLogin));
+                loginWayButton(50, false, getResources().getString(R.string.UserLogin));
                 loginUserJsonObject();
             } else {
                 if (password.getText().toString().equals("")) {
@@ -135,7 +145,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                     switch (status) {
 
                         case 0:
-                            loginWayButton(-1,true,getResources().getString(R.string.usernameNotExist));
+                            loginWayButton(-1, true, getResources().getString(R.string.usernameNotExist));
                             YoYo.with(Techniques.Shake)
                                     .duration(1000)
                                     .playOn(usernameLayout);
@@ -145,14 +155,30 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
                         case 1:
 
-                            loginWayButton(100,true,getResources().getString(R.string.successLogin));
+                            loginWayButton(100, true, getResources().getString(R.string.successLogin));
+                            apiService.UserInfo(username.getText().toString(), new ApiService.onUserInfoReceived() {
+                                @Override
+                                public void onInfoReceived(User user) {
+                                    if (user != null) {
+                                        TextView userInfoText = getActivity().findViewById(R.id.banner_drawer_layout_txt_name);
+                                        userInfoText.setText(user.getFirstName() + " " + user.getLastName());
+                                        com.mikhaellopez.circularimageview.CircularImageView userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
+
+                                        if (!user.getImage_url().equals("")){
+                                            Picasso.get().load(user.getImage_url()).into(userImageProfile);
+                                        }
+
+                                        sharedPrefManager.SaveUserInfo(user);
+                                    }
+                                }
+                            });
 
 
                             break;
 
                         case 2:
 
-                            loginWayButton(-1,true,getResources().getString(R.string.passwordNotExist));
+                            loginWayButton(-1, true, getResources().getString(R.string.passwordNotExist));
 
                             YoYo.with(Techniques.Shake)
                                     .duration(1000)
@@ -163,7 +189,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                             break;
 
                         case 404:
-                            loginWayButton(-1,true,getResources().getString(R.string.errorInGetData));
+                            loginWayButton(-1, true, getResources().getString(R.string.errorInGetData));
 
                             break;
 
@@ -184,8 +210,6 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-
-
 
 
         for (ValidationError error : errors) {
@@ -213,7 +237,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     }
 
 
-    private void loginWayButton(int Progress,boolean MODE,CharSequence TextButton) {
+    private void loginWayButton(int Progress, boolean MODE, CharSequence TextButton) {
 
         btnSignIn.setProgress(Progress);
         btnSignIn.setText(TextButton);
@@ -222,6 +246,9 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
     }
 
+    public interface displayUserInfo {
+        void onReveivedInfo(User user);
+    }
 
 
 }

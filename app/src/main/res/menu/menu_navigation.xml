@@ -6,6 +6,10 @@
         <item
             android:id="@+id/menu_loginSignUp"
             android:title="@string/menu_loginSignUp"/>
+
+        <item
+        android:id="@+id/menu_logOut"
+        android:title="@string/menu_loginLogOut"/>
     </group>
 
     <group>

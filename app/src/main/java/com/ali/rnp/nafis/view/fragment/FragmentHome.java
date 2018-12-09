@@ -66,6 +66,7 @@ public class FragmentHome extends Fragment {
 
                 }else {
                     Toast.makeText(getContext(), "ارتباط با سرور برقرار نشد", Toast.LENGTH_LONG).show();
+
                 }
 
             }

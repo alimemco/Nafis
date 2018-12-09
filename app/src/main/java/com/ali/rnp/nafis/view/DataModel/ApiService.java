@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApiService {
-    private static final String TAG = "ApiService";
     private static final String categoryLinkApi="http://nafis-app.ir/apiService/api/categories.php";
     private static final String loginUserLinkApi="http://nafis-app.ir/apiService/api/user/userLogin.php";
     private static final String registerUserLinkApi="http://nafis-app.ir/apiService/api/user/userRegister.php";
+    private static final String userInfoLinkApi="http://nafis-app.ir/apiService/api/user/userInfo.php";
     private int timeOut=10000;
     private Context context;
     private int responseLength =0;
@@ -31,7 +32,7 @@ public class ApiService {
 
     public void getCategoryFromServer(final onGetCategories onGetCategories){
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
+        final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 responseLength(response);
@@ -41,13 +42,16 @@ public class ApiService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 onGetCategories.onReceivedCategory(null);
+
+
             }
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
-    }
 
+        
+    }
 
     public void loginUser(JSONObject jsonObject, final onLoginUserReceived onLoginUserReceived){
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, loginUserLinkApi, jsonObject, new Response.Listener<JSONObject>() {
@@ -93,6 +97,57 @@ public class ApiService {
         Volley.newRequestQueue(context).add(request);
     }
 
+    public void UserInfo(String username, final onUserInfoReceived onUserInfoReceived){
+
+        JSONObject jsonObjectUser = new JSONObject();
+        try {
+            jsonObjectUser.put("username",username);
+            } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, userInfoLinkApi, jsonObjectUser, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                parseUserInfoJson(response,onUserInfoReceived);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onUserInfoReceived.onInfoReceived(null);
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+
+    }
+
+    private void parseUserInfoJson(JSONObject response,onUserInfoReceived onUserInfoReceived) {
+
+        User user = new User();
+
+        try {
+            JSONObject jsonObject = response.getJSONObject("userInfo");
+            user.setUsername(jsonObject.getString("user_login"));
+            user.setEmail(jsonObject.getString("user_email"));
+            user.setFirstName(jsonObject.getString("first_name"));
+            user.setLastName(jsonObject.getString("last_name"));
+            user.setCapacity( jsonObject.getString("wp_capabilities"));
+
+            user.setImage_url(jsonObject.getString("user_url"));
+
+            onUserInfoReceived.onInfoReceived(user);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            onUserInfoReceived.onInfoReceived(null);
+        }
+
+    }
+
     private void parseCategoryJson(JSONObject response,onGetCategories onGetCategories) {
 
         List<Category> categories = new ArrayList<>();
@@ -129,6 +184,8 @@ public class ApiService {
         responseLength--;
     }
 
+
+
     public interface onGetCategories{
         void onReceivedCategory(List<Category> categories);
     }
@@ -139,5 +196,9 @@ public class ApiService {
 
     public interface onRegisterUserReceived {
         void onRegisterUser(int status);
+    }
+
+    public interface onUserInfoReceived{
+        void onInfoReceived(User user);
     }
 }

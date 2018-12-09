@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,5 +173,9 @@ public class FragmentRegister extends Fragment {
         usernameEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
         passwordEditTextLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
 
+    }
+
+    private boolean isEmailValid(String email){
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
