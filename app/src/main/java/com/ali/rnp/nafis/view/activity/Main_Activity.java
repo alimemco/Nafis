@@ -12,7 +12,6 @@ import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,7 +68,7 @@ public class Main_Activity extends AppCompatActivity {
     private ImageView shopBtn;
     private ImageView searchBtn;
 
-    public static int BLUR_PRECENTAGE=50;
+    public static int BLUR_PRECENTAGE=70;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -84,9 +83,15 @@ public class Main_Activity extends AppCompatActivity {
         setupBottomNavigation();
         statusBarColor();
         setupNavigationView();
-        setUserInfoFromShPref();
 
         afterGetFromServer();
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setUserInfoFromShPref();
+            }
+        });
 
         Toasty.Config.getInstance()
                 .setToastTypeface(MyApplication.getIranianSansFont(this))
@@ -119,21 +124,27 @@ public class Main_Activity extends AppCompatActivity {
 
 
                     case R.id.menu_logOut:
-
-                        Toasty.info(Main_Activity.this,"با موفقیت از حساب کابری خارج شدید",Toast.LENGTH_SHORT).show();
-                        User user = new User();
-                        user.setUsername(null);
-                        user.setEmail(null);
-                        user.setFirstName(null);
-                        user.setLastName(null);
-                        user.setCapacity(null);
-                        user.setImage_url(null);
-                        sharedPrefManager.SaveUserInfo(user);
-                        setUserInfoFromShPref();
-                        setBlurBannerBackground();
-                        userInfoEmail.setVisibility(View.GONE);
-
                         drawerLayout.closeDrawers();
+                        Toasty.info(Main_Activity.this,"با موفقیت از حساب کابری خارج شدید",Toast.LENGTH_SHORT).show();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                User user = new User();
+                                user.setUsername(null);
+                                user.setEmail(null);
+                                user.setFirstName(null);
+                                user.setLastName(null);
+                                user.setCapacity(null);
+                                user.setImage_url(null);
+                                sharedPrefManager.SaveUserInfo(user);
+                                setUserInfoFromShPref();
+                                setBlurBannerBackgroundDefault();
+                                userInfoEmail.setVisibility(View.GONE);
+                            }
+                        });
+
+
                         break;
 
                     case R.id.menu_about:
@@ -282,7 +293,7 @@ public class Main_Activity extends AppCompatActivity {
 
         userInfoImageBackground.setTag(target);
 
-        setBlurBannerBackground();
+        setBlurBannerBackgroundDefault();
 
         String first_name = sharedPrefManager.getUserInfo().getFirstName();
         String last_name = sharedPrefManager.getUserInfo().getLastName();
@@ -300,8 +311,8 @@ public class Main_Activity extends AppCompatActivity {
 
                 Picasso.get()
                         .load(image_url)
-                        .error(R.drawable.default_avatar)
-                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.avatar)
+                        .placeholder(R.drawable.avatar)
                         .into(target);
             }
 
@@ -317,7 +328,10 @@ public class Main_Activity extends AppCompatActivity {
         }
     }
 
-    private void setBlurBannerBackground() {
+    private void setBlurBannerBackgroundDefault() {
+
+        Picasso.get().load(R.drawable.avatar).into(userImage);
+
         Picasso.get()
                 .load(R.drawable.avatar)
                 .error(R.drawable.avatar)

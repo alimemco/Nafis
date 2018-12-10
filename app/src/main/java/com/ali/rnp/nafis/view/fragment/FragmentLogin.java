@@ -1,6 +1,5 @@
 package com.ali.rnp.nafis.view.fragment;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -11,12 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +56,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     private TextView forgetPassword;
 
     private ImageView userInfoImageBackground;
+    private com.mikhaellopez.circularimageview.CircularImageView userImageProfile;
 
     private ActionProcessButton btnSignIn;
 
@@ -170,15 +167,19 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                                         TextView userInfoEmail = getActivity().findViewById(R.id.banner_drawer_layout_txt_email);
                                         userInfoImageBackground = getActivity().findViewById(R.id.banner_drawer_layout_img_background);
                                         userInfoText.setText(user.getFirstName() + " " + user.getLastName());
-                                        com.mikhaellopez.circularimageview.CircularImageView userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
+                                        userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
 
                                         if (!user.getImage_url().equals("")){
                                             Picasso.get().load(user.getImage_url()).into(userImageProfile);
                                             Picasso.get()
                                                     .load(user.getImage_url())
-                                                    .error(R.drawable.default_avatar)
-                                                    .placeholder(R.drawable.default_avatar)
+                                                    .error(R.drawable.avatar)
+                                                    .placeholder(R.drawable.avatar)
                                                     .into(target);
+                                        }
+
+                                        if (user.getImage_url().equals("")){
+                                            setDefaultBannerBackgroundProfile();
                                         }
 
                                         if (!user.getEmail().equals("")&& !user.getEmail().isEmpty() ){
@@ -283,6 +284,15 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         }
     };
 
+    private void setDefaultBannerBackgroundProfile() {
+        Picasso.get().load(R.drawable.avatar).into(userImageProfile);
+
+        Picasso.get()
+                .load(R.drawable.avatar)
+                .error(R.drawable.avatar)
+                .placeholder(R.drawable.avatar)
+                .into(target);
+    }
 
 
 }

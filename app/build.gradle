@@ -35,11 +35,11 @@ dependencies {
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.github.GrenderG:Toasty:1.3.0'
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
-    implementation 'com.github.imaNNeoFighT:StepBarView:1.1.0'
     implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
     implementation 'com.params.stepview:stepview:1.0.1'
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
+    implementation 'com.shuhart.stepview:stepview:1.4.0'
 
 
 

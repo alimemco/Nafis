@@ -1,12 +1,14 @@
 package com.ali.rnp.nafis.view.activity;
 
-import android.content.Context;
+
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.CustomGridLayoutManager;
@@ -14,8 +16,7 @@ import com.ali.rnp.nafis.view.DataModel.DataGenrator;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.adapter.QuestionAdapter;
 
-import ir.neo.stepbarview.StepBarView;
-import params.com.stepview.StatusView;
+
 import params.com.stepview.StatusViewScroller;
 
 
@@ -26,10 +27,8 @@ public class Question_Activity extends AppCompatActivity {
     private Button next;
     private int RecyclerPosition;
     private LinearLayoutManager customGridLayoutManager;
-    private StepBarView stepBarView;
     private StatusViewScroller statusViewScroller;
-    private StatusView statusView;
-    private int scrollPositionX=0;
+
 
 
 
@@ -43,12 +42,7 @@ public class Question_Activity extends AppCompatActivity {
 
 
 
-        stepBarView.setOnStepChangeListener(new StepBarView.OnStepChangeListener() {
-            @Override
-            public void onStepChanged(int i) {
-                recyclerView.getLayoutManager().scrollToPosition(i-1);
-            }
-        });
+
         RecyclerPosition = 0;
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,42 +52,48 @@ public class Question_Activity extends AppCompatActivity {
                     RecyclerPosition++;
                     recyclerView.getLayoutManager().scrollToPosition(RecyclerPosition);
 
-                    statusViewScroller.scrollToStep(RecyclerPosition+1);
+                    statusViewScroller.getStatusView().setCurrentCount(RecyclerPosition+1);
 
-                    statusView.setCurrentCount(RecyclerPosition+1);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            statusViewScroller.scrollToStep((RecyclerPosition-1));
+                        }
+                    },1);
 
-
-
-/*
-                    stepBarView.setReachedStep(RecyclerPosition+1);
-                    stepBarView.scrollTo(scrollPositionX+154,0);
-                    scrollPositionX=scrollPositionX+154;
-*/
 
                 }
+
+
             }
         });
 
         pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (RecyclerPosition >= 1) {
 
                     RecyclerPosition--;
                     recyclerView.getLayoutManager().scrollToPosition(RecyclerPosition);
 
-                    statusViewScroller.scrollToStep(RecyclerPosition+1);
+                    statusViewScroller.getStatusView().setCurrentCount(RecyclerPosition+1);
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            statusViewScroller.scrollToStep((RecyclerPosition-1));
+                        }
+                    },1);
 
 
-                    statusView.setCurrentCount(6);
-/*
-                    stepBarView.setReachedStep(RecyclerPosition+1);
-
-                    stepBarView.scrollTo(scrollPositionX-154,0);
-                    scrollPositionX=scrollPositionX-154;*/
 
                 }
+
             }
+
         });
 
     }
@@ -125,11 +125,6 @@ public class Question_Activity extends AppCompatActivity {
         next.setTypeface(MyApplication.getIranianSansFont(this));
 
         statusViewScroller = findViewById(R.id.activity_question_StatusViewScroller);
-        statusView = new StatusView(this);
-        statusViewScroller.setStatusView(statusView);
-        stepBarView = findViewById(R.id.activity_question_stepBarView);
-        stepBarView.setReachedStep(1);
-        stepBarView.setAllowTouchStepTo(17);
 
     }
 
