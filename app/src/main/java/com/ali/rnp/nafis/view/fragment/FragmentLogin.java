@@ -10,9 +10,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,9 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
     private ImageView userInfoImageBackground;
     private com.mikhaellopez.circularimageview.CircularImageView userImageProfile;
+    private TextView userInfoEmail;
+    private TextView userInfoText;
+    private Button logOutBtn;
 
     private ActionProcessButton btnSignIn;
 
@@ -68,18 +73,8 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_login, null, false);
-        username = rootView.findViewById(R.id.fragment_login_username);
-        password = rootView.findViewById(R.id.fragment_login_password);
-        forgetPassword = rootView.findViewById(R.id.fragment_login_forgetPassword_text);
-        usernameLayout = rootView.findViewById(R.id.fragment_login_InputLayout_username);
-        passwordLayout = rootView.findViewById(R.id.fragment_login_InputLayout_password);
-        btnSignIn = rootView.findViewById(R.id.fragment_login_processButton);
 
-        usernameLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
-        passwordLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
-        forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
-        btnSignIn.setTypeface(MyApplication.getIranianSansFont(getActivity()));
-
+        initViews(rootView);
 
         sharedPrefManager = new SharedPrefManager(getContext());
 
@@ -101,6 +96,27 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         return rootView;
     }
 
+    private void initViews(View rootView) {
+        username = rootView.findViewById(R.id.fragment_login_username);
+        password = rootView.findViewById(R.id.fragment_login_password);
+        forgetPassword = rootView.findViewById(R.id.fragment_login_forgetPassword_text);
+        usernameLayout = rootView.findViewById(R.id.fragment_login_InputLayout_username);
+        passwordLayout = rootView.findViewById(R.id.fragment_login_InputLayout_password);
+        btnSignIn = rootView.findViewById(R.id.fragment_login_processButton);
+
+        userInfoText = getActivity().findViewById(R.id.banner_drawer_layout_txt_name);
+        userInfoEmail = getActivity().findViewById(R.id.banner_drawer_layout_txt_email);
+        userInfoImageBackground = getActivity().findViewById(R.id.banner_drawer_layout_img_background);
+        userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
+        logOutBtn = getActivity().findViewById(R.id.banner_drawer_layout_btn_log_out);
+
+
+        usernameLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        passwordLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        forgetPassword.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+        btnSignIn.setTypeface(MyApplication.getIranianSansFont(getActivity()));
+    }
+
 
     private void checkLoginInfo() {
         if (Utils.checkConnection(getActivity())) {
@@ -110,15 +126,13 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
             } else {
                 if (password.getText().toString().equals("")) {
                     Toasty.warning(getActivity(), "کلمه عبور نمی تواند خالی باشد", Toast.LENGTH_SHORT).show();
-                    //password.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-                    YoYo.with(Techniques.Shake)
+                     YoYo.with(Techniques.Shake)
                             .duration(1000)
                             .playOn(passwordLayout);
 
                 }
                 if (username.getText().toString().equals("")) {
                     Toasty.warning(getActivity(), "نام کابری نمی تواند خالی باشد", Toast.LENGTH_SHORT).show();
-                    // username.getBackground().mutate().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     YoYo.with(Techniques.Shake)
                             .duration(1000)
                             .playOn(usernameLayout);
@@ -163,13 +177,13 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                                 @Override
                                 public void onInfoReceived(User user) {
                                     if (user != null) {
-                                        TextView userInfoText = getActivity().findViewById(R.id.banner_drawer_layout_txt_name);
-                                        TextView userInfoEmail = getActivity().findViewById(R.id.banner_drawer_layout_txt_email);
-                                        userInfoImageBackground = getActivity().findViewById(R.id.banner_drawer_layout_img_background);
-                                        userInfoText.setText(user.getFirstName() + " " + user.getLastName());
-                                        userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
 
-                                        if (!user.getImage_url().equals("")){
+                                         userInfoText.setText(user.getFirstName() + " " + user.getLastName());
+                                        logOutBtn.setVisibility(View.VISIBLE);
+                                        userImageProfile.setBorderColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
+
+
+                                        if (!user.getImage_url().equals("")) {
                                             Picasso.get().load(user.getImage_url()).into(userImageProfile);
                                             Picasso.get()
                                                     .load(user.getImage_url())
@@ -178,15 +192,14 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                                                     .into(target);
                                         }
 
-                                        if (user.getImage_url().equals("")){
+                                        if (user.getImage_url().equals("")) {
                                             setDefaultBannerBackgroundProfile();
                                         }
 
-                                        if (!user.getEmail().equals("")&& !user.getEmail().isEmpty() ){
+                                        if (!user.getEmail().equals("") && !user.getEmail().isEmpty()) {
                                             userInfoEmail.setText(user.getEmail());
                                             userInfoEmail.setVisibility(View.VISIBLE);
                                         }
-
 
 
                                         sharedPrefManager.SaveUserInfo(user);

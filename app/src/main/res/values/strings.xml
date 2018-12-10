@@ -37,6 +37,7 @@
     <string name="successLogin">"با موفقیت وارد شدید :)</string>
     <string name="successLoOut">"با موفقیت خارج شدید :)</string>
     <string name="userQuest">کاربر مهمان</string>
+    <string name="btn_logOut">خروج از حساب کاربری</string>
 
 
 </resources>

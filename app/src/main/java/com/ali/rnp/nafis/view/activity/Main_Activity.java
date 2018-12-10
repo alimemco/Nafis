@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,6 +62,7 @@ public class Main_Activity extends AppCompatActivity {
     private TextView userInfoEmail;
     private ImageView userInfoImageBackground;
     private com.mikhaellopez.circularimageview.CircularImageView userImage;
+    private Button logOutBtn;
 
     SharedPrefManager sharedPrefManager;
     DrawerLayout drawerLayout;
@@ -86,12 +89,19 @@ public class Main_Activity extends AppCompatActivity {
 
         afterGetFromServer();
 
-        runOnUiThread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                setUserInfoFromShPref();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setUserInfoFromShPref();
+                    }
+                });
+
             }
-        });
+        }).start();
+
 
         Toasty.Config.getInstance()
                 .setToastTypeface(MyApplication.getIranianSansFont(this))
@@ -109,7 +119,40 @@ public class Main_Activity extends AppCompatActivity {
         userInfoText.setTypeface(MyApplication.getBYekanFont(this));
         userInfoImageBackground = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_background);
         userImage  = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_user);
-        setUserInfoFromShPref();
+        logOutBtn  = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_btn_log_out);
+        logOutBtn.setTypeface(MyApplication.getBYekanFont(this));
+
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                drawerLayout.closeDrawers();
+                Toasty.info(Main_Activity.this,"با موفقیت از حساب کابری خارج شدید",Toast.LENGTH_SHORT).show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        User user = new User();
+                        user.setUsername(null);
+                        user.setEmail(null);
+                        user.setFirstName(null);
+                        user.setLastName(null);
+                        user.setCapacity(null);
+                        user.setImage_url(null);
+                        sharedPrefManager.SaveUserInfo(user);
+                        setUserInfoFromShPref();
+                        setBlurBannerBackgroundDefault();
+                        userInfoEmail.setVisibility(View.GONE);
+                        logOutBtn.setVisibility(View.GONE);
+                        userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.white));
+
+
+                    }
+                },1000);
+
+            }
+        });
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -124,26 +167,6 @@ public class Main_Activity extends AppCompatActivity {
 
 
                     case R.id.menu_logOut:
-                        drawerLayout.closeDrawers();
-                        Toasty.info(Main_Activity.this,"با موفقیت از حساب کابری خارج شدید",Toast.LENGTH_SHORT).show();
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                User user = new User();
-                                user.setUsername(null);
-                                user.setEmail(null);
-                                user.setFirstName(null);
-                                user.setLastName(null);
-                                user.setCapacity(null);
-                                user.setImage_url(null);
-                                sharedPrefManager.SaveUserInfo(user);
-                                setUserInfoFromShPref();
-                                setBlurBannerBackgroundDefault();
-                                userInfoEmail.setVisibility(View.GONE);
-                            }
-                        });
-
 
                         break;
 
@@ -305,6 +328,9 @@ public class Main_Activity extends AppCompatActivity {
                 last_name != null &&
                 !last_name.isEmpty()) {
             userInfoText.setText(first_name + " " + last_name);
+            userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.colorPrimaryDark));
+
+
 
             if (!image_url.equals("")){
                 Picasso.get().load(image_url).into(userImage);
@@ -325,6 +351,9 @@ public class Main_Activity extends AppCompatActivity {
         }else {
             userInfoText.setText(R.string.userQuest);
             userInfoEmail.setVisibility(View.GONE);
+            logOutBtn.setVisibility(View.GONE);
+            userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.white));
+
         }
     }
 
