@@ -114,7 +114,7 @@ public class Main_Activity extends AppCompatActivity {
 
     private void setupNavigationView() {
         navigationView = findViewById(R.id.main_navigation);
-
+//
         userLevelBtn = navigationView.findViewById(R.id.activity_main_nav_user_level);
         userLevelBtn.setTypeface(MyApplication.getBYekanFont(this));
         userInfoText = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_txt_name);
