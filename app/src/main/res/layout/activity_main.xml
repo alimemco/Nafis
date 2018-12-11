@@ -119,5 +119,25 @@
         app:menu="@menu/menu_navigation"
         app:headerLayout="@layout/banner_drawer_layout"
         >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/activity_main_nav_user_level"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="مدیر ارشد"
+                android:textColor="@color/white"
+                android:layout_marginRight="65dp"
+                android:layout_marginLeft="65dp"
+                android:textSize="@dimen/normal_textSize_dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_level_user"
+
+                />
+        </RelativeLayout>
+
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

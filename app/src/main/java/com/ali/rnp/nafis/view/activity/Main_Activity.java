@@ -63,6 +63,7 @@ public class Main_Activity extends AppCompatActivity {
     private ImageView userInfoImageBackground;
     private com.mikhaellopez.circularimageview.CircularImageView userImage;
     private Button logOutBtn;
+    private Button userLevelBtn;
 
     SharedPrefManager sharedPrefManager;
     DrawerLayout drawerLayout;
@@ -113,9 +114,11 @@ public class Main_Activity extends AppCompatActivity {
 
     private void setupNavigationView() {
         navigationView = findViewById(R.id.main_navigation);
+
+        userLevelBtn = navigationView.findViewById(R.id.activity_main_nav_user_level);
+        userLevelBtn.setTypeface(MyApplication.getBYekanFont(this));
         userInfoText = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_txt_name);
         userInfoEmail = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_txt_email);
-
         userInfoText.setTypeface(MyApplication.getBYekanFont(this));
         userInfoImageBackground = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_background);
         userImage  = navigationView.getHeaderView(0).findViewById(R.id.banner_drawer_layout_img_user);
