@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     private com.mikhaellopez.circularimageview.CircularImageView userImageProfile;
     private TextView userInfoEmail;
     private TextView userInfoText;
+    private Button userLevelBtn;
     private Button logOutBtn;
 
     private ActionProcessButton btnSignIn;
@@ -109,6 +111,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         userInfoImageBackground = getActivity().findViewById(R.id.banner_drawer_layout_img_background);
         userImageProfile = getActivity().findViewById(R.id.banner_drawer_layout_img_user);
         logOutBtn = getActivity().findViewById(R.id.banner_drawer_layout_btn_log_out);
+        userLevelBtn = getActivity().findViewById(R.id.activity_main_nav_user_level);
 
 
         usernameLayout.setTypeface(MyApplication.getIranianSansFont(getActivity()));
@@ -180,6 +183,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
                                          userInfoText.setText(user.getFirstName() + " " + user.getLastName());
                                         logOutBtn.setVisibility(View.VISIBLE);
+                                        setButtonUserLevel(user.getCapacity());
                                         userImageProfile.setBorderColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
 
 
@@ -305,6 +309,61 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                 .error(R.drawable.avatar)
                 .placeholder(R.drawable.avatar)
                 .into(target);
+    }
+
+    public void setButtonUserLevel(String user_level) {
+        switch (user_level){
+
+            case Main_Activity.GUEST_LEVEL:
+                userLevelBtn.setText("کاربر مهمان");
+                break;
+
+            case Main_Activity.NORMAL_LEVEL:
+                userLevelBtn.setText("تازه کار");
+                break;
+
+            case Main_Activity.SUBSCRIBER_LEVEL:
+                userLevelBtn.setText("تازه کار");
+                break;
+
+            case Main_Activity.ADMINISTRATOR_LEVEL:
+                userLevelBtn.setText("مدیر عامل");
+                break;
+
+
+            case Main_Activity.AUTHOR_LEVEL:
+                userLevelBtn.setText("نویسنده");
+                break;
+
+
+            case Main_Activity.CONTRIBUTOR_LEVEL:
+                userLevelBtn.setText("مشارکت کننده");
+                break;
+
+
+            case Main_Activity.EDITOR_LEVEL:
+                userLevelBtn.setText("ویرایشگر");
+                break;
+
+
+            case Main_Activity.SHOP_MANAGER_LEVEL:
+                userLevelBtn.setText("مدیر فروشگاه");
+                break;
+
+            case Main_Activity.MARKETER_LEVEL:
+                userLevelBtn.setText("بازاریاب");
+                break;
+
+            case Main_Activity.SENIORMARKETER_LEVEL:
+                userLevelBtn.setText("بازاریاب ارشد");
+                break;
+
+
+            default:
+                userLevelBtn.setText("مهمان");
+
+        }
+
     }
 
 

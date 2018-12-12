@@ -12,6 +12,7 @@ public class SharedPrefManager {
     public static final String FIRST_NAME_KEY="first_name";
     public static final String LAST_NAME_KEY="last_name";
     public static final String IMAGE_URL_KEY="image_url";
+    public static final String USER_LEVEL="user_level";
 
     private SharedPreferences sharedPreferences;
 
@@ -28,6 +29,7 @@ public class SharedPrefManager {
             editor.putString(FIRST_NAME_KEY,user.getFirstName());
             editor.putString(LAST_NAME_KEY,user.getLastName());
             editor.putString(IMAGE_URL_KEY,user.getImage_url());
+            editor.putString(USER_LEVEL,user.getCapacity());
             editor.apply();
         }
 
@@ -41,6 +43,7 @@ public class SharedPrefManager {
         user.setFirstName(sharedPreferences.getString(FIRST_NAME_KEY,""));
         user.setLastName(sharedPreferences.getString(LAST_NAME_KEY,""));
         user.setImage_url(sharedPreferences.getString(IMAGE_URL_KEY,""));
+        user.setCapacity(sharedPreferences.getString(USER_LEVEL,"{\"guest\":true}"));
 
         return user;
     }

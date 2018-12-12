@@ -1,6 +1,7 @@
 package com.ali.rnp.nafis.view.DataModel;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -135,7 +136,7 @@ public class ApiService {
             user.setFirstName(jsonObject.getString("first_name"));
             user.setLastName(jsonObject.getString("last_name"));
             user.setCapacity( jsonObject.getString("wp_capabilities"));
-
+            Log.i("cap", "parseUserInfoJson: "+jsonObject.getString("wp_capabilities"));
             user.setImage_url(jsonObject.getString("user_url"));
 
             onUserInfoReceived.onInfoReceived(user);

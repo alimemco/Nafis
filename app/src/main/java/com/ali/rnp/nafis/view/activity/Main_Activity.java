@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,17 @@ public class Main_Activity extends AppCompatActivity {
 
     private ImageView shopBtn;
     private ImageView searchBtn;
+
+    public static final String GUEST_LEVEL="{\"guest\":true}";
+    public static final String NORMAL_LEVEL="{\"normal\":true}";
+    public static final String SUBSCRIBER_LEVEL="{\"subscriber\":true}";
+    public static final String ADMINISTRATOR_LEVEL="{\"administrator\":true}";
+    public static final String AUTHOR_LEVEL="{\"author\":true}";
+    public static final String CONTRIBUTOR_LEVEL="{\"contributor\":true}";
+    public static final String EDITOR_LEVEL="{\\\"editor\\\":true}";
+    public static final String SHOP_MANAGER_LEVEL="{\"shop_manager\":true}";
+    public static final  String MARKETER_LEVEL="{\"marketer\":true}";
+    public static final String SENIORMARKETER_LEVEL="{\"seniormarketer\":true}";
 
     public static int BLUR_PRECENTAGE=70;
 
@@ -150,6 +162,7 @@ public class Main_Activity extends AppCompatActivity {
                         logOutBtn.setVisibility(View.GONE);
                         userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.white));
 
+                        setButtonUserLevel(GUEST_LEVEL);
 
                     }
                 },1000);
@@ -325,17 +338,21 @@ public class Main_Activity extends AppCompatActivity {
         String last_name = sharedPrefManager.getUserInfo().getLastName();
         String image_url = sharedPrefManager.getUserInfo().getImage_url();
         String email = sharedPrefManager.getUserInfo().getEmail();
+        String user_level = sharedPrefManager.getUserInfo().getCapacity();
 
-        if (first_name != null &&
-                !first_name.isEmpty() &&
-                last_name != null &&
-                !last_name.isEmpty()) {
-            userInfoText.setText(first_name + " " + last_name);
-            userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.colorPrimaryDark));
+        setButtonUserLevel(user_level);
 
+        if (sharedPrefManager.getUserInfo().getUsername()!=null &&
+                !sharedPrefManager.getUserInfo().getUsername().isEmpty()){
 
+            if (first_name!=null && last_name!=null
+                    && !first_name.isEmpty() && !last_name.isEmpty()){
+                userInfoText.setText(first_name + " " + last_name);
+                userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.colorPrimaryDark));
 
-            if (!image_url.equals("")){
+            }
+
+            if (image_url!=null && !image_url.isEmpty()){
                 Picasso.get().load(image_url).into(userImage);
 
                 Picasso.get()
@@ -347,18 +364,79 @@ public class Main_Activity extends AppCompatActivity {
 
 
 
-            if (!email.equals("")&& !email.isEmpty() ){
+            if (email !=null && !email.isEmpty() ){
                 userInfoEmail.setText(email);
             }
+
+
+
+
 
         }else {
             userInfoText.setText(R.string.userQuest);
             userInfoEmail.setVisibility(View.GONE);
             logOutBtn.setVisibility(View.GONE);
             userImage.setBorderColor(ContextCompat.getColor(Main_Activity.this,R.color.white));
+        }
+
+
+    }
+
+    public void setButtonUserLevel(String user_level) {
+        switch (user_level){
+
+            case GUEST_LEVEL:
+                userLevelBtn.setText("کاربر مهمان");
+                break;
+
+            case NORMAL_LEVEL:
+                userLevelBtn.setText("تازه کار");
+                break;
+
+            case SUBSCRIBER_LEVEL:
+                userLevelBtn.setText("تازه کار");
+                break;
+
+            case ADMINISTRATOR_LEVEL:
+                userLevelBtn.setText("مدیر عامل");
+                break;
+
+
+            case AUTHOR_LEVEL:
+                userLevelBtn.setText("نویسنده");
+                break;
+
+
+            case CONTRIBUTOR_LEVEL:
+                userLevelBtn.setText("مشارکت کننده");
+                break;
+
+
+            case EDITOR_LEVEL:
+                userLevelBtn.setText("ویرایشگر");
+                break;
+
+
+            case SHOP_MANAGER_LEVEL:
+                userLevelBtn.setText("مدیر فروشگاه");
+                break;
+
+            case MARKETER_LEVEL:
+                userLevelBtn.setText("بازاریاب");
+                break;
+
+            case SENIORMARKETER_LEVEL:
+                userLevelBtn.setText("بازاریاب ارشد");
+                break;
+
+
+            default:
+                userLevelBtn.setText("مهمان");
 
         }
+
     }
+
 
     private void setBlurBannerBackgroundDefault() {
 
