@@ -19,4 +19,8 @@
     <dimen name="cardCornerRadius">8dp</dimen>
     <dimen name="Standard_corner">10dp</dimen>
     <dimen name="corner_object">100dp</dimen>
+
+    <dimen name="image_width">120dp</dimen>
+    <dimen name="image_final_width">32dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
 </resources>

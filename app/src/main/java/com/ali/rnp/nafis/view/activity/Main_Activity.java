@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +42,7 @@ import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.fragment.FragmentForm;
 import com.ali.rnp.nafis.view.fragment.FragmentHome;
 import com.ali.rnp.nafis.view.fragment.FragmentUser;
+import com.ali.rnp.nafis.view.fragment.FragmentUserInfo;
 import com.ali.rnp.nafis.view.utils.BlurImage;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -57,6 +58,7 @@ public class Main_Activity extends AppCompatActivity {
     private FragmentHome fragmentHome;
     private FragmentUser fragmentUser;
     private FragmentForm fragmentForm;
+    private FragmentUserInfo fragmentUserInfo;
     private NavigationView navigationView;
 
     private TextView userInfoText;
@@ -79,12 +81,12 @@ public class Main_Activity extends AppCompatActivity {
     public static final String ADMINISTRATOR_LEVEL="{\"administrator\":true}";
     public static final String AUTHOR_LEVEL="{\"author\":true}";
     public static final String CONTRIBUTOR_LEVEL="{\"contributor\":true}";
-    public static final String EDITOR_LEVEL="{\\\"editor\\\":true}";
+    public static final String EDITOR_LEVEL="{\"editor\":true}";
     public static final String SHOP_MANAGER_LEVEL="{\"shop_manager\":true}";
-    public static final  String MARKETER_LEVEL="{\"marketer\":true}";
+    public static final String MARKETER_LEVEL="{\"marketer\":true}";
     public static final String SENIORMARKETER_LEVEL="{\"seniormarketer\":true}";
 
-    public static int BLUR_PRECENTAGE=70;
+    public static int BLUR_PERCENTAGE =70;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -221,6 +223,7 @@ public class Main_Activity extends AppCompatActivity {
         fragmentHome = new FragmentHome();
         fragmentUser = new FragmentUser();
         fragmentForm = new FragmentForm();
+        fragmentUserInfo = new FragmentUserInfo();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -253,9 +256,19 @@ public class Main_Activity extends AppCompatActivity {
                         return true;
 
                     case R.id.bottom_navigation_userManagement:
-                        android.support.v4.app.FragmentTransaction UserTransaction = fragmentManager.beginTransaction();
-                        UserTransaction.replace(R.id.mainFragmentContainer, fragmentUser);
-                        UserTransaction.commit();
+                        if (sharedPrefManager.getUserInfo().getUsername().equals("") &&
+                                sharedPrefManager.getUserInfo().getUsername().isEmpty())
+                        {
+                            android.support.v4.app.FragmentTransaction UserTransaction = fragmentManager.beginTransaction();
+                            UserTransaction.replace(R.id.mainFragmentContainer, fragmentUser);
+                            UserTransaction.commit();
+                        }else {
+                            FragmentTransaction UserInfoTransaction = fragmentManager.beginTransaction();
+                            UserInfoTransaction.replace(R.id.mainFragmentContainer,fragmentUserInfo);
+                            UserInfoTransaction.commit();
+
+                        }
+
                         progressBar.setVisibility(View.GONE);
                         return true;
                 }
@@ -464,7 +477,7 @@ public class Main_Activity extends AppCompatActivity {
     Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, BLUR_PRECENTAGE));
+            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, BLUR_PERCENTAGE));
         }
 
         @Override

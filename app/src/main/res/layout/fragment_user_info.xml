@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layoutDirection="ltr"
+    android:background="@color/backgroundApp"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/fragment_user_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:titleEnabled="false"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/white"
+>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
+
+
+                >
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:src="@drawable/shape_banner_gradient"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:finalHeight="@dimen/image_final_width"
+                    app:finalYPosition="2dp"
+                    app:layout_behavior="com.ali.rnp.nafis.view.utils.AvatarImageBehavior"
+                    app:startHeight="2dp"
+                    app:startToolbarPosition="2dp"
+                    app:startXPosition="2dp"/>
+
+                <TextView
+                    android:id="@+id/fragment_user_info_txt_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:textSize="@dimen/large_textSize_sp"
+                    android:text="علی مقدم"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+                <TextView
+                    android:id="@+id/fragment_user_info_txt_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="alipapital"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/normal_textSize_sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_user_info_txt_name" />
+
+                <Button
+                    android:id="@+id/fragment_user_info_btn_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/shape_user_info_level_btn"
+                    android:text="مدیر فروش ارشد"
+                    android:textColor="@color/text_user_level"
+                    android:textSize="@dimen/normal_textSize_sp"
+                    android:elevation="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_user_info_txt_code" />
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:collapseIcon="@mipmap/ic_launcher"
+                app:collapseContentDescription="@string/appbar_scrolling_view_behavior">
+
+                <ImageView
+                    android:id="@+id/fragment_user_info_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_settings"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_margin="@dimen/standard_margin"
+                    app:layout_collapseParallaxMultiplier="0.3"
+
+                    />
+
+                <TextView
+                    android:id="@+id/fragment_user_info_user_name_toolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="علی مقدم"
+                    android:textSize="@dimen/normal_textSize_sp"
+                    android:layout_margin="@dimen/standard_margin"
+                    android:layout_gravity="end|center_vertical"
+                    android:textColor="@color/toolbar_collapsed_text"/>
+            </android.support.v7.widget.Toolbar>
+
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView2"
+                style="@style/CardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:cardCornerRadius="@dimen/standard_margin_2x"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp">
+
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_organization" />
+
+                    <TextView
+                        android:id="@+id/fragment_user_info_txt_subset_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="تعداد زیر مجموعه"
+                        android:textSize="@dimen/normal_textSize_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+                        app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                    <TextView
+                        android:id="@+id/fragment_user_info_txt_subset_Number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginRight="40dp"
+                        android:text="12"
+                        android:textColor="@color/red300"
+                        android:textSize="@dimen/large_textSize_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_user_info_txt_subset_title"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_user_info_txt_subset_title"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_user_info_txt_subset_title" />
+
+                    <TextView
+                        android:id="@+id/fragment_user_info_txt_subset_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="نفر"
+                        android:textSize="@dimen/normal_textSize_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_user_info_txt_subset_Number"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_user_info_txt_subset_Number"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_user_info_txt_subset_Number" />
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/white"
+                app:borderWidth="0dp"
+                app:elevation="4dp"
+                app:fabCustomSize="65dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button3"
+                app:rippleColor="@color/red300"
+                app:srcCompat="@drawable/ic_multiple_users" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/white"
+                android:elevation="4dp"
+                app:borderWidth="0dp"
+                app:fabCustomSize="65dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                app:srcCompat="@drawable/ic_shopping_bag" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="205dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

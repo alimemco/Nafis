@@ -11,7 +11,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -287,7 +286,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
     Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, Main_Activity.BLUR_PRECENTAGE));
+            userInfoImageBackground.setImageBitmap(BlurImage.fastblur(bitmap, 1f, Main_Activity.BLUR_PERCENTAGE));
         }
 
         @Override
