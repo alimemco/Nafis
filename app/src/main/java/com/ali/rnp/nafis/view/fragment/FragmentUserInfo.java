@@ -44,6 +44,15 @@ public class FragmentUserInfo extends Fragment implements AppBarLayout.OnOffsetC
     private TextView subset_title;
     private TextView subset_number;
     private TextView subset_people;
+
+    private TextView user_code_hint;
+    private TextView sale_title;
+    private TextView sale_number;
+    private TextView sale_toman;
+
+    private TextView fab_sale_title;
+    private TextView fab_subsets_title;
+
     private CircularImageView circularImageView;
     SharedPrefManager sharedPrefManager;
 
@@ -102,12 +111,26 @@ public class FragmentUserInfo extends Fragment implements AppBarLayout.OnOffsetC
         subset_number = rootView.findViewById(R.id.fragment_user_info_txt_subset_Number);
         subset_people = rootView.findViewById(R.id.fragment_user_info_txt_subset_people);
         circularImageView = rootView.findViewById(R.id.fragment_user_info_img_profile);
+        user_code_hint = rootView.findViewById(R.id.fragment_user_info_code_hint);
+        sale_title = rootView.findViewById(R.id.fragment_user_info_txt_sale_title);
+        sale_number = rootView.findViewById(R.id.fragment_user_info_txt_sale_number);
+        sale_toman = rootView.findViewById(R.id.fragment_user_info_txt_sale_toman);
+        fab_sale_title = rootView.findViewById(R.id.fragment_user_info_txt_fab_sale);
+        fab_subsets_title = rootView.findViewById(R.id.fragment_user_info_txt_fab_subsets);
 
         user_name.setTypeface(MyApplication.getBYekanFont(getContext()));
         user_name_toolbar.setTypeface(MyApplication.getBYekanFont(getContext()));
         subset_title.setTypeface(MyApplication.getBYekanFont(getContext()));
         subset_people.setTypeface(MyApplication.getBYekanFont(getContext()));
         userLevelBtn.setTypeface(MyApplication.getBYekanFont(getContext()));
+
+        user_code_hint.setTypeface(MyApplication.getBYekanFont(getContext()));
+        sale_title.setTypeface(MyApplication.getBYekanFont(getContext()));
+        sale_toman.setTypeface(MyApplication.getBYekanFont(getContext()));
+
+        fab_sale_title.setTypeface(MyApplication.getBYekanFont(getContext()));
+        fab_subsets_title.setTypeface(MyApplication.getBYekanFont(getContext()));
+
 
         sharedPrefManager = new SharedPrefManager(getContext());
 

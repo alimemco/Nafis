@@ -41,6 +41,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircularImag
         mContext = context;
 
         if (attrs != null) {
+            /*
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AvatarImageBehavior);
             mCustomFinalYPosition = a.getDimension(R.styleable.AvatarImageBehavior_finalYPosition, 0);
             mCustomStartXPosition = a.getDimension(R.styleable.AvatarImageBehavior_startXPosition, 0);
@@ -49,6 +50,7 @@ public class AvatarImageBehavior extends CoordinatorLayout.Behavior<CircularImag
             mCustomFinalHeight = a.getDimension(R.styleable.AvatarImageBehavior_finalHeight, 0);
 
             a.recycle();
+            */
         }
 
         init();

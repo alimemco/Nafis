@@ -333,7 +333,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                 .error(R.drawable.avatar)
                 .placeholder(R.drawable.avatar)
                 .into(target);
-        //
+
     }
 
     public void setButtonUserLevel(String user_level) {
