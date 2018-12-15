@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,9 +68,15 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
     private ActionProcessButton btnSignIn;
 
+
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentUserInfoTrans;
+
     private Validator validator;
 
     SharedPrefManager sharedPrefManager;
+
+    private FragmentUserInfo fragmentUserInfo;
 
     @Nullable
     @Override
@@ -76,6 +84,7 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
         View rootView = inflater.inflate(R.layout.fragment_login, null, false);
 
         initViews(rootView);
+        setupFragments();
 
         sharedPrefManager = new SharedPrefManager(getContext());
 
@@ -95,6 +104,14 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
 
         return rootView;
+    }
+
+    private void setupFragments() {
+        fragmentUserInfo = new FragmentUserInfo();
+        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentUserInfoTrans = fragmentManager.beginTransaction();
+
+
     }
 
     private void initViews(View rootView) {
@@ -178,9 +195,14 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
                             apiService.UserInfo(username.getText().toString(), new ApiService.onUserInfoReceived() {
                                 @Override
                                 public void onInfoReceived(User user) {
+
+
                                     if (user != null) {
 
-                                         userInfoText.setText(user.getFirstName() + " " + user.getLastName());
+                                        fragmentUserInfoTrans.replace(R.id.mainFragmentContainer,fragmentUserInfo);
+                                        fragmentUserInfoTrans.commit();
+
+                                        userInfoText.setText(user.getFirstName() + " " + user.getLastName());
                                         logOutBtn.setVisibility(View.VISIBLE);
                                         setButtonUserLevel(user.getCapacity());
                                         userImageProfile.setBorderColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
@@ -207,6 +229,9 @@ public class FragmentLogin extends Fragment implements Validator.ValidationListe
 
                                         sharedPrefManager.SaveUserInfo(user);
                                     }
+
+
+
                                 }
                             });
 

@@ -146,10 +146,17 @@ public class Main_Activity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 Toasty.info(Main_Activity.this,"با موفقیت از حساب کابری خارج شدید",Toast.LENGTH_SHORT).show();
 
+                android.support.v4.app.FragmentTransaction HomeTransaction = fragmentManager.beginTransaction();
+                HomeTransaction.replace(R.id.mainFragmentContainer, fragmentHome);
+                HomeTransaction.commit();
+
+                bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_home);
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         User user = new User();
                         user.setUsername(null);
                         user.setEmail(null);
@@ -158,6 +165,7 @@ public class Main_Activity extends AppCompatActivity {
                         user.setCapacity(null);
                         user.setImage_url(null);
                         sharedPrefManager.SaveUserInfo(user);
+
                         setUserInfoFromShPref();
                         setBlurBannerBackgroundDefault();
                         userInfoEmail.setVisibility(View.GONE);
@@ -166,8 +174,10 @@ public class Main_Activity extends AppCompatActivity {
 
                         setButtonUserLevel(GUEST_LEVEL);
 
+
                     }
                 },1000);
+
 
             }
         });
@@ -228,7 +238,7 @@ public class Main_Activity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         android.support.v4.app.FragmentTransaction HomeTransaction = fragmentManager.beginTransaction();
-        HomeTransaction.add(R.id.mainFragmentContainer, fragmentHome);
+        HomeTransaction.replace(R.id.mainFragmentContainer, fragmentHome);
         HomeTransaction.commit();
     }
 
