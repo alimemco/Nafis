@@ -5,56 +5,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundApp"
+    android:layoutDirection="ltr"
     tools:context=".view.activity.Question_Activity">
 
-    <params.com.stepview.StatusViewScroller
-        android:id="@+id/activity_question_StatusViewScroller"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
 
-        app:circleColor="#4CAF50"
-        app:circleColorCurrent="@color/colorPrimaryDark"
-        app:circleColorIncomplete="@color/white"
-        app:circleColorType="fillStroke"
-        app:circleStrokeColor="@color/white"
-        app:circleStrokeColorCurrent="#80DEEA"
-        app:circleStrokeColorIncomplete="#80DEEA"
-        app:circleStrokeWidth="4dp"
-        app:completeDrawable="@drawable/ic_check"
-        app:currentCount="1"
-        app:drawLabels="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/activity_question_scrollView"
-        app:lineColor="#4CAF50"
-        app:lineColorCurrent="@color/colorPrimaryDark"
-        app:lineColorIncomplete="#B4B7BA"
-        app:lineGap="5dp"
-        app:lineWidth="3dp"
-        app:stepCount="17"
-        app:textColorLabels="@android:color/white"
-        app:textColorLabelsCurrent="@android:color/white"
-        app:textColorLabelsIncomplete="#006064"
-        app:textSizeLabels="15sp">
-
-    </params.com.stepview.StatusViewScroller>
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/activity_question_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/ativity_question_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin_2x"
+                app:srcCompat="@drawable/ic_left_arrow"/>
+
+
+            <params.com.stepview.StatusViewScroller
+                android:id="@+id/activity_question_StatusViewScroller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:circleColor="#4CAF50"
+                app:circleColorCurrent="@color/colorPrimaryDark"
+                app:circleColorIncomplete="@color/white"
+                app:circleColorType="fillStroke"
+                app:circleStrokeColor="@color/white"
+                app:circleStrokeColorCurrent="#80DEEA"
+                app:circleStrokeColorIncomplete="#80DEEA"
+                app:circleStrokeWidth="4dp"
+                app:completeDrawable="@drawable/ic_check"
+                app:currentCount="1"
+                app:drawLabels="true"
+              app:lineColor="#4CAF50"
+                app:lineColorCurrent="@color/colorPrimaryDark"
+                app:lineColorIncomplete="#B4B7BA"
+                app:lineGap="5dp"
+                app:lineWidth="3dp"
+                app:stepCount="17"
+                app:textColorLabels="@android:color/white"
+                app:textColorLabelsCurrent="@android:color/white"
+                app:textColorLabelsIncomplete="#006064"
+                app:textSizeLabels="15sp">
+
+            </params.com.stepview.StatusViewScroller>
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -71,25 +76,10 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_question_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_question_StatusViewScroller"
+        app:layout_constraintTop_toBottomOf="@+id/activity_question_appBarLayout"
         tools:listitem="@layout/question_item" />
 
-    <ScrollView
-        android:id="@+id/activity_question_scrollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        >
 
-
-    </ScrollView>
 
 
     <Button

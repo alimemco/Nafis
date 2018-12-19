@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -23,9 +22,12 @@ public class ApiService {
     private static final String loginUserLinkApi="http://nafis-app.ir/apiService/api/user/userLogin.php";
     private static final String registerUserLinkApi="http://nafis-app.ir/apiService/api/user/userRegister.php";
     private static final String userInfoLinkApi="http://nafis-app.ir/apiService/api/user/userInfo.php";
+    private static final String productCategoryLinkApi="http://nafis-app.ir/apiService/api/product_category.php";
     private int timeOut=10000;
     private Context context;
     private int responseLength =0;
+
+    private static final String TAG = "ApiService";
 
     public ApiService(Context context){
         this.context=context;
@@ -36,15 +38,12 @@ public class ApiService {
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                responseLength(response);
                 parseCategoryJson(response,onGetCategories);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 onGetCategories.onReceivedCategory(null);
-
-
             }
         });
 
@@ -125,6 +124,76 @@ public class ApiService {
 
     }
 
+    public void getProductByCategory(String Slug, final onGetProductCategory onGetProductCategory){
+
+        JSONObject jsonObjectCategorySlug = new JSONObject();
+
+        try {
+            jsonObjectCategorySlug.put("category_slug",Slug);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, productCategoryLinkApi, jsonObjectCategorySlug, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                parseProductCategory(response,onGetProductCategory);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+
+
+    }
+
+    private void parseProductCategory(JSONObject response, onGetProductCategory onGetProductCategory) {
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            JSONObject jsonObjectProductCat = new JSONObject(response.toString());
+            JSONArray jsonArrayProduct = jsonObjectProductCat.getJSONArray("products");
+
+            for (int i = 0; i < jsonArrayProduct.length(); i++) {
+                Product product = new Product();
+
+                JSONObject jsonObjectProduct = jsonArrayProduct.getJSONObject(i);
+
+                product.setId(jsonObjectProduct.getInt("id"));
+                product.setTitle(jsonObjectProduct.getString("title"));
+                product.setDescription(jsonObjectProduct.getString("description"));
+                product.setShort_description(jsonObjectProduct.getString("short_description"));
+                product.setStatus(jsonObjectProduct.getString("status"));
+                product.setPrice(jsonObjectProduct.getString("price"));
+                product.setRegular_price(jsonObjectProduct.getString("regular_price"));
+
+                JSONArray jsonArrayCategoryName = jsonObjectProduct.getJSONArray("categories");
+                product.setCategories(jsonArrayCategoryName.getString(0));
+
+                JSONArray jsonArrayImages = jsonObjectProduct.getJSONArray("images");
+                JSONObject jsonObjectImages = jsonArrayImages.getJSONObject(0);
+
+                product.setImg_src(jsonObjectImages.getString("src"));
+
+                productList.add(product);
+
+            }
+
+            onGetProductCategory.onProductReceived(productList);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            onGetProductCategory.onProductReceived(null);
+        }
+    }
+
     private void parseUserInfoJson(JSONObject response,onUserInfoReceived onUserInfoReceived) {
 
         User user = new User();
@@ -153,25 +222,31 @@ public class ApiService {
 
         List<Category> categories = new ArrayList<>();
 
-        for (int i = 0; i < responseLength; i++) {
-
-            Category category = new Category();
             try {
-                JSONArray jsonArray = response.getJSONArray("product_categories");
-                JSONObject jsonObject =jsonArray.getJSONObject(i);
-                category.setId(jsonObject.getInt("id"));
-                category.setName(jsonObject.getString("name"));
-                category.setSlug(jsonObject.getString("slug"));
-                category.setDescription(jsonObject.getString("description"));
-                category.setImage(jsonObject.getString("image"));
-                category.setCount(jsonObject.getString("count"));
-                categories.add(category);
+                JSONArray jsonArrayCategory = response.getJSONArray("product_categories");
+                Log.i(TAG, "parseCategoryJson: "+jsonArrayCategory.length());
+                for (int i = 0; i < jsonArrayCategory.length(); i++) {
+                    Category category = new Category();
+
+                    JSONObject jsonObject =jsonArrayCategory.getJSONObject(i);
+                    category.setId(jsonObject.getInt("id"));
+                    category.setName(jsonObject.getString("name"));
+
+                    category.setSlug(jsonObject.getString("slug"));
+                    category.setDescription(jsonObject.getString("description"));
+                    category.setImage(jsonObject.getString("image"));
+                    category.setCount(jsonObject.getString("count"));
+                    categories.add(category);
+                }
+
+                onGetCategories.onReceivedCategory(categories);
 
             } catch (JSONException e) {
+                onGetCategories.onReceivedCategory(null);
 
             }
-        }
-        onGetCategories.onReceivedCategory(categories);
+
+
 
     }
 
@@ -201,5 +276,9 @@ public class ApiService {
 
     public interface onUserInfoReceived{
         void onInfoReceived(User user);
+    }
+
+    public interface onGetProductCategory{
+        void onProductReceived(List<Product> productList);
     }
 }

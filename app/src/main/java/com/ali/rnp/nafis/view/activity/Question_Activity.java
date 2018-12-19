@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 import com.ali.rnp.nafis.R;
@@ -25,6 +26,7 @@ public class Question_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Button pre;
     private Button next;
+    private ImageView bakBtn;
     private int RecyclerPosition;
     private LinearLayoutManager customGridLayoutManager;
     private StatusViewScroller statusViewScroller;
@@ -121,10 +123,21 @@ public class Question_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.activity_question_recyclerView);
         pre = findViewById(R.id.activity_question_previous);
         next = findViewById(R.id.activity_question_next);
+        bakBtn = findViewById(R.id.ativity_question_back);
+
         pre.setTypeface(MyApplication.getIranianSansFont(this));
         next.setTypeface(MyApplication.getIranianSansFont(this));
 
         statusViewScroller = findViewById(R.id.activity_question_StatusViewScroller);
+
+
+
+        bakBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 

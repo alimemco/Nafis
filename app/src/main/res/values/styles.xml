@@ -54,6 +54,11 @@
         <item name="android:textSize">@dimen/normal_textSize_dp</item>
     </style>
 
+    <style name="CardViewProduct" parent="CardView">
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/cardElevation</item>
+    </style>
+
+
 
 
 

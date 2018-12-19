@@ -1,8 +1,14 @@
 package com.ali.rnp.nafis.view.adapter;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +18,8 @@ import android.widget.TextView;
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.Category;
 import com.ali.rnp.nafis.view.MyApplication;
+import com.ali.rnp.nafis.view.activity.Main_Activity;
+import com.ali.rnp.nafis.view.fragment.FragmentProductsCategory;
 import com.ali.rnp.nafis.view.services.PicassoImageLoadingService;
 import com.squareup.picasso.Picasso;
 
@@ -23,10 +31,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Context context;
     private Slider slider;
+    private static final String TAG = "CategoryAdapter";
+
+    FragmentProductsCategory fragmentProductsCategory;
+    FragmentManager fragmentManager;
+
     private List<Category> categories;
+
     private static final int VIEW_TYPE_BANNER=0;
     private static final int VIEW_TYPE_DEFAULT=1;
-    private static final String BANNER_IMAGE_LINK="http://hph.co.ir/data/upload/mirasmlm/slide/0b0e30e39d7ff8c00498acc298afc64a1533557477.jpg";
 
     public CategoryAdapter(Context context){
         this.context=context;
@@ -35,6 +48,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void SetupCategoryAdapter(List<Category> categories){
         this.categories=categories;
         notifyDataSetChanged();
+
     }
 
     @Override
@@ -72,15 +86,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
        if (holder instanceof HomeAdapterHolder){
+
            HomeAdapterHolder homeAdapterHolder = (HomeAdapterHolder) holder;
            Category category = categories.get(position-1);
            homeAdapterHolder.nameCategory.setText(category.getName());
            homeAdapterHolder.descriptionCategory.setText(category.getDescription());
-           Picasso.get().load(category.getImage()).into(homeAdapterHolder.imageCategory);
+           if (!category.getImage().isEmpty()
+                   && !category.getImage().equals("")){
+               Picasso.get().load(category.getImage()).into(homeAdapterHolder.imageCategory);
+           }
+
+           homeAdapterHolder.bindCategoryItem(category);
+
        }
+
+
 
     }
 
@@ -99,22 +122,45 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             nameCategory=itemView.findViewById(R.id.category_item_name);
             descriptionCategory =itemView.findViewById(R.id.category_item_description);
 
-            nameCategory.setTypeface(MyApplication.getIranianSansFont(context));
+            nameCategory.setTypeface(MyApplication.getBYekanFont(context));
             descriptionCategory.setTypeface(MyApplication.getIranianSansFont(context));
+
+
+   }
+        public void bindCategoryItem(final Category category){
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = ((Main_Activity)context).getSupportFragmentManager();
+
+                    android.support.v4.app.FragmentTransaction fragmentProduct = fragmentManager.beginTransaction();
+
+                    FragmentProductsCategory fragmentProductsCategory = new FragmentProductsCategory();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("slug",category.getSlug());
+                    fragmentProductsCategory.setArguments(bundle);
+
+                    fragmentProduct.replace(R.id.mainFragmentContainer,fragmentProductsCategory);
+
+                    fragmentProduct.addToBackStack("Category").commit();
+                }
+            });
+
         }
+
     }
 
     public class BannerAdapterHolder extends RecyclerView.ViewHolder {
-       // private ImageView bannerImage;
+
         private TextView listText;
         private TextView newsText;
         private BannerAdapterHolder(View itemView) {
             super(itemView);
-           // bannerImage = itemView.findViewById(R.id.banner_main_image);
-            listText = itemView.findViewById(R.id.banner_main_listText);
+           listText = itemView.findViewById(R.id.banner_main_listText);
             newsText = itemView.findViewById(R.id.banner_main_news_text);
-           // Picasso.get().load(R.drawable.banner_holder).placeholder(R.drawable.banner_holder).into(bannerImage);
-            listText.setTypeface(MyApplication.getIranianSansFont(context));
+           listText.setTypeface(MyApplication.getIranianSansFont(context));
             newsText.setTypeface(MyApplication.getIranianSansFont(context));
             slider = itemView.findViewById(R.id.main_banner_slider);
             Slider.init(new PicassoImageLoadingService(context));

@@ -25,4 +25,6 @@
     <color name="fab_order">#f44336</color>
     <color name="text_user_level">#01579B</color>
     <color name="subset_icon">#01579B</color>
+    <color name="price_red">#ef5350</color>
+    <color name="price_green">#66BB6A</color>
 </resources>

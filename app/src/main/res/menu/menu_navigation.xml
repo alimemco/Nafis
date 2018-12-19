@@ -6,8 +6,7 @@
         <item
             android:id="@+id/menu_loginSignUp"
             android:title="@string/menu_loginSignUp"
-            android:icon="@drawable/ic_check"
-            android:menuCategory="alternative"
+
            />
 
 
