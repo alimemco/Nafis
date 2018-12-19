@@ -1,11 +1,8 @@
 package com.ali.rnp.nafis.view.adapter;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,8 +30,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Slider slider;
     private static final String TAG = "CategoryAdapter";
 
-    FragmentProductsCategory fragmentProductsCategory;
-    FragmentManager fragmentManager;
+
 
     private List<Category> categories;
 
@@ -132,18 +128,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     FragmentManager fragmentManager = ((Main_Activity)context).getSupportFragmentManager();
-
                     android.support.v4.app.FragmentTransaction fragmentProduct = fragmentManager.beginTransaction();
-
                     FragmentProductsCategory fragmentProductsCategory = new FragmentProductsCategory();
-
                     Bundle bundle = new Bundle();
                     bundle.putString("slug",category.getSlug());
+                    bundle.putString("imageUrl",category.getImage());
+                    bundle.putString("nameCategory",category.getName());
+                    Log.i(TAG, "productAdapter: "+category.getImage());
                     fragmentProductsCategory.setArguments(bundle);
-
                     fragmentProduct.replace(R.id.mainFragmentContainer,fragmentProductsCategory);
-
                     fragmentProduct.addToBackStack("Category").commit();
                 }
             });
@@ -158,11 +153,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView newsText;
         private BannerAdapterHolder(View itemView) {
             super(itemView);
-           listText = itemView.findViewById(R.id.banner_main_listText);
+           listText = itemView.findViewById(R.id.banner_category_name);
             newsText = itemView.findViewById(R.id.banner_main_news_text);
            listText.setTypeface(MyApplication.getIranianSansFont(context));
             newsText.setTypeface(MyApplication.getIranianSansFont(context));
-            slider = itemView.findViewById(R.id.main_banner_slider);
+            slider = itemView.findViewById(R.id.banner_category_image);
             Slider.init(new PicassoImageLoadingService(context));
             slider.setAdapter(new MainSliderAdapter());
             slider.setSelectedSlide(0);
