@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ali.rnp.nafis.R;
 import com.ali.rnp.nafis.view.DataModel.Category;
@@ -18,10 +20,12 @@ import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.activity.Main_Activity;
 import com.ali.rnp.nafis.view.fragment.FragmentProductsCategory;
 import com.ali.rnp.nafis.view.services.PicassoImageLoadingService;
+import com.ali.rnp.nafis.view.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import ss.com.bannerslider.Slider;
 
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -129,22 +133,30 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public void onClick(View v) {
 
-                    FragmentManager fragmentManager = ((Main_Activity)context).getSupportFragmentManager();
-                    android.support.v4.app.FragmentTransaction fragmentProduct = fragmentManager.beginTransaction();
-                    FragmentProductsCategory fragmentProductsCategory = new FragmentProductsCategory();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("slug",category.getSlug());
-                    bundle.putString("imageUrl",category.getImage());
-                    bundle.putString("nameCategory",category.getName());
-                    Log.i(TAG, "productAdapter: "+category.getImage());
-                    fragmentProductsCategory.setArguments(bundle);
-                    fragmentProduct.replace(R.id.mainFragmentContainer,fragmentProductsCategory);
-                    fragmentProduct.addToBackStack("Category").commit();
+                    if (Utils.checkConnection(context)) {
+                        sendDataToFragmentProduct(category);
+                    }else {
+                        Toasty.info(context,context.getResources().getString(R.string.noInternet) ,Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
         }
 
+    }
+
+    private void sendDataToFragmentProduct(Category category) {
+        FragmentManager fragmentManager = ((Main_Activity)context).getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentProduct = fragmentManager.beginTransaction();
+        FragmentProductsCategory fragmentProductsCategory = new FragmentProductsCategory();
+        Bundle bundle = new Bundle();
+        bundle.putString("slug",category.getSlug());
+        bundle.putString("imageUrl",category.getImage());
+        bundle.putString("nameCategory",category.getName());
+        Log.i(TAG, "productAdapter: "+category.getImage());
+        fragmentProductsCategory.setArguments(bundle);
+        fragmentProduct.replace(R.id.mainFragmentContainer,fragmentProductsCategory);
+        fragmentProduct.addToBackStack("Category").commit();
     }
 
     public class BannerAdapterHolder extends RecyclerView.ViewHolder {

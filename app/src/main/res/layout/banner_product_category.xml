@@ -7,7 +7,7 @@
     android:layoutDirection="ltr">
 
     <ImageView
-        android:id="@+id/banner_product_category_image"
+        android:id="@+id/fragment_product_category_banner_image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner_product_category_image">
+        app:layout_constraintTop_toBottomOf="@+id/fragment_product_category_banner_image">
 
         <ImageView
             android:id="@+id/banner_product_category_list"

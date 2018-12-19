@@ -39,6 +39,7 @@
     <string name="successLoOut">"با موفقیت خارج شدید :)</string>
     <string name="userQuest">کاربر مهمان</string>
     <string name="btn_logOut">خروج از حساب کاربری</string>
+    <string name="noInternet">اینترنت در دسترس نیست</string>
 
 
 </resources>

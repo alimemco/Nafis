@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategoryAdapter.ProductCategoryHolder>{
 
     private static final int VIEW_TYPE_BANNER=0;
     private static final int VIEW_TYPE_DEFAULT=1;
@@ -44,7 +44,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         notifyDataSetChanged();
 
     }
-
+/*
     @Override
     public int getItemViewType(int position) {
         if (position==0){
@@ -53,58 +53,43 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             return VIEW_TYPE_DEFAULT;
         }
     }
-
+*/
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductCategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        switch (viewType){
-            case VIEW_TYPE_BANNER:
-
-                View viewBanner = LayoutInflater.from(context).inflate(R.layout.banner_product_category,null,false);
-                RecyclerView.LayoutParams lpBanner = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                viewBanner.setLayoutParams(lpBanner);
-                return new BannerCategoryHolder(viewBanner);
-
-            case VIEW_TYPE_DEFAULT:
                 View view = LayoutInflater.from(context).inflate(R.layout.product_category_item,null,false);
                 RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
                 view.setLayoutParams(lp);
                 return new ProductCategoryHolder(view);
 
-        }
-
-        return null;
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductCategoryHolder holder, int position) {
 
+            Product product = productList.get(position);
 
-        if (holder instanceof ProductCategoryHolder){
-            ProductCategoryHolder homeAdapterHolder = (ProductCategoryHolder) holder;
-            Product product = productList.get(position-1);
-
-            homeAdapterHolder.productName.setText(product.getTitle());
+            holder.productName.setText(product.getTitle());
 
             if (!product.getImg_src().equals("") &&
                     !product.getImg_src().isEmpty()) {
-                Picasso.get().load(product.getImg_src()).into(homeAdapterHolder.productImage);
+                Picasso.get().load(product.getImg_src()).into(holder.productImage);
             }
 
             if (!product.getPrice().equals(product.getRegular_price())){
-                homeAdapterHolder.productRegularPrice.setVisibility(View.VISIBLE);
+                holder.productRegularPrice.setVisibility(View.VISIBLE);
 
-                homeAdapterHolder.productRegularPrice.setPaintFlags(homeAdapterHolder.productRegularPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                homeAdapterHolder.productRegularPrice.setText(formatPrice(product.getRegular_price())+"  تومان"  );
-                homeAdapterHolder.productPrice.setText(formatPrice(product.getPrice())+"  تومان");
+                holder.productRegularPrice.setPaintFlags(holder.productRegularPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                holder.productRegularPrice.setText(formatPrice(product.getRegular_price())+"  تومان"  );
+                holder.productPrice.setText(formatPrice(product.getPrice())+"  تومان");
             }else {
-                homeAdapterHolder.productRegularPrice.setVisibility(View.INVISIBLE);
+                holder.productRegularPrice.setVisibility(View.INVISIBLE);
 
-                homeAdapterHolder.productPrice.setText(formatPrice(product.getPrice())+"  تومان");
+                holder.productPrice.setText(formatPrice(product.getPrice())+"  تومان");
             }
-        }
+
 
 
 
@@ -112,7 +97,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return productList.size()+1;
+        return productList.size();
     }
 
 
@@ -135,7 +120,7 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             productRegularPrice.setTypeface(MyApplication.getBYekanFont(context));
         }
     }
-
+/*
     public class BannerCategoryHolder extends RecyclerView.ViewHolder {
         private ImageView banner_image;
         private ImageView list_products;
@@ -159,24 +144,14 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View v) {
                     Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
                     FragmentProductsCategory fragmentProductsCategory = new FragmentProductsCategory();
-/*
-                    if (RECYCLER_PRODUCT_MODE==1){
-                        fragmentProductsCategory.setupRecyclerView(2);
-                        RECYCLER_PRODUCT_MODE=2;
-                    }
 
-                    else if (RECYCLER_PRODUCT_MODE==2){
-                        fragmentProductsCategory.setupRecyclerView(1);
-                        RECYCLER_PRODUCT_MODE=1;
-                    }
-
-                    */
                 }
             });
 
 
         }
     }
+    */
 
     private String formatPrice(String price ){
 
