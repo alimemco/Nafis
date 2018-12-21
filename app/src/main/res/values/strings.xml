@@ -40,6 +40,8 @@
     <string name="userQuest">کاربر مهمان</string>
     <string name="btn_logOut">خروج از حساب کاربری</string>
     <string name="noInternet">اینترنت در دسترس نیست</string>
+    <string name="productNotInStock">تمام شد !</string>
+    <string name="productNotExist">محصولی یافت نشد</string>
 
 
 </resources>

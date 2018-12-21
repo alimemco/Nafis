@@ -251,21 +251,33 @@ public class Main_Activity extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.bottom_navigation_home:
+
+                        clearFragmentBackStack();
+
                         android.support.v4.app.FragmentTransaction HomeTransaction = fragmentManager.beginTransaction();
                         HomeTransaction.replace(R.id.mainFragmentContainer, fragmentHome);
                         HomeTransaction.commit();
                         progressBar.setVisibility(View.VISIBLE);
                         afterGetFromServer();
+
+
                         return true;
 
                     case R.id.bottom_navigation_form:
+
+                        clearFragmentBackStack();
+
                         android.support.v4.app.FragmentTransaction FormTransaction = fragmentManager.beginTransaction();
                         FormTransaction.replace(R.id.mainFragmentContainer, fragmentForm);
                         FormTransaction.commit();
                         progressBar.setVisibility(View.GONE);
+
+
                         return true;
 
                     case R.id.bottom_navigation_userManagement:
+                        clearFragmentBackStack();
+
                         if (sharedPrefManager.getUserInfo().getUsername().equals("") &&
                                 sharedPrefManager.getUserInfo().getUsername().isEmpty())
                         {
@@ -280,6 +292,7 @@ public class Main_Activity extends AppCompatActivity {
                         }
 
                         progressBar.setVisibility(View.GONE);
+
                         return true;
                 }
                 return false;
@@ -500,4 +513,14 @@ public class Main_Activity extends AppCompatActivity {
 
         }
     };
+
+
+    private void clearFragmentBackStack(){
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+
+           fragmentManager.popBackStack();
+
+
+        }
+    }
 }

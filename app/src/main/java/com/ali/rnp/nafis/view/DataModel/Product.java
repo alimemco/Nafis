@@ -10,7 +10,13 @@ public class Product {
     private String description;
     private String short_description;
     private String categories;
+    private Boolean in_stock;
     private String img_src;
+    private String img_src_gallery_one;
+    private String img_src_gallery_two;
+    private String img_src_gallery_three;
+    private String img_src_gallery_four;
+    private String img_src_gallery_five;
 
     public int getId() {
         return id;
@@ -82,5 +88,53 @@ public class Product {
 
     public void setImg_src(String img_src) {
         this.img_src = img_src;
+    }
+
+    public Boolean getIn_stock() {
+        return in_stock;
+    }
+
+    public void setIn_stock(Boolean in_stock) {
+        this.in_stock = in_stock;
+    }
+
+    public String getImg_src_gallery_one() {
+        return img_src_gallery_one;
+    }
+
+    public void setImg_src_gallery_one(String img_src_gallery_one) {
+        this.img_src_gallery_one = img_src_gallery_one;
+    }
+
+    public String getImg_src_gallery_two() {
+        return img_src_gallery_two;
+    }
+
+    public void setImg_src_gallery_two(String img_src_gallery_two) {
+        this.img_src_gallery_two = img_src_gallery_two;
+    }
+
+    public String getImg_src_gallery_three() {
+        return img_src_gallery_three;
+    }
+
+    public void setImg_src_gallery_three(String img_src_gallery_three) {
+        this.img_src_gallery_three = img_src_gallery_three;
+    }
+
+    public String getImg_src_gallery_four() {
+        return img_src_gallery_four;
+    }
+
+    public void setImg_src_gallery_four(String img_src_gallery_four) {
+        this.img_src_gallery_four = img_src_gallery_four;
+    }
+
+    public String getImg_src_gallery_five() {
+        return img_src_gallery_five;
+    }
+
+    public void setImg_src_gallery_five(String img_src_gallery_five) {
+        this.img_src_gallery_five = img_src_gallery_five;
     }
 }

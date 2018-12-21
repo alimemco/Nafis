@@ -9,6 +9,7 @@ public class MyApplication extends Application {
 
     private static Typeface iranianSansFont;
     private static Typeface bYekanFont;
+    private static Typeface iranianSansFontBold;
 
     @Override
     public void onCreate() {
@@ -28,5 +29,12 @@ public class MyApplication extends Application {
             bYekanFont=Typeface.createFromAsset(context.getAssets(), "fonts/byekan.ttf");
         }
         return bYekanFont;
+    }
+
+    public static Typeface getIranianSansBoldFont(Context context) {
+        if(iranianSansFontBold==null){
+            iranianSansFontBold=Typeface.createFromAsset(context.getAssets(), "fonts/iranSansBold.ttf");
+        }
+        return iranianSansFontBold;
     }
 }

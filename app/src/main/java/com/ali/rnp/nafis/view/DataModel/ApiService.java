@@ -18,27 +18,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApiService {
-    private static final String categoryLinkApi="http://nafis-app.ir/apiService/api/categories.php";
-    private static final String loginUserLinkApi="http://nafis-app.ir/apiService/api/user/userLogin.php";
-    private static final String registerUserLinkApi="http://nafis-app.ir/apiService/api/user/userRegister.php";
-    private static final String userInfoLinkApi="http://nafis-app.ir/apiService/api/user/userInfo.php";
-    private static final String productCategoryLinkApi="http://nafis-app.ir/apiService/api/product_category.php";
-    private int timeOut=10000;
+    private static final String categoryLinkApi = "http://nafis-app.ir/apiService/api/categories.php";
+    private static final String loginUserLinkApi = "http://nafis-app.ir/apiService/api/user/userLogin.php";
+    private static final String registerUserLinkApi = "http://nafis-app.ir/apiService/api/user/userRegister.php";
+    private static final String userInfoLinkApi = "http://nafis-app.ir/apiService/api/user/userInfo.php";
+    private static final String productCategoryLinkApi = "http://nafis-app.ir/apiService/api/product_category.php";
+    private static final String productLinkApi = "http://nafis-app.ir/apiService/api/product.php";
+    private int timeOut = 10000;
     private Context context;
-    private int responseLength =0;
 
     private static final String TAG = "ApiService";
 
-    public ApiService(Context context){
-        this.context=context;
+    public ApiService(Context context) {
+        this.context = context;
     }
 
-    public void getCategoryFromServer(final onGetCategories onGetCategories){
+    public void getCategoryFromServer(final onGetCategories onGetCategories) {
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, categoryLinkApi, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                parseCategoryJson(response,onGetCategories);
+                parseCategoryJson(response, onGetCategories);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -47,13 +47,13 @@ public class ApiService {
             }
         });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
 
-        
+
     }
 
-    public void loginUser(JSONObject jsonObject, final onLoginUserReceived onLoginUserReceived){
+    public void loginUser(JSONObject jsonObject, final onLoginUserReceived onLoginUserReceived) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, loginUserLinkApi, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -71,11 +71,11 @@ public class ApiService {
             }
         });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
     }
 
-    public void registerUser(JSONObject jsonObject, final onRegisterUserReceived onRegisterUserReceived){
+    public void registerUser(JSONObject jsonObject, final onRegisterUserReceived onRegisterUserReceived) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, registerUserLinkApi, jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -93,16 +93,16 @@ public class ApiService {
             }
         });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
     }
 
-    public void UserInfo(String username, final onUserInfoReceived onUserInfoReceived){
+    public void UserInfo(String username, final onUserInfoReceived onUserInfoReceived) {
 
         JSONObject jsonObjectUser = new JSONObject();
         try {
-            jsonObjectUser.put("username",username);
-            } catch (JSONException e) {
+            jsonObjectUser.put("username", username);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -110,7 +110,7 @@ public class ApiService {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, userInfoLinkApi, jsonObjectUser, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                parseUserInfoJson(response,onUserInfoReceived);
+                parseUserInfoJson(response, onUserInfoReceived);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -119,17 +119,17 @@ public class ApiService {
             }
         });
 
-        request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
 
     }
 
-    public void getProductByCategory(String Slug, final onGetProductCategory onGetProductCategory){
+    public void getProductByCategory(String Slug, final onGetProductCategory onGetProductCategory) {
 
         JSONObject jsonObjectCategorySlug = new JSONObject();
 
         try {
-            jsonObjectCategorySlug.put("category_slug",Slug);
+            jsonObjectCategorySlug.put("category_slug", Slug);
 
 
         } catch (JSONException e) {
@@ -139,7 +139,7 @@ public class ApiService {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, productCategoryLinkApi, jsonObjectCategorySlug, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                parseProductCategory(response,onGetProductCategory);
+                parseProductCategory(response, onGetProductCategory);
 
             }
         }, new Response.ErrorListener() {
@@ -148,7 +148,36 @@ public class ApiService {
 
             }
         });
-request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(request);
+
+
+    }
+
+    public void getProductById(int id, final onGetProduct onGetProduct) {
+
+        JSONObject jsonObjectProductId = new JSONObject();
+
+        try {
+            jsonObjectProductId.put("product_id", id);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, productLinkApi, jsonObjectProductId, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                parseProduct(response, onGetProduct);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(timeOut, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         Volley.newRequestQueue(context).add(request);
 
 
@@ -173,14 +202,48 @@ request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT
                 product.setStatus(jsonObjectProduct.getString("status"));
                 product.setPrice(jsonObjectProduct.getString("price"));
                 product.setRegular_price(jsonObjectProduct.getString("regular_price"));
+                product.setIn_stock(jsonObjectProduct.getBoolean("in_stock"));
 
                 JSONArray jsonArrayCategoryName = jsonObjectProduct.getJSONArray("categories");
                 product.setCategories(jsonArrayCategoryName.getString(0));
-
+/*
                 JSONArray jsonArrayImages = jsonObjectProduct.getJSONArray("images");
                 JSONObject jsonObjectImages = jsonArrayImages.getJSONObject(0);
-
                 product.setImg_src(jsonObjectImages.getString("src"));
+*/
+                JSONArray jsonArrayImagesGallery = jsonObjectProduct.getJSONArray("images");
+
+                for (int j = 0; j < jsonArrayImagesGallery.length(); j++) {
+
+                    JSONObject jsonObjectImagesGallery = jsonArrayImagesGallery.getJSONObject(j);
+
+                    switch (j) {
+
+                        case 0:
+                            product.setImg_src(jsonObjectImagesGallery.getString("src"));
+                            break;
+
+                        case 1:
+                            product.setImg_src_gallery_one(jsonObjectImagesGallery.getString("src"));
+                            break;
+                        case 2:
+                            product.setImg_src_gallery_two(jsonObjectImagesGallery.getString("src"));
+                            break;
+                        case 3:
+                            product.setImg_src_gallery_three(jsonObjectImagesGallery.getString("src"));
+                            break;
+                        case 4:
+                            product.setImg_src_gallery_four(jsonObjectImagesGallery.getString("src"));
+                            break;
+                        case 5:
+                            product.setImg_src_gallery_five(jsonObjectImagesGallery.getString("src"));
+                            break;
+                    }
+
+
+                }
+
+
 
                 productList.add(product);
 
@@ -194,7 +257,60 @@ request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT
         }
     }
 
-    private void parseUserInfoJson(JSONObject response,onUserInfoReceived onUserInfoReceived) {
+    private void parseProduct(JSONObject response, onGetProduct onGetProduct) {
+
+        try {
+            JSONObject jsonObjectProductResponse = new JSONObject(response.toString());
+            JSONObject jsonObjectProduct = jsonObjectProductResponse.getJSONObject("product");
+            JSONArray jsonArrayImagesGallery = jsonObjectProduct.getJSONArray("images");
+
+            Product product = new Product();
+
+            for (int j = 0; j < jsonArrayImagesGallery.length(); j++) {
+
+                JSONObject jsonObjectImagesGallery = jsonArrayImagesGallery.getJSONObject(j);
+
+                switch (j) {
+                    case 1:
+                        product.setImg_src_gallery_one(jsonObjectImagesGallery.getString("src"));
+                        Log.i(TAG, "galleryImages: " + jsonObjectImagesGallery.getString("src"));
+
+                    case 2:
+                        product.setImg_src_gallery_two(jsonObjectImagesGallery.getString("src"));
+                        Log.i(TAG, "galleryImages: " + jsonObjectImagesGallery.getString("src"));
+
+
+                    case 3:
+                        product.setImg_src_gallery_three(jsonObjectImagesGallery.getString("src"));
+                        Log.i(TAG, "galleryImages: " + jsonObjectImagesGallery.getString("src"));
+
+
+                    case 4:
+                        product.setImg_src_gallery_four(jsonObjectImagesGallery.getString("src"));
+                        Log.i(TAG, "galleryImages: " + jsonObjectImagesGallery.getString("src"));
+
+
+                    case 5:
+                        product.setImg_src_gallery_five(jsonObjectImagesGallery.getString("src"));
+                        Log.i(TAG, "galleryImages: " + jsonObjectImagesGallery.getString("src"));
+
+
+                }
+
+
+            }
+
+
+            onGetProduct.onProductReceived(product);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            onGetProduct.onProductReceived(null);
+
+        }
+    }
+
+    private void parseUserInfoJson(JSONObject response, onUserInfoReceived onUserInfoReceived) {
 
         User user = new User();
 
@@ -204,8 +320,7 @@ request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT
             user.setEmail(jsonObject.getString("user_email"));
             user.setFirstName(jsonObject.getString("first_name"));
             user.setLastName(jsonObject.getString("last_name"));
-            user.setCapacity( jsonObject.getString("wp_capabilities"));
-            Log.i("cap", "parseUserInfoJson: "+jsonObject.getString("wp_capabilities"));
+            user.setCapacity(jsonObject.getString("wp_capabilities"));
             user.setImage_url(jsonObject.getString("user_url"));
 
             onUserInfoReceived.onInfoReceived(user);
@@ -218,51 +333,38 @@ request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT
 
     }
 
-    private void parseCategoryJson(JSONObject response,onGetCategories onGetCategories) {
+    private void parseCategoryJson(JSONObject response, onGetCategories onGetCategories) {
 
         List<Category> categories = new ArrayList<>();
 
-            try {
-                JSONArray jsonArrayCategory = response.getJSONArray("product_categories");
-                Log.i(TAG, "parseCategoryJson: "+jsonArrayCategory.length());
-                for (int i = 0; i < jsonArrayCategory.length(); i++) {
-                    Category category = new Category();
+        try {
+            JSONArray jsonArrayCategory = response.getJSONArray("product_categories");
+            for (int i = 0; i < jsonArrayCategory.length(); i++) {
+                Category category = new Category();
 
-                    JSONObject jsonObject =jsonArrayCategory.getJSONObject(i);
-                    category.setId(jsonObject.getInt("id"));
-                    category.setName(jsonObject.getString("name"));
+                JSONObject jsonObject = jsonArrayCategory.getJSONObject(i);
+                category.setId(jsonObject.getInt("id"));
+                category.setName(jsonObject.getString("name"));
 
-                    category.setSlug(jsonObject.getString("slug"));
-                    category.setDescription(jsonObject.getString("description"));
-                    category.setImage(jsonObject.getString("image"));
-                    category.setCount(jsonObject.getString("count"));
-                    categories.add(category);
-                }
-
-                onGetCategories.onReceivedCategory(categories);
-
-            } catch (JSONException e) {
-                onGetCategories.onReceivedCategory(null);
-
+                category.setSlug(jsonObject.getString("slug"));
+                category.setDescription(jsonObject.getString("description"));
+                category.setImage(jsonObject.getString("image"));
+                category.setCount(jsonObject.getString("count"));
+                categories.add(category);
             }
 
+            onGetCategories.onReceivedCategory(categories);
 
+        } catch (JSONException e) {
+            onGetCategories.onReceivedCategory(null);
 
-    }
-
-    private void responseLength(JSONObject response){
-        String responseString = response.toString();
-        for (int i = 0; i < responseString.length(); i++) {
-            if (responseString.charAt(i)=='{'){
-                responseLength++;
-            }
         }
-        responseLength--;
+
+
     }
 
 
-
-    public interface onGetCategories{
+    public interface onGetCategories {
         void onReceivedCategory(List<Category> categories);
     }
 
@@ -274,11 +376,15 @@ request.setRetryPolicy(new DefaultRetryPolicy(timeOut,DefaultRetryPolicy.DEFAULT
         void onRegisterUser(int status);
     }
 
-    public interface onUserInfoReceived{
+    public interface onUserInfoReceived {
         void onInfoReceived(User user);
     }
 
-    public interface onGetProductCategory{
+    public interface onGetProductCategory {
         void onProductReceived(List<Product> productList);
+    }
+
+    public interface onGetProduct {
+        void onProductReceived(Product product);
     }
 }

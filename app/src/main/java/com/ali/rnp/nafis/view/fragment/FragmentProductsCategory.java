@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class FragmentProductsCategory extends Fragment {
     private String slug;
     private String imageUrlCategory;
     private String nameCategory;
+    private TextView product_not_exists;
     private int RECYCLER_MODE = 1;
 
     private ImageView bannerImageCategory;
@@ -72,33 +74,44 @@ public class FragmentProductsCategory extends Fragment {
                 @Override
                 public void onProductReceived(List<Product> productList) {
 
+                    progressBar.setVisibility(View.GONE);
+
                     if (productList != null) {
-                        progressBar.setVisibility(View.GONE);
-                        productCategoryAdapter.SetupProductRecyclerView(productList);
-                        recyclerView.setAdapter(productCategoryAdapter);
 
-                        listCategoryImg.setOnClickListener(new View.OnClickListener() {
+                        if (productList.size()>0){
+                            productCategoryAdapter.SetupProductRecyclerView(productList);
+                            recyclerView.setAdapter(productCategoryAdapter);
 
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
-                                if (RECYCLER_MODE==1){
-                                    setupRecyclerView(2);
-                                    RECYCLER_MODE=2;
+                            listCategoryImg.setOnClickListener(new View.OnClickListener() {
 
+                                @Override
+                                public void onClick(View v) {
+                                    if (RECYCLER_MODE==1){
+                                        setupRecyclerView(2);
+                                        RECYCLER_MODE=2;
+                                        Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
 
-                                }else if (RECYCLER_MODE==2){
-                                    setupRecyclerView(1);
-                                    RECYCLER_MODE=1;
+                                    }else if (RECYCLER_MODE==2){
+                                        setupRecyclerView(1);
+                                        RECYCLER_MODE=1;
+                                        Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
 
-
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }else {
+                            product_not_exists.setVisibility(View.VISIBLE);
+
+                           // recyclerView.setVisibility(View.GONE);
+
+                            Log.i("productNotExist", "onProductReceived: ");
+
+                        }
 
 
                     } else {
-                        progressBar.setVisibility(View.GONE);
+
+
                     }
 
 
@@ -133,8 +146,10 @@ public class FragmentProductsCategory extends Fragment {
         bannerImageCategory = rootView.findViewById(R.id.fragment_product_category_banner_image);
         listCategoryImg = rootView.findViewById(R.id.fragment_product_category_banner_listMenu);
         productCategoryTitle = rootView.findViewById(R.id.fragment_product_category_banner_title);
+        product_not_exists = rootView.findViewById(R.id.fragment_product_category_txt_notExistProduct);
 
         productCategoryTitle.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        product_not_exists.setTypeface(MyApplication.getBYekanFont(getActivity()));
 
 
 
