@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.text.DecimalFormat;
+
 public class Utils {
 
     public static boolean checkConnection(Context context){
@@ -16,6 +18,14 @@ public class Utils {
         }else {
             return false;
         }
+
+    }
+
+    public static String formatPrice(String price){
+
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            String priceFormatted = formatter.format(Integer.parseInt(price));
+            return priceFormatted;
 
     }
 }

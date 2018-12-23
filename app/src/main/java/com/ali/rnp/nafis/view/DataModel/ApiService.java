@@ -44,6 +44,8 @@ public class ApiService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 onGetCategories.onReceivedCategory(null);
+
+
             }
         });
 

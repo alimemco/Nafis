@@ -75,8 +75,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_house_outline" />
-                            <entry key="sourceFile" value="C:\Users\Besat\Downloads\house-outline.svg" />
+                            <entry key="outputName" value="ic_share" />
+                            <entry key="sourceFile" value="C:\Users\Besat\Downloads\share.svg" />
                           </map>
                         </option>
                       </PersistentState>

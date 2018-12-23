@@ -102,10 +102,6 @@ public class FragmentProductsCategory extends Fragment {
                         }else {
                             product_not_exists.setVisibility(View.VISIBLE);
 
-                           // recyclerView.setVisibility(View.GONE);
-
-                            Log.i("productNotExist", "onProductReceived: ");
-
                         }
 
 

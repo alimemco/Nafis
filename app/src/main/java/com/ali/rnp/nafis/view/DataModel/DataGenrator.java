@@ -194,7 +194,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("اولین برند تخصصی آروماتراپی (رایحه درمانی)");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_aromatic.jpg");
-
+                    //TODO add Slug
                     break;
 
                 case 2:

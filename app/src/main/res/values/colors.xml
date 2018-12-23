@@ -11,6 +11,9 @@
     <color name="fragmentUser">#FFB74D</color>
     <color name="fragmentForm">#e57373</color>
     <color name="light_gray">#ddd</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
     <color name="dark_gray">#565656</color>
     <color name="toolbar_gray">#546E7A</color>
     <color name="light_gray_disabled">#B0BEC5</color>
