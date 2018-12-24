@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 tools:src="@drawable/avatar"
+                app:layout_collapseMode="parallax"
                 android:adjustViewBounds="true"
                 />
 
@@ -107,7 +108,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="20dp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/normal_textSize_sp"
+                    android:textSize="16sp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +135,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/fragment_product_info_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -144,11 +145,11 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="24dp"
                     android:textSize="@dimen/small_textSize_sp"
-                    android:text="برند : آروماتیک"
                     app:layout_constraintBottom_toBottomOf="@+id/view6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_title"
+                    tools:text="برند : آروماتیک" />
 
 
             </android.support.constraint.ConstraintLayout>
@@ -175,17 +176,17 @@
                         android:id="@+id/fragment_product_info_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/large_textSize_sp"
+                        android:layout_marginTop="24dp"
                         android:textColor="@color/price_green"
-                        app:layout_constraintBottom_toBottomOf="@+id/fragment_product_info_regular_price"
-                        app:layout_constraintEnd_toStartOf="@+id/fragment_product_info_regular_price"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        android:textSize="@dimen/large_textSize_sp"
+                        app:layout_constraintBottom_toTopOf="@+id/fragment_product_info_orderBtn"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_product_info_lineShop"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/fragment_product_info_regular_price"
+                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_regular_price"
                         tools:text="TextView" />
 
                     <TextView
-                        android:id="@+id/fragment_product_info_short_des"
+                        android:id="@+id/fragment_product_info_cardTitle_shop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -193,9 +194,9 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="سفارش این محصول"
-                        android:textSize="@dimen/normal_textSize_sp"
+                        android:text="@string/addToBagTitle"
                         android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/normal_textSize_sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -204,17 +205,16 @@
                         android:id="@+id/fragment_product_info_regular_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:text="TextView"
-                        android:textSize="@dimen/normal_textSize_sp"
+                        android:layout_marginTop="24dp"
                         android:textColor="@color/price_red"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/fragment_product_info_price"
-                        app:layout_constraintTop_toBottomOf="@+id/view9" />
+                        android:textSize="@dimen/normal_textSize_sp"
+                        app:layout_constraintEnd_toStartOf="@+id/fragment_product_info_lineShop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view9"
+                        tools:text="TextView" />
 
                     <Button
-                        android:id="@+id/button2"
+                        android:id="@+id/fragment_product_info_orderBtn"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginStart="24dp"
@@ -230,7 +230,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_price" />
+                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_price"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple_effect_clicked"
+                        />
 
                     <View
                         android:id="@+id/view9"
@@ -244,7 +247,68 @@
                         android:background="@color/light_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_short_des" />
+                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_cardTitle_shop" />
+
+                    <View
+                        android:id="@+id/fragment_product_info_lineShop"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/light_gray"
+                        app:layout_constraintBottom_toTopOf="@+id/fragment_product_info_orderBtn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+                    <TextView
+                        android:id="@+id/fragment_product_info_regular_price_static"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/regularPriceTitle"
+                        android:textSize="@dimen/small_textSize_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_product_info_regular_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fragment_product_info_lineShop"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_product_info_regular_price" />
+
+                    <TextView
+                        android:id="@+id/fragment_product_info_price_static"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:text="@string/priceTitle"
+                        android:textSize="@dimen/small_textSize_sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/fragment_product_info_price"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fragment_product_info_lineShop"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_product_info_price" />
+
+                    <TextView
+                        android:id="@+id/fragment_product_info_notInStock"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:gravity="center"
+                        android:text="@string/productNotInStock"
+                        android:visibility="gone"
+                        android:textSize="@dimen/large_textSize_sp"
+                        app:layout_constraintBottom_toTopOf="@+id/fragment_product_info_orderBtn"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fragment_product_info_lineShop" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -287,7 +351,7 @@
                         tools:text="test" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/fragment_product_info_cardTitle_des"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -295,9 +359,9 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginRight="8dp"
-                        android:text="توضیحات"
-                        android:textSize="@dimen/normal_textSize_sp"
+                        android:text="@string/TitleDes"
                         android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/normal_textSize_sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -314,19 +378,58 @@
                         android:background="@color/light_gray"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_cardTitle_des" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_product_info_recyclerView"
+
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/standard_margin_2x"
-                android:layout_marginLeft="@dimen/standard_margin_2x"
-                android:layout_marginBottom="@dimen/standard_margin_2x"
-                tools:listitem="@layout/product_category_item"/>
+                android:layout_height="wrap_content"
+
+
+                >
+
+                <TextView
+                    android:id="@+id/fragment_product_info_cardTitle_otherProdut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/otherProductTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_product_info_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fragment_product_info_cardTitle_otherProdut"
+                    tools:listitem="@layout/product_category_item"
+                    android:clickable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_100"
+                android:layout_marginTop="35dp"
+                android:layout_marginBottom="35dp"
+                />
+
 
         </LinearLayout>
 

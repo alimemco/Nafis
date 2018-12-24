@@ -10,6 +10,10 @@ public class MyApplication extends Application {
     private static Typeface iranianSansFont;
     private static Typeface bYekanFont;
     private static Typeface iranianSansFontBold;
+    private static Typeface IRAN_Sans;
+    private static Typeface IRAN_Sans_Bold;
+    private static Typeface IRAN_Sans_Mobile;
+    private static Typeface IRAN_Sans_Mobile_Bold;
 
     @Override
     public void onCreate() {
@@ -36,5 +40,39 @@ public class MyApplication extends Application {
             iranianSansFontBold=Typeface.createFromAsset(context.getAssets(), "fonts/iranSansBold.ttf");
         }
         return iranianSansFontBold;
+    }
+
+    public static Typeface getIranSansOriginalFont(Context context){
+
+        if (IRAN_Sans==null){
+            IRAN_Sans = Typeface.createFromAsset(context.getAssets(),"fonts/IRAN Sans.ttf");
+        }
+        return IRAN_Sans;
+    }
+
+
+    public static Typeface getIranSansBoldOriginalFont(Context context){
+
+        if (IRAN_Sans_Bold==null){
+            IRAN_Sans_Bold = Typeface.createFromAsset(context.getAssets(),"fonts/IRAN Sans Bold.ttf");
+        }
+        return IRAN_Sans_Bold;
+    }
+
+
+    public static Typeface getIranSansBoldMobileOriginalFont(Context context){
+
+        if (IRAN_Sans_Mobile==null){
+            IRAN_Sans_Mobile = Typeface.createFromAsset(context.getAssets(),"fonts/IRANSansMobile.ttf");
+        }
+        return IRAN_Sans_Mobile;
+    }
+
+    public static Typeface getIranSansBoldMobileBoldOriginalFont(Context context){
+
+        if (IRAN_Sans_Mobile_Bold==null){
+            IRAN_Sans_Mobile_Bold = Typeface.createFromAsset(context.getAssets(),"fonts/IRANSansMobile_Bold.ttf");
+        }
+        return IRAN_Sans_Mobile_Bold;
     }
 }

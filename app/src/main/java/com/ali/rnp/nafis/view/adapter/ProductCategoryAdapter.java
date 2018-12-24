@@ -42,6 +42,8 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     public static final String KEY_PRODUCT_REGULAR_PRICE="product_regular_price";
     public static final String KEY_PRODUCT_SHORT_DES="product_short_des";
     public static final String KEY_PRODUCT_DES="product_des";
+    public static final String KEY_PRODUCT_CATEGORY="product_category";
+    public static final String KEY_PRODUCT_IN_STOCK="product_in_stock";
     public static final String KEY_PRODUCT_SRC="product_src";
     public static final String KEY_PRODUCT_SRC_ONE="product_src_one";
     public static final String KEY_PRODUCT_SRC_TWO="product_src_two";
@@ -55,14 +57,21 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     private String imageUrlCategory;
     private String nameCategory;
 
+    private int WITH_RECYCLER_VIEW_MODE = 0 ;
+    private int widthRecycler=0;
+   // private int heightRecycler=0;
+
     public ProductCategoryAdapter(Context context, String imageUrlCategory, String nameCategory) {
         this.context = context;
         this.imageUrlCategory = imageUrlCategory;
         this.nameCategory = nameCategory;
     }
 
-    public ProductCategoryAdapter(Context context) {
+    public ProductCategoryAdapter(Context context,int widthRecycler) {
         this.context = context;
+        this.widthRecycler=widthRecycler;
+        //this.heightRecycler=heightRecycler;
+
     }
 
     public void SetupProductRecyclerView(List<Product> productList) {
@@ -76,8 +85,16 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
     public ProductCategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.product_category_item, null, false);
-        RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
+
+        if (widthRecycler==0){
+            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            view.setLayoutParams(lp);
+        }else {
+            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(widthRecycler, ViewGroup.LayoutParams.WRAP_CONTENT);
+            view.setLayoutParams(lp);
+        }
+
+
         return new ProductCategoryHolder(view);
 
     }
@@ -172,6 +189,8 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
                     bundle.putString(KEY_PRODUCT_REGULAR_PRICE,product.getRegular_price());
                     bundle.putString(KEY_PRODUCT_SHORT_DES,product.getShort_description());
                     bundle.putString(KEY_PRODUCT_DES,product.getDescription());
+                    bundle.putString(KEY_PRODUCT_CATEGORY,product.getCategories());
+                    bundle.putBoolean(KEY_PRODUCT_IN_STOCK,product.getIn_stock());
 
                     bundle.putString(KEY_PRODUCT_SRC,product.getImg_src());
                     bundle.putString(KEY_PRODUCT_SRC_ONE,product.getImg_src_gallery_one());
@@ -179,10 +198,10 @@ public class ProductCategoryAdapter extends RecyclerView.Adapter<ProductCategory
                     bundle.putString(KEY_PRODUCT_SRC_THREE,product.getImg_src_gallery_three());
                     bundle.putString(KEY_PRODUCT_SRC_FOUR,product.getImg_src_gallery_four());
                     bundle.putString(KEY_PRODUCT_SRC_FIVE,product.getImg_src_gallery_five());
-                    /*
-                    bundle.putSerializable(KEY_PRODUCT_LIST, (Serializable) productList);
-                    bundle.putParcelable(KEY_PRODUCT_LIST, (Parcelable) new ArrayList<Product>(productList));
-*/
+
+
+                    bundle.putParcelableArrayList(KEY_PRODUCT_LIST,new ArrayList<Parcelable>(productList));
+
                     fragmentProductInfo.setArguments(bundle);
 
                     fragmentTransProductInfo.replace(R.id.mainFragmentContainer,fragmentProductInfo);

@@ -1,22 +1,25 @@
 package com.ali.rnp.nafis.view.fragment;
 
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ali.rnp.nafis.R;
+import com.ali.rnp.nafis.view.DataModel.Product;
 import com.ali.rnp.nafis.view.MyApplication;
 import com.ali.rnp.nafis.view.adapter.ProductCategoryAdapter;
 import com.ali.rnp.nafis.view.adapter.ProductSliderAdapter;
@@ -24,7 +27,6 @@ import com.ali.rnp.nafis.view.services.PicassoImageLoadingServiceProduct;
 import com.ali.rnp.nafis.view.utils.Utils;
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,10 +37,25 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
 
     private TextView titleProduct;
     private TextView priceProduct;
+    private TextView regularPriceProduct;
+    private TextView priceProductStatic;
+    private TextView regularPriceProductStatic;
+    private TextView notInStock;
+    private View lineShop;
+
     private ImageView imageProduct;
     private TextView shortDesProduct;
     private TextView desProduct;
-    private TextView regularPriceProduct;
+
+
+
+    private TextView brand;
+    private TextView orderTitle;
+    private TextView desTitle;
+    private TextView otherProductTitle;
+
+    private Button addToBag;
+
     private AppBarLayout appBarLayout;
 
     private Slider slider;
@@ -49,6 +66,8 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
     private String regularPriceProductTxt;
     private String shortDesProductTxt;
     private String desProductTxt;
+    private String categoryTxt;
+    private boolean inStock;
 
     private ImageView backBtn;
     private ImageView shareBtn;
@@ -57,11 +76,12 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
 
     private RecyclerView recyclerView;
     private ProductCategoryAdapter productCategoryAdapter;
+    List<Product> productList;
 
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.8f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 1.0f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 1.0f;
+    private static final int ALPHA_ANIMATIONS_DURATION = 300;
 
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
@@ -89,6 +109,10 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
             regularPriceProductTxt = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_REGULAR_PRICE);
             shortDesProductTxt = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_SHORT_DES);
             desProductTxt = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_DES);
+            categoryTxt = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_CATEGORY);
+            inStock = getArguments().getBoolean(ProductCategoryAdapter.KEY_PRODUCT_IN_STOCK);
+
+            productList = getArguments().getParcelableArrayList(ProductCategoryAdapter.KEY_PRODUCT_LIST);
 
             String imageSrc = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_SRC);
             String imageSrcOne = getArguments().getString(ProductCategoryAdapter.KEY_PRODUCT_SRC_ONE);
@@ -100,12 +124,42 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
             Picasso.get().load(imgProductTxt).into(imageProduct);
 
             titleProduct.setText(titleProductTxt);
-            priceProduct.setText(Utils.formatPrice(priceProductTxt));
             title_toolbar.setText(titleProductTxt);
+            brand.setText(categoryTxt);
+
+            priceProduct.setText(Utils.formatPrice(priceProductTxt));
             regularPriceProduct.setText(Utils.formatPrice(regularPriceProductTxt));
-            regularPriceProduct.setPaintFlags(regularPriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            //shortDesProduct.setText(shortDesProductTxt);
-            desProduct.setText(desProductTxt);
+
+            if (!inStock){
+                notInStock.setVisibility(View.VISIBLE);
+                priceProduct.setVisibility(View.INVISIBLE);
+                priceProductStatic.setVisibility(View.INVISIBLE);
+                regularPriceProductStatic.setVisibility(View.INVISIBLE);
+                regularPriceProduct.setVisibility(View.INVISIBLE);
+                lineShop.setVisibility(View.INVISIBLE);
+            }
+
+            if (priceProductTxt.equals(regularPriceProductTxt)){
+                priceProduct.setVisibility(View.GONE);
+                priceProductStatic.setVisibility(View.GONE);
+                priceProductStatic.setText(getText(R.string.regularPriceTitle));
+                regularPriceProduct.setTextColor(ResourcesCompat.getColorStateList(getResources(),R.color.price_green,null));
+
+            } else {
+                regularPriceProduct.setPaintFlags(regularPriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+
+
+            priceProduct.setText(Utils.formatPrice(priceProductTxt));
+            regularPriceProduct.setText(Utils.formatPrice(regularPriceProductTxt));
+           //shortDesProduct.setText(shortDesProductTxt);
+
+            if (desProductTxt !=null && !desProductTxt.equals("")){
+                desProduct.setText(Html.fromHtml(desProductTxt));
+            }else {
+                desProduct.setText(getText(R.string.productDesEmpty));
+            }
+
 
             List<String> imageUrls = new ArrayList<>();
 
@@ -154,8 +208,10 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
 
     private void setupRecyclerView() {
 
-        productCategoryAdapter = new ProductCategoryAdapter(getActivity());
-       // productCategoryAdapter.SetupProductRecyclerView();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
+        productCategoryAdapter = new ProductCategoryAdapter(getActivity(),350);
+        productCategoryAdapter.SetupProductRecyclerView(productList);
+        recyclerView.setAdapter(productCategoryAdapter);
 
     }
 
@@ -164,7 +220,10 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
         titleProduct = rootView.findViewById(R.id.fragment_product_info_title);
         priceProduct = rootView.findViewById(R.id.fragment_product_info_price);
         regularPriceProduct = rootView.findViewById(R.id.fragment_product_info_regular_price);
-        shortDesProduct = rootView.findViewById(R.id.fragment_product_info_short_des);
+
+        priceProductStatic = rootView.findViewById(R.id.fragment_product_info_price_static);
+        regularPriceProductStatic = rootView.findViewById(R.id.fragment_product_info_regular_price_static);
+        //shortDesProduct = rootView.findViewById(R.id.fragment_product_info_cardTitle_shop);
         desProduct = rootView.findViewById(R.id.fragment_product_info_des);
         imageProduct = rootView.findViewById(R.id.fragment_product_info_imgProduct);
         appBarLayout = rootView.findViewById(R.id.fragment_product_info_appbar);
@@ -174,11 +233,29 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
         title_toolbar = rootView.findViewById(R.id.fragment_product_info_toolbar_name);
         recyclerView = rootView.findViewById(R.id.fragment_product_info_recyclerView);
 
+        brand = rootView.findViewById(R.id.fragment_product_info_sub_title);
+        orderTitle = rootView.findViewById(R.id.fragment_product_info_cardTitle_shop);
+        desTitle = rootView.findViewById(R.id.fragment_product_info_cardTitle_des);
+        otherProductTitle = rootView.findViewById(R.id.fragment_product_info_cardTitle_otherProdut);
+        addToBag = rootView.findViewById(R.id.fragment_product_info_orderBtn);
+        notInStock = rootView.findViewById(R.id.fragment_product_info_notInStock);
+        lineShop = rootView.findViewById(R.id.fragment_product_info_lineShop);
+
         title_toolbar.setTypeface(MyApplication.getBYekanFont(getActivity()));
         titleProduct.setTypeface(MyApplication.getBYekanFont(getActivity()));
         priceProduct.setTypeface(MyApplication.getBYekanFont(getActivity()));
         regularPriceProduct.setTypeface(MyApplication.getBYekanFont(getActivity()));
-        desProduct.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        desProduct.setTypeface(MyApplication.getIranSansOriginalFont(getActivity()));
+
+        brand.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        orderTitle.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        desTitle.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        otherProductTitle.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        addToBag.setTypeface(MyApplication.getBYekanFont(getActivity()));
+        regularPriceProductStatic.setTypeface(MyApplication.getIranSansBoldMobileOriginalFont(getActivity()));
+        priceProductStatic.setTypeface(MyApplication.getIranSansBoldMobileOriginalFont(getActivity()));
+        notInStock.setTypeface(MyApplication.getBYekanFont(getActivity()));
+
 
 
     }

@@ -1,6 +1,9 @@
 package com.ali.rnp.nafis.view.DataModel;
 
-public class Product {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Product implements Parcelable {
 
     private int id;
     private String title;
@@ -137,4 +140,68 @@ public class Product {
     public void setImg_src_gallery_five(String img_src_gallery_five) {
         this.img_src_gallery_five = img_src_gallery_five;
     }
+
+    public Product(){
+
+    }
+
+    protected Product(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        status = in.readString();
+        price = in.readString();
+        regular_price = in.readString();
+        description = in.readString();
+        short_description = in.readString();
+        categories = in.readString();
+        byte in_stockVal = in.readByte();
+        in_stock = in_stockVal == 0x02 ? null : in_stockVal != 0x00;
+        img_src = in.readString();
+        img_src_gallery_one = in.readString();
+        img_src_gallery_two = in.readString();
+        img_src_gallery_three = in.readString();
+        img_src_gallery_four = in.readString();
+        img_src_gallery_five = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(status);
+        dest.writeString(price);
+        dest.writeString(regular_price);
+        dest.writeString(description);
+        dest.writeString(short_description);
+        dest.writeString(categories);
+        if (in_stock == null) {
+            dest.writeByte((byte) (0x02));
+        } else {
+            dest.writeByte((byte) (in_stock ? 0x01 : 0x00));
+        }
+        dest.writeString(img_src);
+        dest.writeString(img_src_gallery_one);
+        dest.writeString(img_src_gallery_two);
+        dest.writeString(img_src_gallery_three);
+        dest.writeString(img_src_gallery_four);
+        dest.writeString(img_src_gallery_five);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 }

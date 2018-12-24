@@ -90,8 +90,9 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activity_question_previous" />
+        app:layout_constraintStart_toEndOf="@+id/activity_question_previous"
+        android:clickable="true"
+        android:foreground="@drawable/ripple_effect_clicked"/>
 
     <Button
         android:id="@+id/activity_question_previous"
@@ -103,7 +104,8 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/activity_question_next"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintStart_toStartOf="parent" />
 
 
