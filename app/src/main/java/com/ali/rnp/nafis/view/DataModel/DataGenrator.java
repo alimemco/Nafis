@@ -194,7 +194,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("اولین برند تخصصی آروماتراپی (رایحه درمانی)");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_aromatic.jpg");
-                    //TODO add Slug
+                    category.setSlug("aromatic");
                     break;
 
                 case 2:
@@ -202,7 +202,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("محصولات تخصصی مراقبت از پوست و مو");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_mnd.jpg");
-
+                    category.setSlug("mnd");
                     break;
 
                 case 3:
@@ -210,7 +210,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("محصولات آرایشی با فرمولاسیون و ساخت شرکت chromavis ایتالیا");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_baraka.jpg");
-
+                    category.setSlug("baraka");
                     break;
 
                 case 4:
@@ -218,7 +218,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("اولین برند مراقبتی پوست و مو بر اساس سلول های بنیادی");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_blackberry.jpg");
-
+                    category.setSlug("blackberry");
                     break;
 
                 case 5:
@@ -226,7 +226,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("محصولات تخصصی پوست و مو");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_prastom.jpg");
-
+                    category.setSlug("prastom");
                     break;
 
                 case 6:
@@ -234,7 +234,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("محصولات پوست و مو با روغن های گیاهی");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_topShop.jpg");
-
+                    category.setSlug("topshop");
                     break;
 
                 case 7:
@@ -242,7 +242,7 @@ public class DataGenrator {
                     category.setCount("0");
                     category.setDescription("محصولات بهداشتی پوست، مو و بدن");
                     category.setImage("http://nafis-app.ir/wp-content/uploads/2018/12/banner_category_superstar.jpg");
-
+                    category.setSlug("superstar");
                     break;
 
             }

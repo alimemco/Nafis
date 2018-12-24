@@ -325,7 +325,7 @@ public class Main_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Main_Activity.this, "Shop", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Main_Activity.this, Test.class));
+                //startActivity(new Intent(Main_Activity.this, Test.class));
             }
         });
 
