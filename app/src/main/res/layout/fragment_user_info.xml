@@ -303,16 +303,19 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:backgroundTint="@color/white"
+                android:background="@color/white"
                 app:borderWidth="0dp"
                 app:elevation="4dp"
                 app:fabCustomSize="65dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="@drawable/ripple_effect_clicked_circle"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/button3"
                 app:rippleColor="@color/red300"
-                app:srcCompat="@drawable/ic_shopping_bag" />
+                app:srcCompat="@drawable/ic_shopping_bag"
+                tools:targetApi="lollipop" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/button3"
@@ -322,16 +325,19 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:backgroundTint="@color/white"
+                android:background="@color/white"
                 android:elevation="4dp"
                 app:borderWidth="0dp"
                 app:fabCustomSize="65dp"
                 android:clickable="true"
+                android:focusable="true"
                 app:rippleColor="@color/blue_green_top"
                 android:foreground="@drawable/ripple_effect_clicked_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2"
-                app:srcCompat="@drawable/ic_multiple_users" />
+                app:srcCompat="@drawable/ic_multiple_users"
+                tools:targetApi="lollipop" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline2"

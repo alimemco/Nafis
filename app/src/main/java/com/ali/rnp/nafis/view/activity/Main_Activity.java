@@ -89,7 +89,7 @@ public class Main_Activity extends AppCompatActivity {
     public static int BLUR_PERCENTAGE =70;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,12 +210,14 @@ public class Main_Activity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     private void statusBarColor() {
-        Window window = this.getWindow();
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.light_gray));
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          Window window = this.getWindow();
+          window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+          window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+          window.setStatusBarColor(ContextCompat.getColor(this, R.color.light_gray));
+        }
     }
 
     private void afterGetFromServer() {

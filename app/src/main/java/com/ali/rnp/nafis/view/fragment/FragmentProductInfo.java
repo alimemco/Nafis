@@ -1,9 +1,14 @@
 package com.ali.rnp.nafis.view.fragment;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
@@ -13,6 +18,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -86,6 +92,7 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -156,6 +163,7 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
 
             if (desProductTxt !=null && !desProductTxt.equals("")){
                 desProduct.setText(Html.fromHtml(desProductTxt));
+
             }else {
                 desProduct.setText(getText(R.string.productDesEmpty));
             }
@@ -324,6 +332,8 @@ public class FragmentProductInfo extends Fragment implements AppBarLayout.OnOffs
         alphaAnimation.setFillAfter(true);
         v.startAnimation(alphaAnimation);
     }
+
+
 
 
 }
